@@ -1,12 +1,11 @@
+import 'package:final1/screens/chercher_ajouter.dart';
 import 'package:flutter/material.dart';
 import 'package:final1/dates_list.dart';
 import 'package:final1/theme/colors/light_colors.dart';
-import 'package:final1/widgets/calendar_dates.dart';
 import 'package:final1/widgets/task_container.dart';
-import 'package:final1/screens/create_new_task_page.dart';
 import 'package:final1/widgets/back_button.dart';
 import 'package:intl/intl.dart';
-import 'package:intl/date_symbol_data_local.dart';
+
 import 'package:table_calendar/table_calendar.dart';
 
 
@@ -118,12 +117,12 @@ Widget _buildTableCalendar() {
                         color: LightColors.kGreen,
                         borderRadius: BorderRadius.circular(30),
                       ),
-                      child: FlatButton(
-                        onPressed: () {
+                      child: GestureDetector(
+                        onTap: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => CreateNewTaskPage(),
+                              builder: (context) => ChercherAjouter(),
                             ),
                           );
                         },

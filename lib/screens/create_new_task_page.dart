@@ -34,16 +34,7 @@ class CreateNewTaskPage extends StatelessWidget {
                         SizedBox(
                           height: 15,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              'AJOUTER UN RDV',
-                              style: TextStyle(
-                                  fontSize: 30.0, fontWeight: FontWeight.w700),
-                            ),
-                          ],
-                        ),
+                        
                         SizedBox(height: 2),
                         Container(
                             child: Column(
@@ -65,23 +56,24 @@ class CreateNewTaskPage extends StatelessWidget {
                             ),
                             
                              Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: <Widget>[
-                                Expanded(
-                                child: MyTextField(
-                              label: 'Start Time',
-                              icon: downwardIcon,
-                            )),
-                            SizedBox(width: 40),
-                            Expanded(
-                              child: MyTextField(
-                                label: 'End Time',
-                                icon: downwardIcon,
-                              ),
-                            ),
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: <Widget>[
+                                    Expanded(
+                                    child: MyTextField(
+                                    label: 'Start Time',
+                                    icon: downwardIcon,
+                                    )
+                                  ),
+                                  SizedBox(width: 40),
+                                  Expanded(
+                                    child: MyTextField(
+                                    label: 'End Time',
+                                    icon: downwardIcon,
+                                  ),
+                                ),
 
-                              ],
+                                  ],
                             ), 
                           ],
                         ))
