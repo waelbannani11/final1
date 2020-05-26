@@ -1,3 +1,6 @@
+import 'package:final1/screens/chercher_ajouter.dart';
+import 'package:final1/screens/search.dart';
+import 'package:final1/widgets/Chercher_patient_button.dart';
 import 'package:flutter/material.dart';
 import 'package:final1/screens/home_page.dart';
 import 'package:final1/theme/colors/light_colors.dart';
