@@ -31,6 +31,7 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
+
   
 
   @override
@@ -66,13 +67,11 @@ class HomePage extends StatelessWidget {
         child: Column(
           children: <Widget>[
             TopContainer(
-              
-              height: 200,
+              height: 130,
               width: width,
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                  
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 0, vertical: 0.0),
@@ -134,8 +133,7 @@ class HomePage extends StatelessWidget {
                   children: <Widget>[
                     Container(
                       color: Colors.transparent,
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 20.0, vertical: 10.0),
+                      padding: EdgeInsets.all(50),
                       child: Column(
                         children: <Widget>[
                           Row(
@@ -148,90 +146,217 @@ class HomePage extends StatelessWidget {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => CalendarPage()),
+                                      builder: (context) => CalendarPage()
+                                    ),
                                   );
                                 },
                                 child: calendarIcon(),
                               ),
                             ],
                           ),
-                            //SizedBox(height: 15.0),
-                          
                         ],
                       ),
                     ),
                     Container(
                       color: Colors.transparent,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 30.0, vertical: 10.0),
+                      padding: EdgeInsets.all(0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           subheading('MON MENU'),
-                          SizedBox(height: 5.0),
-                          Row(
+                        ],
+                      ),
+                    ),
+                    
+                  ],
+                ),
+              ),
+            ),
+            Expanded(
+              child: GridView.count(
+                primary: false,
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 0,
+                crossAxisCount: 2,
+                children: <Widget>[
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Patients() ),
+                        );  
+                    },
+                    child: Container(
+                      margin: EdgeInsets.symmetric(vertical: 10.0),
+                      padding: EdgeInsets.all(15.0),
+                      height: 500,
+                      width: width,
+                      decoration: BoxDecoration(
+                        color: LightColors.kGreen,
+                        borderRadius: BorderRadius.circular(40.0),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                     MaterialPageRoute(
-                                       builder: (context) => Patients() ),
-                                  );  
-                                },
-                                  child: ActiveProjectsCard(
-                                  cardColor: LightColors.kGreen,
-                                 // img: 'images/avatar.png',
-                                  title: 'Les patients',
-                                  subtitle: '',
+                              Center(
+                                child: Text(
+                                  'Les patients',
+                                  style: TextStyle(
+                                    fontSize: 14.0,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                  textAlign: TextAlign.center,
                                 ),
                               ),
-                              SizedBox(width: 20.0),
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                     MaterialPageRoute(
-                                       builder: (context) => Consultation() ),
-                                  );  
-                                },
-                                  child: ActiveProjectsCard(
-                                  cardColor: LightColors.kRed,
-                                  title: 'Consultation',
-                                  subtitle: '',
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: <Widget>[
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                     MaterialPageRoute(
-                                       builder: (context) => Medicaments() ),
-                                  );  
-                                },
-                                  child: ActiveProjectsCard(
-                                  cardColor: LightColors.kDarkYellow,
-                                  title: 'Les médicaments',
-                                  subtitle: '',
-                                ),
-                              ),
-                              SizedBox(width: 20.0),
-                              ActiveProjectsCard(
-                                cardColor: LightColors.kBlue,
-                                title: 'in progress',
-                                subtitle: '***',
+                              Center(
+                                child: Image.asset('assets/images/avatar.png',width: 100),
                               ),
                             ],
                           ),
                         ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Patients() ),
+                        );  
+                    },
+                    child: Container(
+                      margin: EdgeInsets.symmetric(vertical: 10.0),
+                      padding: EdgeInsets.all(15.0),
+                      height: 150,
+                      width: width,
+                      decoration: BoxDecoration(
+                        color: LightColors.kRed,
+                        borderRadius: BorderRadius.circular(40.0),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Center(
+                                child: Text(
+                                  'Consultation',
+                                  style: TextStyle(
+                                    fontSize: 14.0,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              Center(
+                                child: Image.asset('assets/images/avatar.png',width: 100),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Patients() ),
+                        );  
+                    },
+                    child: Container(
+                      margin: EdgeInsets.symmetric(vertical: 10.0),
+                      padding: EdgeInsets.all(15.0),
+                      height: 150,
+                      width: width,
+                      decoration: BoxDecoration(
+                        color: LightColors.kDarkYellow,
+                        borderRadius: BorderRadius.circular(40.0),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Center(
+                                child: Text(
+                                  'Les médicaments',
+                                  style: TextStyle(
+                                    fontSize: 14.0,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              Center(
+                                child: Image.asset('assets/images/avatar.png',width: 100),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Patients() ),
+                        );  
+                    },
+                    child: Container(
+                      margin: EdgeInsets.symmetric(vertical: 10.0),
+                      padding: EdgeInsets.all(15.0),
+                      height: 150,
+                      width: width,
+                      decoration: BoxDecoration(
+                        color: LightColors.kBlue,
+                        borderRadius: BorderRadius.circular(40.0),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Center(
+                                child: Text(
+                                  'in progress',
+                                  style: TextStyle(
+                                    fontSize: 14.0,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              Center(
+                                child: Image.asset('assets/images/avatar.png',width: 100),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
