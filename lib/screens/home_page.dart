@@ -31,11 +31,36 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
+  
 
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
+      appBar: AppBar(
+        title:Text('home')
+      ),
+      drawer: Drawer(
+        child: ListView(
+          children: <Widget>[
+            DrawerHeader(
+              child: Text('bonjour'),
+              decoration: BoxDecoration(
+                color: Colors.lightBlue
+              ),
+            ),
+            ListTile(
+               title: Text('deconnecter'),
+              onTap: () {
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                Navigator.pop(context);
+              },
+            )
+          ],
+        ),
+      ),
       backgroundColor:Colors.blue[100],
       body: SafeArea(
         child: Column(
@@ -47,14 +72,7 @@ class HomePage extends StatelessWidget {
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Icon(Icons.menu,
-                            color: LightColors.kDarkBlue, size: 30.0),
-                        
-                      ],
-                    ),
+                  
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 0, vertical: 0.0),

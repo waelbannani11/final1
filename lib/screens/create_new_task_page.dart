@@ -4,6 +4,8 @@ import 'package:final1/widgets/back_button.dart';
 import 'package:final1/widgets/my_text_field.dart';
 import 'package:final1/screens/home_page.dart';
 
+import 'calendar_page.dart';
+
 class CreateNewTaskPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -13,6 +15,7 @@ class CreateNewTaskPage extends StatelessWidget {
       color: Colors.black54,
     );
     return Scaffold(
+      backgroundColor:Colors.blue[100],
       body: SafeArea(
     
        child: DraggableScrollableSheet(
@@ -87,34 +90,44 @@ class CreateNewTaskPage extends StatelessWidget {
                   ),
                   
                   
-                  Container(
-                    height: 80,
-                    width: width,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: <Widget>[
-                        Container(
-                          child: Text(
-                            'valider',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w700,
-                                fontSize: 18),
+                  GestureDetector(
+                    onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => CalendarPage()),
+                                  );
+                                },
+                      child: Container(
+                      height: 80,
+                      width: width,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: <Widget>[
+                          Container(
+                            child: Text(
+                              'valider',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 18),
+                            ),
+                            alignment: Alignment.center,
+                            margin: EdgeInsets.fromLTRB(20, 10, 20, 20),
+                            width: width - 40,
+                            decoration: BoxDecoration(
+                              color: LightColors.kBlue,
+                              borderRadius: BorderRadius.circular(30),
+                            ),
                           ),
-                          alignment: Alignment.center,
-                          margin: EdgeInsets.fromLTRB(20, 10, 20, 20),
-                          width: width - 40,
-                          decoration: BoxDecoration(
-                            color: LightColors.kBlue,
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ],
             ),
-           );},
+           );
+           },
         
            ),
           ),
