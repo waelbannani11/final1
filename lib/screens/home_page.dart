@@ -1,3 +1,4 @@
+import 'package:final1/Animations/FadeAnimation.dart';
 import 'package:final1/screens/medicaments_page.dart';
 import 'package:flutter/material.dart';
 import 'package:final1/screens/calendar_page.dart';
@@ -31,24 +32,77 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
-
   
-
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        title:Text('home')
+        title:Text('Home'),
       ),
       drawer: Drawer(
         child: ListView(
           children: <Widget>[
             DrawerHeader(
-              child: Text('bonjour'),
               decoration: BoxDecoration(
-                color: Colors.lightBlue
+                color:Colors.blue[100],
               ),
+              
+              child: Padding(
+                padding: EdgeInsets.all(0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    CircularPercentIndicator(
+                      radius: 90.0,
+                      lineWidth: 5.0,
+                      animation: true,
+                      percent: 0.75,
+                      circularStrokeCap: CircularStrokeCap.round,
+                      progressColor: LightColors.kRed,
+                      backgroundColor: Colors.blue[200],
+                      center: CircleAvatar(
+                        backgroundColor: Colors.blue[100],
+                        radius: 35.0,
+                        backgroundImage: AssetImage(
+                          'assets/images/avatar.png',
+                          ),
+                        ),
+                      ),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(0, 35, 0, 0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Container(
+                            child: Text(
+                              'wael bannani',
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                fontSize: 22.0,
+                                color: LightColors.kDarkBlue,
+                                fontWeight: FontWeight.w800,
+                              ),
+                            ),
+                          ),
+                      Container(
+                        child: Text(
+                          'App Developer',
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            color: Colors.black45,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+                    )
+              ],
+            ),
+            )
             ),
             ListTile(
                title: Text('deconnecter'),
@@ -66,109 +120,112 @@ class HomePage extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: <Widget>[
-            TopContainer(
-              height: 130,
-              width: width,
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 0, vertical: 0.0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          CircularPercentIndicator(
-                            radius: 90.0,
-                            lineWidth: 5.0,
-                            animation: true,
-                            percent: 0.75,
-                            circularStrokeCap: CircularStrokeCap.round,
-                            progressColor: LightColors.kRed,
-                            backgroundColor: Colors.blue[200],
-                            center: CircleAvatar(
-                              backgroundColor: Colors.blue[100],
-                              radius: 35.0,
-                              backgroundImage: AssetImage(
-                                'assets/images/avatar.png',
+            FadeAnimation(1,
+              TopContainer(
+                height: 130,
+                width: width,
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 0, vertical: 0.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            CircularPercentIndicator(
+                              radius: 90.0,
+                              lineWidth: 5.0,
+                              animation: true,
+                              percent: 0.75,
+                              circularStrokeCap: CircularStrokeCap.round,
+                              progressColor: LightColors.kRed,
+                              backgroundColor: Colors.blue[200],
+                              center: CircleAvatar(
+                                backgroundColor: Colors.blue[100],
+                                radius: 35.0,
+                                backgroundImage: AssetImage(
+                                  'assets/images/avatar.png',
+                                ),
                               ),
                             ),
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              Container(
-                                child: Text(
-                                  'wael bannani',
-                                  textAlign: TextAlign.start,
-                                  style: TextStyle(
-                                    fontSize: 22.0,
-                                    color: LightColors.kDarkBlue,
-                                    fontWeight: FontWeight.w800,
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                child: Text(
-                                  'App Developer',
-                                  textAlign: TextAlign.start,
-                                  style: TextStyle(
-                                    fontSize: 16.0,
-                                    color: Colors.black45,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    )
-                  ]),
-            ),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      color: Colors.transparent,
-                      padding: EdgeInsets.all(50),
-                      child: Column(
-                        children: <Widget>[
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              subheading('AGENDA'),
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => CalendarPage()
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                Container(
+                                  child: Text(
+                                    'wael bannani',
+                                    textAlign: TextAlign.start,
+                                    style: TextStyle(
+                                      fontSize: 22.0,
+                                      color: LightColors.kDarkBlue,
+                                      fontWeight: FontWeight.w800,
                                     ),
-                                  );
-                                },
-                                child: calendarIcon(),
-                              ),
-                            ],
-                          ),
-                        ],
+                                  ),
+                                ),
+                                Container(
+                                  child: Text(
+                                    'App Developer',
+                                    textAlign: TextAlign.start,
+                                    style: TextStyle(
+                                      fontSize: 16.0,
+                                      color: Colors.black45,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      )
+                    ]),
+              ),
+            ),
+            FadeAnimation(3,
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        color: Colors.transparent,
+                        padding: EdgeInsets.fromLTRB(20, 10, 20, 20),
+                        child: Column(
+                          children: <Widget>[
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                subheading('AGENDA'),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => CalendarPage()
+                                      ),
+                                    );
+                                  },
+                                  child: calendarIcon(),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    Container(
-                      color: Colors.transparent,
-                      padding: EdgeInsets.all(0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          subheading('MON MENU'),
-                        ],
+                      Container(
+                        color: Colors.transparent,
+                        padding: EdgeInsets.all(0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            subheading('MON MENU'),
+                          ],
+                        ),
                       ),
-                    ),
-                    
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -229,7 +286,7 @@ class HomePage extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Patients() ),
+                          builder: (context) => Consultation() ),
                         );  
                     },
                     child: Container(
@@ -273,7 +330,7 @@ class HomePage extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Patients() ),
+                          builder: (context) => Medicaments() ),
                         );  
                     },
                     child: Container(
