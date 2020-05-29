@@ -15,11 +15,10 @@ class ActiveProjectsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width *0.4;
+    double width = MediaQuery.of(context).size.width * 0.4;
     return Expanded(
       flex: 1,
       child: Container(
-        
         margin: EdgeInsets.symmetric(vertical: 10.0),
         padding: EdgeInsets.all(15.0),
         height: 150,
@@ -32,14 +31,10 @@ class ActiveProjectsCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            
-              
             Column(
-           
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Center(
-                  
                   child: Text(
                     title,
                     style: TextStyle(
