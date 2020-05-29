@@ -6,6 +6,7 @@ import 'package:final1/screens/home_page.dart';
 import 'package:final1/theme/colors/light_colors.dart';
 import 'package:flutter/services.dart';
 import 'widgets/top_container.dart';
+import 'package:final1/screens/login_page.dart';
 
 
 void main() {
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
               fontFamily: 'Poppins'
             ),
       ),
-      home: HomePage(),
+      home: LoginScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
