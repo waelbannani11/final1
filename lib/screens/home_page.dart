@@ -1,3 +1,4 @@
+import 'package:final1/Animations/FadeAnimation.dart';
 import 'package:final1/screens/medicaments_page.dart';
 import 'package:flutter/material.dart';
 import 'package:final1/screens/calendar_page.dart';
@@ -32,22 +33,76 @@ class HomePage extends StatelessWidget {
     );
   }
   
-
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        title:Text('home')
+        title:Text('Home'),
       ),
       drawer: Drawer(
         child: ListView(
           children: <Widget>[
             DrawerHeader(
-              child: Text('bonjour'),
               decoration: BoxDecoration(
-                color: Colors.lightBlue
+                color:Colors.blue[100],
               ),
+              
+              child: Padding(
+                padding: EdgeInsets.all(0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    CircularPercentIndicator(
+                      radius: 90.0,
+                      lineWidth: 5.0,
+                      animation: true,
+                      percent: 0.75,
+                      circularStrokeCap: CircularStrokeCap.round,
+                      progressColor: LightColors.kRed,
+                      backgroundColor: Colors.blue[200],
+                      center: CircleAvatar(
+                        backgroundColor: Colors.blue[100],
+                        radius: 35.0,
+                        backgroundImage: AssetImage(
+                          'assets/images/avatar.png',
+                          ),
+                        ),
+                      ),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(0, 35, 0, 0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Container(
+                            child: Text(
+                              'wael bannani',
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                fontSize: 22.0,
+                                color: LightColors.kDarkBlue,
+                                fontWeight: FontWeight.w800,
+                              ),
+                            ),
+                          ),
+                      Container(
+                        child: Text(
+                          'App Developer',
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            color: Colors.black45,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+                    )
+              ],
+            ),
+            )
             ),
             ListTile(
                title: Text('deconnecter'),
@@ -65,173 +120,300 @@ class HomePage extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: <Widget>[
-            TopContainer(
-              
-              height: 200,
-              width: width,
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                  
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 0, vertical: 0.0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          CircularPercentIndicator(
-                            radius: 90.0,
-                            lineWidth: 5.0,
-                            animation: true,
-                            percent: 0.75,
-                            circularStrokeCap: CircularStrokeCap.round,
-                            progressColor: LightColors.kRed,
-                            backgroundColor: Colors.blue[200],
-                            center: CircleAvatar(
-                              backgroundColor: Colors.blue[100],
-                              radius: 35.0,
-                              backgroundImage: AssetImage(
-                                'assets/images/avatar.png',
+            FadeAnimation(1,
+              TopContainer(
+                height: 130,
+                width: width,
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 0, vertical: 0.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            CircularPercentIndicator(
+                              radius: 90.0,
+                              lineWidth: 5.0,
+                              animation: true,
+                              percent: 0.75,
+                              circularStrokeCap: CircularStrokeCap.round,
+                              progressColor: LightColors.kRed,
+                              backgroundColor: Colors.blue[200],
+                              center: CircleAvatar(
+                                backgroundColor: Colors.blue[100],
+                                radius: 35.0,
+                                backgroundImage: AssetImage(
+                                  'assets/images/avatar.png',
+                                ),
                               ),
                             ),
-                          ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                Container(
+                                  child: Text(
+                                    'wael bannani',
+                                    textAlign: TextAlign.start,
+                                    style: TextStyle(
+                                      fontSize: 22.0,
+                                      color: LightColors.kDarkBlue,
+                                      fontWeight: FontWeight.w800,
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  child: Text(
+                                    'App Developer',
+                                    textAlign: TextAlign.start,
+                                    style: TextStyle(
+                                      fontSize: 16.0,
+                                      color: Colors.black45,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      )
+                    ]),
+              ),
+            ),
+            FadeAnimation(3,
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        color: Colors.transparent,
+                        padding: EdgeInsets.fromLTRB(20, 10, 20, 20),
+                        child: Column(
+                          children: <Widget>[
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                subheading('AGENDA'),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => CalendarPage()
+                                      ),
+                                    );
+                                  },
+                                  child: calendarIcon(),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        color: Colors.transparent,
+                        padding: EdgeInsets.all(0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            subheading('MON MENU'),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: GridView.count(
+                primary: false,
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 0,
+                crossAxisCount: 2,
+                children: <Widget>[
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Patients() ),
+                        );  
+                    },
+                    child: Container(
+                      margin: EdgeInsets.symmetric(vertical: 10.0),
+                      padding: EdgeInsets.all(15.0),
+                      height: 500,
+                      width: width,
+                      decoration: BoxDecoration(
+                        color: LightColors.kGreen,
+                        borderRadius: BorderRadius.circular(40.0),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
-                              Container(
+                              Center(
                                 child: Text(
-                                  'wael bannani',
-                                  textAlign: TextAlign.start,
+                                  'Les patients',
                                   style: TextStyle(
-                                    fontSize: 22.0,
-                                    color: LightColors.kDarkBlue,
-                                    fontWeight: FontWeight.w800,
+                                    fontSize: 14.0,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w700,
                                   ),
+                                  textAlign: TextAlign.center,
                                 ),
                               ),
-                              Container(
-                                child: Text(
-                                  'App Developer',
-                                  textAlign: TextAlign.start,
-                                  style: TextStyle(
-                                    fontSize: 16.0,
-                                    color: Colors.black45,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    )
-                  ]),
-            ),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      color: Colors.transparent,
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 20.0, vertical: 10.0),
-                      child: Column(
-                        children: <Widget>[
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              subheading('AGENDA'),
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => CalendarPage()),
-                                  );
-                                },
-                                child: calendarIcon(),
+                              Center(
+                                child: Image.asset('assets/images/avatar.png',width: 100),
                               ),
                             ],
                           ),
-                            //SizedBox(height: 15.0),
-                          
                         ],
                       ),
                     ),
-                    Container(
-                      color: Colors.transparent,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 30.0, vertical: 10.0),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Consultation() ),
+                        );  
+                    },
+                    child: Container(
+                      margin: EdgeInsets.symmetric(vertical: 10.0),
+                      padding: EdgeInsets.all(15.0),
+                      height: 150,
+                      width: width,
+                      decoration: BoxDecoration(
+                        color: LightColors.kRed,
+                        borderRadius: BorderRadius.circular(40.0),
+                      ),
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
-                          subheading('MON MENU'),
-                          SizedBox(height: 5.0),
-                          Row(
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                     MaterialPageRoute(
-                                       builder: (context) => Patients() ),
-                                  );  
-                                },
-                                  child: ActiveProjectsCard(
-                                  cardColor: LightColors.kGreen,
-                                 // img: 'images/avatar.png',
-                                  title: 'Les patients',
-                                  subtitle: '',
+                              Center(
+                                child: Text(
+                                  'Consultation',
+                                  style: TextStyle(
+                                    fontSize: 14.0,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                  textAlign: TextAlign.center,
                                 ),
                               ),
-                              SizedBox(width: 20.0),
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                     MaterialPageRoute(
-                                       builder: (context) => Consultation() ),
-                                  );  
-                                },
-                                  child: ActiveProjectsCard(
-                                  cardColor: LightColors.kRed,
-                                  title: 'Consultation',
-                                  subtitle: '',
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: <Widget>[
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                     MaterialPageRoute(
-                                       builder: (context) => Medicaments() ),
-                                  );  
-                                },
-                                  child: ActiveProjectsCard(
-                                  cardColor: LightColors.kDarkYellow,
-                                  title: 'Les médicaments',
-                                  subtitle: '',
-                                ),
-                              ),
-                              SizedBox(width: 20.0),
-                              ActiveProjectsCard(
-                                cardColor: LightColors.kBlue,
-                                title: 'in progress',
-                                subtitle: '***',
+                              Center(
+                                child: Image.asset('assets/images/avatar.png',width: 100),
                               ),
                             ],
                           ),
                         ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Medicaments() ),
+                        );  
+                    },
+                    child: Container(
+                      margin: EdgeInsets.symmetric(vertical: 10.0),
+                      padding: EdgeInsets.all(15.0),
+                      height: 150,
+                      width: width,
+                      decoration: BoxDecoration(
+                        color: LightColors.kDarkYellow,
+                        borderRadius: BorderRadius.circular(40.0),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Center(
+                                child: Text(
+                                  'Les médicaments',
+                                  style: TextStyle(
+                                    fontSize: 14.0,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              Center(
+                                child: Image.asset('assets/images/avatar.png',width: 100),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Patients() ),
+                        );  
+                    },
+                    child: Container(
+                      margin: EdgeInsets.symmetric(vertical: 10.0),
+                      padding: EdgeInsets.all(15.0),
+                      height: 150,
+                      width: width,
+                      decoration: BoxDecoration(
+                        color: LightColors.kBlue,
+                        borderRadius: BorderRadius.circular(40.0),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Center(
+                                child: Text(
+                                  'in progress',
+                                  style: TextStyle(
+                                    fontSize: 14.0,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              Center(
+                                child: Image.asset('assets/images/avatar.png',width: 100),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
