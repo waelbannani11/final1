@@ -1,33 +1,47 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:final1/theme/colors/light_colors.dart';
 import 'package:final1/widgets/back_button.dart';
-import 'package:final1/widgets/my_text_field.dart';
-import 'package:final1/screens/home_page.dart';
-import 'search.dart';
 import 'package:final1/models/patient.dart';
 import 'calendar_page.dart';
-import 'package:final1/models/rdv.dart';
+import 'package:provider/provider.dart';
 
-class CreateNewTaskPage extends StatelessWidget {
-  final Patient patient;
-  final Rdv rdv;
-  CreateNewTaskPage({this.patient, this.rdv});
 
+class Createnvpatient extends StatefulWidget {
+ 
+  @override
+  _CreatenvpatientState createState() => _CreatenvpatientState();
+}
+
+class _CreatenvpatientState extends State<Createnvpatient> {
+  int _groupValue = -1;
+    int _groupValue1 = -1;
+  
+    void _handleRadioValueChanged(int value) {
+    setState(() {
+      this._groupValue = value;
+  
+    });
+  } void _handleRadioValueChangedd(int value) {
+    setState(() {
+      this._groupValue1 = value;
+  
+    });
+  }
+
+  
   @override
   Widget build(BuildContext context) {
-    //final patient =Provider.of<List<Patient>>(context)?? [];
+    //Patient patient =Provider.of<Patient>(context);
+        
     final _formKey = GlobalKey<FormState>();
-    final Post post = ModalRoute.of(context).settings.arguments;
     double width = MediaQuery.of(context).size.width;
-    var downwardIcon = Icon(
-      Icons.keyboard_arrow_down,
-      color: Colors.black54,
-    );
+     final List countryList =['celeb','marie','diforce'];
+    
     //nom
-    Widget _buildnom() {
+    
+ Widget  _buildnom() {
       return TextFormField(
-        initialValue: post.title,
+        initialValue: '',
         decoration: InputDecoration(
             labelText: 'nom',
             border: new OutlineInputBorder(
@@ -41,16 +55,14 @@ class CreateNewTaskPage extends StatelessWidget {
 
           return null;
         },
-        onSaved: (String value) {
-          patient.nom = value;
-        },
+         
+       
       );
     }
-
     //prenom
     Widget _buildprenom() {
       return TextFormField(
-        initialValue: post.title,
+        initialValue: '',
         decoration: InputDecoration(
             labelText: 'prenom',
             border: new OutlineInputBorder(
@@ -64,16 +76,14 @@ class CreateNewTaskPage extends StatelessWidget {
 
           return null;
         },
-        onSaved: (String value) {
-          patient.prenom = value;
-        },
+     
       );
     }
 
     //id
     Widget buildid() {
       return TextFormField(
-        initialValue: post.title,
+        initialValue: '',
         decoration: InputDecoration(
             labelText: 'id',
             border: new OutlineInputBorder(
@@ -87,16 +97,14 @@ class CreateNewTaskPage extends StatelessWidget {
 
           return null;
         },
-        onSaved: (String value) {
-          patient.pid = value;
-        },
+      
       );
     }
 
-    //num_fiche
+    //code
     Widget buildnumfiche() {
       return TextFormField(
-        initialValue: '$post.title /20',
+        initialValue: '/',
         decoration: InputDecoration(
             labelText: 'Num_fiche',
             border: new OutlineInputBorder(
@@ -110,18 +118,16 @@ class CreateNewTaskPage extends StatelessWidget {
 
           return null;
         },
-        onSaved: (String value) {
-          rdv.pid = value;
-        },
+      
       );
     }
     //deb
 
-    Widget builddatedeb() {
+    Widget builddatenai() {
       return TextFormField(
         initialValue: '',
         decoration: InputDecoration(
-            labelText: 'Date de debut',
+            labelText: 'Date de naissance',
             border: new OutlineInputBorder(
                 borderRadius: new BorderRadius.circular(18.0),
                 borderSide: new BorderSide())),
@@ -129,87 +135,220 @@ class CreateNewTaskPage extends StatelessWidget {
         maxLength: 10,
         validator: (String value) {
           if (value.isEmpty) {
-            return 'datedeb is Required';
+            return 'date de naissance is Required';
           }
 
           return null;
         },
-        onSaved: (String value) {
-          rdv.dateDeb = value;
-        },
+       
       );
     }
-
-    //fin
-    Widget builddatefin() {
+    //gender
+     Widget _genderRadio(int groupValue, handleRadioValueChanged) =>
+      Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+      Text(
+        'Sexe',
+        style: new TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+      ),
+      Row(
+        children: <Widget>[
+          Radio(
+              value: 0,
+              groupValue: groupValue,
+              onChanged: handleRadioValueChanged),
+          Text(
+            "Male",
+            style: new TextStyle(
+              fontSize: 14.0,
+            ),
+          ),
+          Radio(
+              value: 1,
+              groupValue: groupValue,
+              onChanged: handleRadioValueChanged),
+          Text(
+            "Female",
+            style: new TextStyle(
+              fontSize: 14.0,
+            ),
+           
+          ),
+           
+        ],
+      )
+      
+    ]);
+    
+    //etatcivil
+         Widget _etatcivil(int groupValue1, handleRadioValueChangedd) =>
+      Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+      Text(
+        'Etat civil',
+        style: new TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+      ),
+      Row(
+        children: <Widget>[
+          Radio(
+              value: 0,
+              groupValue: groupValue1,
+              onChanged: handleRadioValueChangedd),
+          Text(
+            "celeb",
+            style: new TextStyle(
+              fontSize: 14.0,
+            ),
+          ),
+          Radio(
+              value: 1,
+              groupValue: groupValue1,
+              onChanged: handleRadioValueChangedd),
+          Text(
+            "marie",
+            style: new TextStyle(
+              fontSize: 14.0,
+            ),
+           
+          ),
+           Radio(
+              value: 2,
+              groupValue: groupValue1,
+              onChanged: handleRadioValueChangedd),
+          Text(
+            "divorce",
+            style: new TextStyle(
+              fontSize: 14.0,
+            ),
+           
+          ),
+        ],
+      )
+      
+    ]);
+    //nation
+        Widget _buildnationn() {
       return TextFormField(
         initialValue: '',
         decoration: InputDecoration(
-            labelText: 'Date de fin',
+            labelText: 'nationnalite',
             border: new OutlineInputBorder(
                 borderRadius: new BorderRadius.circular(18.0),
                 borderSide: new BorderSide())),
-        keyboardType: TextInputType.datetime,
-        maxLength: 10,
+        maxLength: 20,
         validator: (String value) {
           if (value.isEmpty) {
-            return 'datefin is Required';
+            return 'nationnalite is Required';
           }
 
           return null;
         },
-        onSaved: (String value) {
-          rdv.dateFin = value;
-        },
+     
       );
     }
-
-    //type
-    Widget buildtype() {
+    //profession
+        Widget _buildprofession() {
       return TextFormField(
         initialValue: '',
         decoration: InputDecoration(
-            labelText: 'type',
+            labelText: 'profession',
             border: new OutlineInputBorder(
                 borderRadius: new BorderRadius.circular(18.0),
                 borderSide: new BorderSide())),
-        maxLength: 10,
+        maxLength: 20,
         validator: (String value) {
           if (value.isEmpty) {
-            return 'type is Required';
+            return 'profession is Required';
           }
 
           return null;
         },
-        onSaved: (String value) {
-          rdv.type = value;
-        },
+     
       );
     }
-
-    //sujet
-    Widget buildsujet() {
+    //teldom
+        Widget _buildteldom() {
       return TextFormField(
         initialValue: '',
         decoration: InputDecoration(
-            labelText: 'sujet',
+            labelText: 'tel dom',
             border: new OutlineInputBorder(
                 borderRadius: new BorderRadius.circular(18.0),
                 borderSide: new BorderSide())),
-        maxLines: 5,
-        maxLength: 300,
+        maxLength: 8,
+        keyboardType: TextInputType.phone,
         validator: (String value) {
           if (value.isEmpty) {
-            return 'sujet is Required';
+            return 'teldom is Required';
           }
 
           return null;
         },
-        onSaved: (String value) {
-          rdv.sujet = value;
-        },
+     
       );
     }
+    //    //telmob
+        Widget _buildtelmob() {
+      return TextFormField(
+        initialValue: '',
+        decoration: InputDecoration(
+            labelText: 'tel mob',
+            border: new OutlineInputBorder(
+                borderRadius: new BorderRadius.circular(18.0),
+                borderSide: new BorderSide())),
+        maxLength: 8,
+        keyboardType: TextInputType.phone,
+        validator: (String value) {
+          if (value.isEmpty) {
+            return 'telmob is Required';
+          }
+
+          return null;
+        },
+     
+      );
+    }
+    //adresse
+            Widget _buildadresse() {
+      return TextFormField(
+        initialValue: '',
+        decoration: InputDecoration(
+            labelText: 'adresse',
+            border: new OutlineInputBorder(
+                borderRadius: new BorderRadius.circular(18.0),
+                borderSide: new BorderSide())),
+        maxLength: 50,
+        maxLines: 2,
+        validator: (String value) {
+          if (value.isEmpty) {
+            return 'adresse is Required';
+          }
+
+          return null;
+        },
+     
+      );
+    }
+    //ville
+            Widget _buildville() {
+      return TextFormField(
+        initialValue: '',
+        decoration: InputDecoration(
+            labelText: 'ville',
+            border: new OutlineInputBorder(
+                borderRadius: new BorderRadius.circular(18.0),
+                borderSide: new BorderSide())),
+        maxLength: 20,
+        validator: (String value) {
+          if (value.isEmpty) {
+            return 'ville is Required';
+          }
+
+          return null;
+        },
+     
+      );
+    }
+
+ //*************************************************** */
 
     return Scaffold(
       backgroundColor: Colors.blue[100],
@@ -227,11 +366,12 @@ class CreateNewTaskPage extends StatelessWidget {
                     children: <Widget>[
                       MyBackButton(),
                       Container(
-                        padding: EdgeInsets.all(0.0),
+                        padding: EdgeInsets.all(10.0),
                         height: 50,
-                        width: 100,
+                        width: 200,
                         child: Text(
                           ' rendez-vous',
+                          textAlign: TextAlign.center,
                         ),
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
@@ -240,7 +380,9 @@ class CreateNewTaskPage extends StatelessWidget {
                               Color(0xFF1976D2),
                               Color(0xFF42A5F5),
                             ],
+                            
                           ),
+                          borderRadius: BorderRadius.circular(30),
                         ),
                       ),
                       SizedBox(
@@ -248,12 +390,17 @@ class CreateNewTaskPage extends StatelessWidget {
                       ),
                       buildid(),
                       buildnumfiche(),
-                      _buildnom(),
+                       _buildnom(),
                       _buildprenom(),
-                      builddatedeb(),
-                      builddatefin(),
-                      buildtype(),
-                      buildsujet(),
+                      builddatenai(),
+                      _genderRadio(_groupValue,_handleRadioValueChanged),
+                      _etatcivil(_groupValue1,_handleRadioValueChangedd),
+                      _buildnationn(),
+                      _buildprofession(),
+                      _buildteldom(),
+                      _buildtelmob(),
+                      _buildadresse(),
+                      _buildville(),
                       GestureDetector(
                         onTap: () {
                           Navigator.push(
@@ -261,10 +408,10 @@ class CreateNewTaskPage extends StatelessWidget {
                             MaterialPageRoute(
                                 builder: (context) => CalendarPage()),
                           );
-                          //if (!_formKey.currentState.validate()) {
-                          //return;
-                          //}
-                          //_formKey.currentState.save();
+                          if (!_formKey.currentState.validate()) {
+                          return;
+                          }
+                          _formKey.currentState.save();
                         },
                         child: Container(
                           height: 80,
@@ -301,5 +448,10 @@ class CreateNewTaskPage extends StatelessWidget {
         ),
       ),
     );
-  }
+  
+      
+    
+  
+}
+
 }

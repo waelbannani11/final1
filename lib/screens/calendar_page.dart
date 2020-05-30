@@ -8,16 +8,14 @@ import 'package:intl/intl.dart';
 
 import 'package:table_calendar/table_calendar.dart';
 
-
-class CalendarPage  extends StatefulWidget {
+class CalendarPage extends StatefulWidget {
   @override
   _CalendarPageState createState() => _CalendarPageState();
 }
 
-
 class _CalendarPageState extends State<CalendarPage> {
-final List<DateTime> allDates = [];
-Map<DateTime, List> _events;
+  final List<DateTime> allDates = [];
+  Map<DateTime, List> _events;
   List _selectedEvents;
   AnimationController _animationController;
   CalendarController _calendarController;
@@ -33,17 +31,19 @@ Map<DateTime, List> _events;
       ),
     );
   }
-@override
-void initState() {
-  super.initState();
-  _calendarController = CalendarController();
-}
 
-@override
-void dispose() {
-  _calendarController.dispose();
-  super.dispose();
-}
+  @override
+  void initState() {
+    super.initState();
+    _calendarController = CalendarController();
+  }
+
+  @override
+  void dispose() {
+    _calendarController.dispose();
+    super.dispose();
+  }
+
   void _onDaySelected(DateTime day, List events, List holidays) {
     print('CALLBACK: _onDaySelected');
     setState(() {
@@ -51,20 +51,19 @@ void dispose() {
     });
   }
 
-  void _onVisibleDaysChanged(DateTime first, DateTime last, CalendarFormat format) {
+  void _onVisibleDaysChanged(
+      DateTime first, DateTime last, CalendarFormat format) {
     print('CALLBACK: _onVisibleDaysChanged');
   }
 
-  void _onCalendarCreated(DateTime first, DateTime last, CalendarFormat format) {
+  void _onCalendarCreated(
+      DateTime first, DateTime last, CalendarFormat format) {
     print('CALLBACK: _onCalendarCreated');
   }
 
-
-Widget _buildTableCalendar() {
+  Widget _buildTableCalendar() {
     return TableCalendar(
       calendarController: _calendarController,
-      
-      
       startingDayOfWeek: StartingDayOfWeek.monday,
       calendarStyle: CalendarStyle(
         selectedColor: Colors.deepOrange[400],
@@ -73,21 +72,22 @@ Widget _buildTableCalendar() {
         outsideDaysVisible: false,
       ),
       headerStyle: HeaderStyle(
-        formatButtonTextStyle: TextStyle().copyWith(color: Colors.white, fontSize: 15.0),
+        formatButtonTextStyle:
+            TextStyle().copyWith(color: Colors.white, fontSize: 15.0),
         formatButtonDecoration: BoxDecoration(
           color: Colors.deepOrange[400],
           borderRadius: BorderRadius.circular(16.0),
         ),
       ),
-      
       onVisibleDaysChanged: _onVisibleDaysChanged,
       onCalendarCreated: _onCalendarCreated,
     );
   }
+
   @override
   Widget build(BuildContext context) {
     DateTime now = DateTime.now();
-  String formattedDate = DateFormat('kk:mm:ss  EEE d MMM').format(now);
+    String formattedDate = DateFormat('kk:mm:ss  EEE d MMM').format(now);
     return Scaffold(
       backgroundColor: Colors.blue[100],
       body: SafeArea(
@@ -138,17 +138,18 @@ Widget _buildTableCalendar() {
                       ),
                     ),
                   ]),
-              
-              
               SizedBox(height: 30),
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  formattedDate,textAlign: TextAlign.center,style: new TextStyle(fontWeight: FontWeight.bold,fontSize: 25.0),
+                  formattedDate,
+                  textAlign: TextAlign.center,
+                  style: new TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 25.0),
                 ),
               ),
               SizedBox(height: 20.0),
-            _buildTableCalendar(),
+              _buildTableCalendar(),
               Expanded(
                 child: SingleChildScrollView(
                   child: Container(
@@ -192,23 +193,19 @@ Widget _buildTableCalendar() {
                               _dashedText(),
                               TaskContainer(
                                 title: '',
-                                
                                 boxColor: LightColors.kLightYellow2,
                               ),
                               _dashedText(),
                               TaskContainer(
                                 title: '',
-                                
                                 boxColor: LightColors.kLavender,
                               ),
                               TaskContainer(
                                 title: '',
-                               
                                 boxColor: LightColors.kPalePink,
                               ),
                               TaskContainer(
                                 title: '',
-                               
                                 boxColor: LightColors.kLightGreen,
                               ),
                             ],
