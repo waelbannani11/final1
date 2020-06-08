@@ -18,6 +18,7 @@ dependencies:
   kf_drawer: ^1.1.2
   flappy_search_bar: 1.4.1
   simple_animations: ^2.2.1
+  http:
   
   intl: ^0.16.1
   horizontal_calendar_widget: ^1.0.1

@@ -2,34 +2,24 @@
 import 'package:flutter/material.dart';
 
 class Patient with ChangeNotifier   {
-  String pid;
-  String code;//code annee
+  int idpatient;
   String nom;
   String prenom;
-  String sexe;
-  String birthday;
-  String etatcivil;
-  String nationnalite;
-  String profession;
-  String teldom;
-  String telmob;
-  String adresse;
-  String ville;
+  String sex;
+  int statusmatriomo_id;
 
-   
+  Patient({this.idpatient,this.nom, this.prenom,this.sex,this.statusmatriomo_id});
 
-  Patient({
-    this.pid,this.code,this.nom,
-    this.prenom,this.sexe,this.birthday,
-    this.etatcivil,this.nationnalite,this.profession,
-    this.teldom,this.telmob,this.adresse,this.ville
+  factory Patient.formJson(Map <String, dynamic> json){
+    return new Patient(
+       nom: json['nom'],
+       idpatient: json['idpatient'],
+       prenom: json['prenom'],
+       sex: json['sex'],
+       statusmatriomo_id: json['statusmatriomo_id'],
+    );
   }
-  
-
-  );
-
-
-  Widget  _buildnom() {
+    Widget  _buildnom() {
       return TextFormField(
         initialValue: '',
         decoration: InputDecoration(
@@ -46,12 +36,12 @@ class Patient with ChangeNotifier   {
           return null;
         },
           onSaved: (String value) {
-           pid = value;
+           nom = value;
           }
        
       );
-    }
-
-
-
+  }
 }
+
+
+
