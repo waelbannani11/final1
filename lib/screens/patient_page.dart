@@ -12,13 +12,14 @@ class _PatientsState extends State<Patients> {
   List<Patient> _list = [];
   List<Patient> _search = [];
   var loading = false;
+  var url = 'http://10.0.3.2:5000/patient';
   Future<Null> fetchData() async {
     setState(() {
       loading = true;
     });
     _list.clear();
-    final response =
-        await http.get("http://10.0.3.2:5000");
+    var response =
+        await http.get(url);
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       setState(() {
@@ -81,61 +82,125 @@ class _PatientsState extends State<Patients> {
               ),
             ),
             loading
-                ? Center(
-                    child: CircularProgressIndicator(),
-                  )
+                ? Padding(
+                  padding: const EdgeInsets.all(50.0),
+                  child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                )
                 : Expanded(
                     child: _search.length != 0 || controller.text.isNotEmpty
                         ? ListView.builder(
                             itemCount: _search.length,
                             itemBuilder: (context, i) {
                               final b = _search[i];
-                              return Container(
-                                  padding: EdgeInsets.all(10.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Text(
-                                        b.nom,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 18.0),
+                              return Table(
+                                border: TableBorder(
+                                  left: BorderSide.none,
+                                  right: BorderSide.none,
+                                  top: BorderSide.none,
+                                  bottom: BorderSide( 
+                                    color: Colors.black,
+                                    width: 0.5,
+                                  ),
+                                ),
+                                columnWidths: {0: FractionColumnWidth(.4), 1: FractionColumnWidth(.2), 2: FractionColumnWidth(.1), 3: FractionColumnWidth(.1)},
+                                children: [
+                                  TableRow(
+                                    children:[
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 4.0),
+                                        child: Column(
+                                          children: [
+                                            Text(b.nom),
+                                          ],
+                                        ),
                                       ),
-                                      SizedBox(
-                                        height: 4.0,
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 4.0),
+                                        child: Column(
+                                          children: [
+                                            Text(b.prenom),
+                                          ],
+                                        ),
                                       ),
-                                      Text(b.prenom),
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 4.0),
+                                        child: Column(
+                                          children: [
+                                            Text(b.sex),
+                                          ],
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 4.0),
+                                        child: Column(
+                                          children: [
+                                            Text((b.statusmatriomo_id).toString()),
+                                          ],
+                                        ),
+                                      ),
                                     ],
-                                  ));
+                                  ),
+                                ],
+                              );
                             },
                           )
                         : ListView.builder(
                             itemCount: _list.length,
                             itemBuilder: (context, i) {
                               final a = _list[i];
-                              return Container(
-                                  padding: EdgeInsets.all(10.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Text(
-                                        a.nom,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 18.0),
+                              return Table(
+                                border: TableBorder(
+                                  left: BorderSide.none,
+                                  right: BorderSide.none,
+                                  top: BorderSide.none,
+                                  bottom: BorderSide( 
+                                    color: Colors.black,
+                                    width: 1.0,
+                                  ),
+                                ),
+                                
+                                columnWidths: {0: FractionColumnWidth(.4), 1: FractionColumnWidth(.2), 2: FractionColumnWidth(.1), 3: FractionColumnWidth(.1)},
+                                children: [
+                                  TableRow(
+                                    children:[
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 4.0),
+                                        child: Column(
+                                          children: [
+                                            Text(a.nom),
+                                          ],
+                                        ),
                                       ),
-                                      SizedBox(
-                                        height: 4.0,
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 4.0),
+                                        child: Column(
+                                          children: [
+                                            Text(a.prenom),
+                                          ],
+                                        ),
                                       ),
-                                      Text((a.idpatient).toString()),
-                                      Text(a.prenom),
-                                      Text(a.sex),
-                                      Text((a.statusmatriomo_id).toString()),
-                                      
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 4.0),
+                                        child: Column(
+                                          children: [
+                                            Text(a.sex),
+                                          ],
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 4.0),
+                                        child: Column(
+                                          children: [
+                                            Text((a.statusmatriomo_id).toString()),
+                                          ],
+                                        ),
+                                      ),
                                     ],
-                                  ));
+                                  ),
+                                ],
+                              );
                             },
                           ),
                   ),
