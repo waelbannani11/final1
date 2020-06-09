@@ -88,7 +88,7 @@ class CreateNewTaskPage extends StatelessWidget {
           return null;
         },
         onSaved: (String value) {
-          patient.pid = value;
+          patient.nom = value;
         },
       );
     }

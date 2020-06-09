@@ -18,11 +18,17 @@ dependencies:
   kf_drawer: ^1.1.2
   flappy_search_bar: 1.4.1
   simple_animations: ^2.2.1
+<<<<<<< HEAD
   scoped_model: 1.0.1
   flutter_gallery_assets: 0.1.8
   url_launcher: ^5.0.3
   intl: ^0.16.0
 
+=======
+  http:
+  
+  intl: ^0.16.1
+>>>>>>> e117fe261f9f5093c78e2c96de38fe8da0621593
   horizontal_calendar_widget: ^1.0.1
   table_calendar: ^2.2.3
   provider: ^4.1.2
