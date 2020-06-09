@@ -41,7 +41,7 @@ class _PatientsState extends State<Patients> {
     }
 
     _list.forEach((f) { 
-      if (f.nom.contains(text) || f.prenom.contains(text))
+      if (f.nom.toLowerCase().contains(text) || f.prenom.toLowerCase().contains(text))
         _search.add(f);
     });
     setState(() {});
@@ -55,13 +55,10 @@ class _PatientsState extends State<Patients> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Container(
-        child: Column(
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.all(10.0),
-              color: Colors.blue,
+      appBar: AppBar(
+        title: Container(
+              padding: EdgeInsets.all(1.0),
+              color: Colors.black,
               child: Card(
                 child: ListTile(
                   leading: Icon(Icons.search),
@@ -81,6 +78,10 @@ class _PatientsState extends State<Patients> {
                 ),
               ),
             ),
+      ),
+      body: Container(
+        child: Column(
+          children: <Widget>[
             loading
                 ? Padding(
                   padding: const EdgeInsets.all(50.0),
@@ -95,20 +96,18 @@ class _PatientsState extends State<Patients> {
                             itemBuilder: (context, i) {
                               final b = _search[i];
                               return Table(
-                                border: TableBorder(
-                                  left: BorderSide.none,
-                                  right: BorderSide.none,
-                                  top: BorderSide.none,
-                                  bottom: BorderSide( 
-                                    color: Colors.black,
-                                    width: 0.5,
-                                  ),
+                                border: TableBorder.all(
+                                  width: 1.0,
+                                  color: Colors.black,
                                 ),
-                                columnWidths: {0: FractionColumnWidth(.4), 1: FractionColumnWidth(.2), 2: FractionColumnWidth(.1), 3: FractionColumnWidth(.1)},
+                                //columnWidths: {0: FractionColumnWidth(.4), 1: FractionColumnWidth(.2), 2: FractionColumnWidth(.1), 3: FractionColumnWidth(.1)},
                                 children: [
                                   TableRow(
                                     children:[
-                                      Padding(
+                                      TableCell(
+                                        child: Row(
+                                          children:<Widget>[
+                                            Padding(
                                         padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 4.0),
                                         child: Column(
                                           children: [
@@ -138,6 +137,9 @@ class _PatientsState extends State<Patients> {
                                           children: [
                                             Text((b.statusmatriomo_id).toString()),
                                           ],
+                                        ),
+                                      ),
+                                          ]
                                         ),
                                       ),
                                     ],

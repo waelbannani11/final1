@@ -330,7 +330,7 @@ class HomePage extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Medicaments() ),
+                          builder: (context) => Medicament() ),
                         );  
                     },
                     child: Container(
