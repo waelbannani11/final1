@@ -27,7 +27,7 @@ class CreateNewTaskPage extends StatelessWidget {
     //nom
     Widget _buildnom() {
       return TextFormField(
-        initialValue: post.title,
+       // initialValue: post.title,
         decoration: InputDecoration(
             labelText: 'nom',
             border: new OutlineInputBorder(
@@ -50,7 +50,7 @@ class CreateNewTaskPage extends StatelessWidget {
     //prenom
     Widget _buildprenom() {
       return TextFormField(
-        initialValue: post.title,
+       // initialValue: post.title,
         decoration: InputDecoration(
             labelText: 'prenom',
             border: new OutlineInputBorder(
@@ -73,7 +73,7 @@ class CreateNewTaskPage extends StatelessWidget {
     //id
     Widget buildid() {
       return TextFormField(
-        initialValue: post.title,
+        //initialValue: post.title,
         decoration: InputDecoration(
             labelText: 'id',
             border: new OutlineInputBorder(
@@ -96,7 +96,7 @@ class CreateNewTaskPage extends StatelessWidget {
     //num_fiche
     Widget buildnumfiche() {
       return TextFormField(
-        initialValue: '$post.title /20',
+        //initialValue: '$post.title /20',
         decoration: InputDecoration(
             labelText: 'Num_fiche',
             border: new OutlineInputBorder(

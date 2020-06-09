@@ -1,4 +1,6 @@
 import 'package:final1/screens/chercher_ajouter.dart';
+import 'package:final1/screens/create_new_patient.dart';
+import 'package:final1/screens/create_new_task_page.dart';
 import 'package:final1/screens/login.dart';
 import 'package:final1/screens/search.dart';
 import 'package:final1/widgets/Chercher_patient_button.dart';
@@ -32,7 +34,7 @@ class MyApp extends StatelessWidget {
               fontFamily: 'Poppins'
             ),
       ),
-      home: Login(),
+      home: CreateNewTaskPage(),
       debugShowCheckedModeBanner: false,
     );
   }

@@ -19,7 +19,7 @@ class Patient with ChangeNotifier   {
        statusmatriomo_id: json['statusmatriomo_id'],
     );
   }
-    Widget  _buildnom() {
+    /*Widget  _buildnom() {
       return TextFormField(
         initialValue: '',
         decoration: InputDecoration(
@@ -40,8 +40,10 @@ class Patient with ChangeNotifier   {
           }
        
       );
-  }
+  }**/
+
 }
+
 
 
 

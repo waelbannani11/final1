@@ -182,7 +182,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.6.4"
-<<<<<<< HEAD
   path_provider:
     dependency: "direct main"
     description:
@@ -211,8 +210,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2"
-=======
->>>>>>> e117fe261f9f5093c78e2c96de38fe8da0621593
   pedantic:
     dependency: transitive
     description:
@@ -269,7 +266,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.1.3"
-<<<<<<< HEAD
   pub_semver:
     dependency: transitive
     description:
@@ -277,8 +273,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.4.4"
-=======
->>>>>>> e117fe261f9f5093c78e2c96de38fe8da0621593
   quiver:
     dependency: transitive
     description:
