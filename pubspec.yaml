@@ -34,6 +34,8 @@ dependencies:
   syncfusion_flutter_pdf: ^18.1.52-beta
   syncfusion_flutter_barcodes: ^18.1.52-beta
   http: ^0.12.1
+
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

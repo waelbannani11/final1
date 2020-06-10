@@ -41,7 +41,7 @@ class _PatientsState extends State<Patients> {
     }
 
     _list.forEach((f) { 
-      if (f.nom.toLowerCase().contains(text) || f.prenom.toLowerCase().contains(text))
+      if (f.nom.toLowerCase().contains(text) || f.prenom.toLowerCase().contains(text) || f.nom.contains(text) || f.prenom.contains(text))
         _search.add(f);
     });
     setState(() {});
@@ -56,9 +56,14 @@ class _PatientsState extends State<Patients> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Container(
-              padding: EdgeInsets.all(1.0),
-              color: Colors.black,
+        title: Text("Patients"),
+      ),
+      body: Container(
+        child: Column(
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.all(10.0),
+              color: Colors.blue,
               child: Card(
                 child: ListTile(
                   leading: Icon(Icons.search),
@@ -77,11 +82,85 @@ class _PatientsState extends State<Patients> {
                   ),
                 ),
               ),
+              
             ),
+            Row(
+              children: <Widget>[
+                SizedBox(height:60),
+                Expanded(
+                  flex: 2,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                    child: Container(
+                      child:Center(child: Text("Nom",style: TextStyle(color:Colors.white),),), 
+                      height: 50.0,
+                      decoration: new BoxDecoration(
+                        borderRadius: new BorderRadius.circular(25.0),
+                        color: Colors.blue,
+                        border: new Border.all(
+                          width: 2.0,
+                          color: Colors.blue,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Padding(
+                  padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                  child: Container(
+                    child:Center(child: Text("Prenom",style: TextStyle(color:Colors.white),),), 
+                    height: 50.0,
+                    decoration: new BoxDecoration(
+                    borderRadius: new BorderRadius.circular(25.0),
+                    color: Colors.blue,
+                    border: new Border.all(
+                      width: 2.0,
+                      color: Colors.blue,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Padding(
+              padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+              child: Container(
+                child:Center(child: Text("Sex",style: TextStyle(color:Colors.white),),), 
+                  height: 50.0,
+                  decoration: new BoxDecoration(
+                    borderRadius: new BorderRadius.circular(25.0),
+                    color: Colors.blue,
+                    border: new Border.all(
+                    width: 2.0,
+                    color: Colors.blue,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        Expanded(
+          flex: 1,
+          child: Padding(
+          padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+          child: Container(
+          child:Center(child: Text("État Civil",style: TextStyle(color:Colors.white),),), 
+          height: 50.0,
+          decoration: new BoxDecoration(
+            borderRadius: new BorderRadius.circular(25.0),
+            color: Colors.blue,
+            border: new Border.all(
+              width: 2.0,
+              color: Colors.blue,
+            ),
+          ),
+        ),
       ),
-      body: Container(
-        child: Column(
-          children: <Widget>[
+    ),
+  ],
+),                 
             loading
                 ? Padding(
                   padding: const EdgeInsets.all(50.0),
@@ -95,36 +174,75 @@ class _PatientsState extends State<Patients> {
                             itemCount: _search.length,
                             itemBuilder: (context, i) {
                               final b = _search[i];
-                              return Table(
-                                border: TableBorder.all(),
-                                columnWidths: {0: FractionColumnWidth(.4), 1: FractionColumnWidth(.2), 2: FractionColumnWidth(.1), 3: FractionColumnWidth(.1)},
-                                children: [
-                                  TableRow(
-                                    children:[
-                                      Column(
-                                        children: <Widget>[
-                                          Text(b.nom),
-                                        ],
+                              return Row(
+                                children: <Widget>[
+                                  Expanded(
+                                    flex: 2,
+                                    child: Padding(
+                                      padding: const EdgeInsets.fromLTRB(2, 0, 2, 0),
+                                      child: Container(
+                                        child:Center(child: Text(b.nom),), 
+                                        height: 50.0,
+                                        decoration: new BoxDecoration(
+                                          borderRadius: new BorderRadius.circular(25.0),
+                                          border: new Border.all(
+                                            width: 2.0,
+                                            color: Colors.black,
+                                          ),
+                                        ),
                                       ),
-                                      Column(
-                                        children: <Widget>[
-                                          Text(b.prenom),
-                                        ],
+                                    ),
+                                  ),SizedBox(height:60),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Padding(
+                                      padding: const EdgeInsets.fromLTRB(1, 0, 1, 0),
+                                      child: Container(
+                                        child:Center(child: Text(b.prenom),), 
+                                        height: 50.0,
+                                        decoration: new BoxDecoration(
+                                          borderRadius: new BorderRadius.circular(25.0),
+                                          border: new Border.all(
+                                            width: 2.0,
+                                            color: Colors.black,
+                                          ),
+                                        ),
                                       ),
-                                      Column(
-                                        children: <Widget>[
-                                          Text(b.sex),
-                                        ],
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Padding(
+                                      padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                                      child: Container(
+                                        child:Center(child: Text(b.sex),), 
+                                        height: 50.0,
+                                        decoration: new BoxDecoration(
+                                          borderRadius: new BorderRadius.circular(25.0),
+                                          border: new Border.all(
+                                            width: 2.0,
+                                            color: Colors.black,
+                                          ),
+                                        ),
                                       ),
-                                      Column(
-                                        children: <Widget>[
-                                          Text((b.statusmatriomo_id).toString()),
-                                          
-                                        ],
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Padding(
+                                      padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                                      child: Container(
+                                        child:Center(child: Text((b.statusmatriomo_id).toString())), 
+                                        height: 50.0,
+                                        decoration: new BoxDecoration(
+                                          borderRadius: new BorderRadius.circular(25.0),
+                                          border: new Border.all(
+                                            width: 2.0,
+                                            color: Colors.black,
+                                          ),
+                                        ),
                                       ),
-                                      
-                                    ],
-                                    
+                                    ),
                                   ),
                                 ],
                               );
@@ -137,59 +255,69 @@ class _PatientsState extends State<Patients> {
                               return Row(
                                 children: <Widget>[
                                   Expanded(
-                                    child: Container(
-                                      padding: EdgeInsets.all(1.0),
-                                      
-                                      child:Center(child: Text(a.nom),), 
-                                      width: 10.0,
-                                      height: 50.0,
-                                      decoration: new BoxDecoration(
-                                        borderRadius: new BorderRadius.circular(25.0),
-                                        border: new Border.all(
-                                          width: 2.0,
-                                          color: Colors.black,
+                                    flex: 2,
+                                    child: Padding(
+                                      padding: const EdgeInsets.fromLTRB(2, 0, 2, 0),
+                                      child: Container(
+                                        child:Center(child: Text(a.nom),), 
+                                        height: 50.0,
+                                        decoration: new BoxDecoration(
+                                          borderRadius: new BorderRadius.circular(25.0),
+                                          border: new Border.all(
+                                            width: 2.0,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),SizedBox(height:60),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Padding(
+                                      padding: const EdgeInsets.fromLTRB(1, 0, 1, 0),
+                                      child: Container(
+                                        child:Center(child: Text(a.prenom),), 
+                                        height: 50.0,
+                                        decoration: new BoxDecoration(
+                                          borderRadius: new BorderRadius.circular(25.0),
+                                          border: new Border.all(
+                                            width: 2.0,
+                                            color: Colors.black,
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ),
                                   Expanded(
-                                    child: Container(
-                                      child:Center(child: Text(a.prenom),), 
-                                      width: 10.0,
-                                      height: 50.0,
-                                      decoration: new BoxDecoration(
-                                        borderRadius: new BorderRadius.circular(25.0),
-                                        border: new Border.all(
-                                          width: 2.0,
-                                          color: Colors.black,
+                                    flex: 1,
+                                    child: Padding(
+                                      padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                                      child: Container(
+                                        child:Center(child: Text(a.sex),), 
+                                        height: 50.0,
+                                        decoration: new BoxDecoration(
+                                          borderRadius: new BorderRadius.circular(25.0),
+                                          border: new Border.all(
+                                            width: 2.0,
+                                            color: Colors.black,
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ),
                                   Expanded(
-                                    child: Container(
-                                      child:Center(child: Text(a.sex),), 
-                                      width: 10.0,
-                                      height: 50.0,
-                                      decoration: new BoxDecoration(
-                                        borderRadius: new BorderRadius.circular(25.0),
-                                        border: new Border.all(
-                                          width: 2.0,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Container(
-                                      child:Center(child: Text((a.statusmatriomo_id).toString())), 
-                                      width: 10.0,
-                                      height: 50.0,
-                                      decoration: new BoxDecoration(
-                                        borderRadius: new BorderRadius.circular(25.0),
-                                        border: new Border.all(
-                                          width: 2.0,
-                                          color: Colors.black,
+                                    flex: 1,
+                                    child: Padding(
+                                      padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                                      child: Container(
+                                        child:Center(child: Text((a.statusmatriomo_id).toString())), 
+                                        height: 50.0,
+                                        decoration: new BoxDecoration(
+                                          borderRadius: new BorderRadius.circular(25.0),
+                                          border: new Border.all(
+                                            width: 2.0,
+                                            color: Colors.black,
+                                          ),
                                         ),
                                       ),
                                     ),
