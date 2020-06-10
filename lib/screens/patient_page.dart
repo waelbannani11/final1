@@ -96,53 +96,35 @@ class _PatientsState extends State<Patients> {
                             itemBuilder: (context, i) {
                               final b = _search[i];
                               return Table(
-                                border: TableBorder.all(
-                                  width: 1.0,
-                                  color: Colors.black,
-                                ),
-                                //columnWidths: {0: FractionColumnWidth(.4), 1: FractionColumnWidth(.2), 2: FractionColumnWidth(.1), 3: FractionColumnWidth(.1)},
+                                border: TableBorder.all(),
+                                columnWidths: {0: FractionColumnWidth(.4), 1: FractionColumnWidth(.2), 2: FractionColumnWidth(.1), 3: FractionColumnWidth(.1)},
                                 children: [
                                   TableRow(
                                     children:[
-                                      TableCell(
-                                        child: Row(
-                                          children:<Widget>[
-                                            Padding(
-                                        padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 4.0),
-                                        child: Column(
-                                          children: [
-                                            Text(b.nom),
-                                          ],
-                                        ),
+                                      Column(
+                                        children: <Widget>[
+                                          Text(b.nom),
+                                        ],
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 4.0),
-                                        child: Column(
-                                          children: [
-                                            Text(b.prenom),
-                                          ],
-                                        ),
+                                      Column(
+                                        children: <Widget>[
+                                          Text(b.prenom),
+                                        ],
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 4.0),
-                                        child: Column(
-                                          children: [
-                                            Text(b.sex),
-                                          ],
-                                        ),
+                                      Column(
+                                        children: <Widget>[
+                                          Text(b.sex),
+                                        ],
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 4.0),
-                                        child: Column(
-                                          children: [
-                                            Text((b.statusmatriomo_id).toString()),
-                                          ],
-                                        ),
+                                      Column(
+                                        children: <Widget>[
+                                          Text((b.statusmatriomo_id).toString()),
+                                          
+                                        ],
                                       ),
-                                          ]
-                                        ),
-                                      ),
+                                      
                                     ],
+                                    
                                   ),
                                 ],
                               );
@@ -152,54 +134,65 @@ class _PatientsState extends State<Patients> {
                             itemCount: _list.length,
                             itemBuilder: (context, i) {
                               final a = _list[i];
-                              return Table(
-                                border: TableBorder(
-                                  left: BorderSide.none,
-                                  right: BorderSide.none,
-                                  top: BorderSide.none,
-                                  bottom: BorderSide( 
-                                    color: Colors.black,
-                                    width: 1.0,
+                              return Row(
+                                children: <Widget>[
+                                  Expanded(
+                                    child: Container(
+                                      padding: EdgeInsets.all(1.0),
+                                      
+                                      child:Center(child: Text(a.nom),), 
+                                      width: 10.0,
+                                      height: 50.0,
+                                      decoration: new BoxDecoration(
+                                        borderRadius: new BorderRadius.circular(25.0),
+                                        border: new Border.all(
+                                          width: 2.0,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ),
                                   ),
-                                ),
-                                
-                                columnWidths: {0: FractionColumnWidth(.4), 1: FractionColumnWidth(.2), 2: FractionColumnWidth(.1), 3: FractionColumnWidth(.1)},
-                                children: [
-                                  TableRow(
-                                    children:[
-                                      Padding(
-                                        padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 4.0),
-                                        child: Column(
-                                          children: [
-                                            Text(a.nom),
-                                          ],
+                                  Expanded(
+                                    child: Container(
+                                      child:Center(child: Text(a.prenom),), 
+                                      width: 10.0,
+                                      height: 50.0,
+                                      decoration: new BoxDecoration(
+                                        borderRadius: new BorderRadius.circular(25.0),
+                                        border: new Border.all(
+                                          width: 2.0,
+                                          color: Colors.black,
                                         ),
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 4.0),
-                                        child: Column(
-                                          children: [
-                                            Text(a.prenom),
-                                          ],
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Container(
+                                      child:Center(child: Text(a.sex),), 
+                                      width: 10.0,
+                                      height: 50.0,
+                                      decoration: new BoxDecoration(
+                                        borderRadius: new BorderRadius.circular(25.0),
+                                        border: new Border.all(
+                                          width: 2.0,
+                                          color: Colors.black,
                                         ),
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 4.0),
-                                        child: Column(
-                                          children: [
-                                            Text(a.sex),
-                                          ],
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Container(
+                                      child:Center(child: Text((a.statusmatriomo_id).toString())), 
+                                      width: 10.0,
+                                      height: 50.0,
+                                      decoration: new BoxDecoration(
+                                        borderRadius: new BorderRadius.circular(25.0),
+                                        border: new Border.all(
+                                          width: 2.0,
+                                          color: Colors.black,
                                         ),
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 4.0),
-                                        child: Column(
-                                          children: [
-                                            Text((a.statusmatriomo_id).toString()),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
+                                    ),
                                   ),
                                 ],
                               );
