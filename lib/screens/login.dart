@@ -17,84 +17,87 @@ class _LoginState extends State<Login> {
       passwordVisible = true;
     }
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.light,
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
-          child: Stack(
-            children: <Widget>[
-              Container(
-                height: double.infinity,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Color(0xFF73AEF5),
-                      Color(0xFF61A4F1),
-                      Color(0xFF478DE0),
-                      Color(0xFF398AE5),
-                    ],
-                    stops: [0.1, 0.4, 0.7, 0.9],
-                  ),
-                ),
-              ),
-              FadeAnimation(1,
+    return SafeArea(
+          child: Scaffold(
+        body: AnnotatedRegion<SystemUiOverlayStyle>(
+          value: SystemUiOverlayStyle.light,
+          child: GestureDetector(
+            onTap: () => FocusScope.of(context).unfocus(),
+            child: Stack(
+              children: <Widget>[
                 Container(
-                  child:Padding(
+                  height: double.infinity,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Color(0xFF73AEF5),
+                        Color(0xFF61A4F1),
+                        Color(0xFF478DE0),
+                        Color(0xFF398AE5),
+                      ],
+                      stops: [0.1, 0.4, 0.7, 0.9],
+                    ),
+                  ),
+                ),
+                SizedBox(),
+                FadeAnimation(1,
+                  Container(
+                    child:Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 40,
+                        vertical: 100.0,
+                      ),
+                      child: Text(
+                        'Sign In',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'OpenSans',
+                          fontSize: 60.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  height: double.infinity,
+                  child: SingleChildScrollView(
+                    physics: AlwaysScrollableScrollPhysics(),
                     padding: EdgeInsets.symmetric(
-                      horizontal: 40,
-                      vertical: 100.0,
+                      horizontal: 40.0,
+                      vertical: 300.0,
                     ),
-                    child: Text(
-                      'Sign In',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'OpenSans',
-                        fontSize: 100.0,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+
+                        FadeAnimation(2, 
+                        _buildEmailTF(),
+                        ),
+
+                        SizedBox(
+                          height: 20.0,
+                        ),
+                        FadeAnimation(3, 
+                        _buildPasswordTF(),
+                        ),
+
+                        FadeAnimation(4, 
+                       _buildRememberMeCheckbox(),
+                        ),
+
+                        FadeAnimation(5, 
+                         _buildLoginBtn(),
+                        ),
+                      ],
                     ),
                   ),
-                ),
-              ),
-              Container(
-                height: double.infinity,
-                child: SingleChildScrollView(
-                  physics: AlwaysScrollableScrollPhysics(),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 40.0,
-                    vertical: 300.0,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-
-                      FadeAnimation(2, 
-                      _buildEmailTF(),
-                      ),
-
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                      FadeAnimation(3, 
-                      _buildPasswordTF(),
-                      ),
-
-                      FadeAnimation(4, 
-                     _buildRememberMeCheckbox(),
-                      ),
-
-                      FadeAnimation(5, 
-                       _buildLoginBtn(),
-                      ),
-                    ],
-                  ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ),
       ),

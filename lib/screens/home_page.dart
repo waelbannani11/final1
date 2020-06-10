@@ -8,6 +8,7 @@ import 'package:final1/widgets/active_project_card.dart';
 import 'package:final1/widgets/top_container.dart';
 import 'Patient_page.dart';
 import 'consultation_page.dart';
+import 'agenda.dart';
 
 class HomePage extends StatelessWidget {
   Text subheading(String title) {
@@ -203,7 +204,7 @@ class HomePage extends StatelessWidget {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => CalendarPage()
+                                        builder: (context) => AgendaViewCustomization()
                                       ),
                                     );
                                   },

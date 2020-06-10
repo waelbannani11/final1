@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:final1/models/medic.dart';
-import 'package:final1/models/patient.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
