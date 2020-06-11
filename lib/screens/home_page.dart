@@ -345,7 +345,7 @@ class HomePage extends StatelessWidget {
                                 ),
                               ),
                               Center(
-                                child: Image.asset('assets/images/consult.png',width: 100),
+                                child: Image.asset('assets/images/consulta2.png',width: 100),
                               ),
                             ],
                           ),
@@ -389,7 +389,7 @@ class HomePage extends StatelessWidget {
                                 ),
                               ),
                               Center(
-                                child: Image.asset('assets/images/medi.png',width: 100),
+                                child: Image.asset('assets/images/medic.png',width: 100),
                               ),
                             ],
                           ),
