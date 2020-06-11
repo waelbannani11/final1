@@ -9,6 +9,7 @@ import 'package:final1/widgets/top_container.dart';
 import 'Patient_page.dart';
 import 'consultation_page.dart';
 import 'agenda.dart';
+import 'create_new_task_page.dart';
 
 class HomePage extends StatelessWidget {
   Text subheading(String title) {
@@ -287,7 +288,7 @@ class HomePage extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Consultation() ),
+                          builder: (context) => CreateNewTaskPage() ),
                         );  
                     },
                     child: Container(
@@ -318,7 +319,7 @@ class HomePage extends StatelessWidget {
                                 ),
                               ),
                               Center(
-                                child: Image.asset('assets/images/avatar.png',width: 100),
+                                child: Image.asset('assets/images/consult.png',width: 100),
                               ),
                             ],
                           ),
@@ -362,7 +363,7 @@ class HomePage extends StatelessWidget {
                                 ),
                               ),
                               Center(
-                                child: Image.asset('assets/images/avatar.png',width: 100),
+                                child: Image.asset('assets/images/medi.png',width: 100),
                               ),
                             ],
                           ),
@@ -371,13 +372,13 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                   InkWell(
-                    onTap: () {
+                   /* onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Patients() ),
+                          builder: (context) => () ),
                         );  
-                    },
+                    },**/
                     child: Container(
                       margin: EdgeInsets.symmetric(vertical: 10.0),
                       padding: EdgeInsets.all(15.0),
