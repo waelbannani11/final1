@@ -58,7 +58,7 @@ class _MedicamentState extends State<Medicament> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Medicaments"),
+        title: Text("Les Médicaments"),
       ),
       body: Container(
         child: Column(

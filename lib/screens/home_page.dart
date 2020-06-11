@@ -1,4 +1,5 @@
 import 'package:final1/Animations/FadeAnimation.dart';
+import 'package:final1/models/medic.dart';
 import 'package:final1/screens/medicaments_page.dart';
 import 'package:flutter/material.dart';
 import 'package:final1/screens/calendar_page.dart';
@@ -48,7 +49,6 @@ class HomePage extends StatelessWidget {
               decoration: BoxDecoration(
                 color:Colors.blue[100],
               ),
-              
               child: Padding(
                 padding: EdgeInsets.all(0),
                 child: Row(
@@ -106,11 +106,37 @@ class HomePage extends StatelessWidget {
             )
             ),
             ListTile(
-               title: Text('deconnecter'),
+              leading: Icon(Icons.home),
+              title: Text('Les Patients'),
+              subtitle: Text("me@codesundar.com"),
               onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Patients() ),
+                        );  
+                    },
+            ),
+            const Divider(
+              thickness: 0.5,
+            ),
+            ListTile(
+               title: Text('Les Médicaments'),
+              onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Medicament() ),
+                        );  
+                    },
+            ),
+            const Divider(
+              thickness: 0.5,
+            ),
+            ListTile(
+              leading: Icon(Icons.description),
+               title: Text('Deconnecter'),
+              onTap: () {
                 Navigator.pop(context);
               },
             )
