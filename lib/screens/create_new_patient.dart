@@ -104,7 +104,7 @@ class _CreatenvpatientState extends State<Createnvpatient> {
     //code
     Widget buildnumfiche() {
       return TextFormField(
-        initialValue: '/',
+        initialValue: '',
         decoration: InputDecoration(
             labelText: 'Num_fiche',
             border: new OutlineInputBorder(
@@ -352,39 +352,19 @@ class _CreatenvpatientState extends State<Createnvpatient> {
 
     return Scaffold(
       backgroundColor: Colors.blue[100],
+      appBar: AppBar(
+        title: Text("Ajouter Patient"),
+      ),
       body: SafeArea(
-        child: DraggableScrollableSheet(
-          initialChildSize: 1,
-          builder: (context, scrollController) {
-            return SingleChildScrollView(
-              controller: scrollController,
+        child:Container(
+            child:SingleChildScrollView(
               child: Container(
                 margin: EdgeInsets.all(24),
                 child: Form(
                   //key: _formKey,
                   child: Column(
                     children: <Widget>[
-                      MyBackButton(),
-                      Container(
-                        padding: EdgeInsets.all(10.0),
-                        height: 50,
-                        width: 200,
-                        child: Text(
-                          ' rendez-vous',
-                          textAlign: TextAlign.center,
-                        ),
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: <Color>[
-                              Color(0xFF0D47A1),
-                              Color(0xFF1976D2),
-                              Color(0xFF42A5F5),
-                            ],
-                            
-                          ),
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
+                      //MyBackButton(),
                       SizedBox(
                         height: 15,
                       ),
@@ -431,7 +411,7 @@ class _CreatenvpatientState extends State<Createnvpatient> {
                                 margin: EdgeInsets.fromLTRB(20, 10, 20, 20),
                                 width: width / 1.3,
                                 decoration: BoxDecoration(
-                                  color: LightColors.kBlue,
+                                  color: Colors.blue,
                                   borderRadius: BorderRadius.circular(30),
                                 ),
                               ),
@@ -443,8 +423,7 @@ class _CreatenvpatientState extends State<Createnvpatient> {
                   ),
                 ),
               ),
-            );
-          },
+            ),
         ),
       ),
     );
