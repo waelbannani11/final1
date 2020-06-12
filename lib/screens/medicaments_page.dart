@@ -3,7 +3,10 @@ import 'package:final1/models/medic.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import 'agenda.dart';
+import 'consultation_page.dart';
 import 'create_new_patient.dart';
+import 'create_new_rdv_page.dart';
 
 class Medicament extends StatefulWidget {
   @override
@@ -292,7 +295,7 @@ class _MedicamentState extends State<Medicament> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => Createnvpatient() 
+              builder: (context) => Consultation() 
             ),
           );
         },

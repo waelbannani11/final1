@@ -75,7 +75,7 @@ class CreateNewTaskPage extends StatelessWidget {
       return TextFormField(
         //initialValue: post.title,
         decoration: InputDecoration(
-            labelText: 'id',
+            labelText: 'patient id',
             border: new OutlineInputBorder(
                 borderRadius: new BorderRadius.circular(18.0),
                 borderSide: new BorderSide())),
@@ -213,41 +213,21 @@ class CreateNewTaskPage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.blue[100],
+      appBar: AppBar(
+        title: Text("Ajouter Rdv"),
+      ),
       body: SafeArea(
-        child: DraggableScrollableSheet(
-          initialChildSize: 1,
-          builder: (context, scrollController) {
-            return SingleChildScrollView(
-              controller: scrollController,
+        child: Container(
+            child: SingleChildScrollView(
               child: Container(
                 margin: EdgeInsets.all(24),
                 child: Form(
                   //key: _formKey,
                   child: Column(
                     children: <Widget>[
-                      MyBackButton(),
-                      Container(
-                        padding: EdgeInsets.all(0.0),
-                        height: 50,
-                        width: 100,
-                        child: Text(
-                          ' rendez-vous',
-                        ),
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: <Color>[
-                              Color(0xFF0D47A1),
-                              Color(0xFF1976D2),
-                              Color(0xFF42A5F5),
-                            ],
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
+                      //MyBackButton(),
                       buildid(),
-                      buildnumfiche(),
+                      //buildnumfiche(),
                       _buildnom(),
                       _buildprenom(),
                       builddatedeb(),
@@ -296,8 +276,8 @@ class CreateNewTaskPage extends StatelessWidget {
                   ),
                 ),
               ),
-            );
-          },
+            ),
+          
         ),
       ),
     );

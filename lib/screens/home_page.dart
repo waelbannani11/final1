@@ -10,7 +10,7 @@ import 'package:final1/widgets/top_container.dart';
 import 'Patient_page.dart';
 import 'consultation_page.dart';
 import 'agenda.dart';
-import 'create_new_task_page.dart';
+import 'create_new_rdv_page.dart';
 
 class HomePage extends StatelessWidget {
   Text subheading(String title) {
@@ -314,7 +314,7 @@ class HomePage extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => CreateNewTaskPage() ),
+                          builder: (context) => Consultation() ),
                         );  
                     },
                     child: Container(
@@ -398,13 +398,13 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                   InkWell(
-                   /* onTap: () {
+                    onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => () ),
+                          builder: (context) => CreateNewTaskPage() ),
                         );  
-                    },**/
+                    },
                     child: Container(
                       margin: EdgeInsets.symmetric(vertical: 10.0),
                       padding: EdgeInsets.all(15.0),
@@ -423,7 +423,7 @@ class HomePage extends StatelessWidget {
                             children: <Widget>[
                               Center(
                                 child: Text(
-                                  'in progress',
+                                  'Les rendez vous',
                                   style: TextStyle(
                                     fontSize: 14.0,
                                     color: Colors.white,
