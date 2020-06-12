@@ -317,7 +317,7 @@ class Consultation extends StatelessWidget {
                       buildpressionsyst(),
                       buildpressiondiast(),
                       buildtemperature(),
-                      buildtemperature(),
+                      //buildtemperature(),
                       buildpoids(),
                       buildtaille(),
                       buildrdvid(),
