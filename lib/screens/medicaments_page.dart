@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:final1/models/medic.dart';
+import 'package:final1/screens/create_new_medicament.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -295,7 +296,7 @@ class _MedicamentState extends State<Medicament> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => Consultation() 
+              builder: (context) => NewMedicament() 
             ),
           );
         },
