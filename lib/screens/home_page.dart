@@ -1,13 +1,10 @@
 import 'package:final1/Animations/FadeAnimation.dart';
-import 'package:final1/models/medic.dart';
 import 'package:final1/screens/medicaments_page.dart';
+import 'package:final1/screens/patient_screens/patient_page.dart';
 import 'package:flutter/material.dart';
-import 'package:final1/screens/calendar_page.dart';
 import 'package:final1/theme/colors/light_colors.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-import 'package:final1/widgets/active_project_card.dart';
 import 'package:final1/widgets/top_container.dart';
-import 'Patient_page.dart';
 import 'consultation_page.dart';
 import 'agenda.dart';
 import 'create_new_rdv_page.dart';
@@ -271,7 +268,7 @@ class HomePage extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) => Patients() ),
-                        );  
+                        );
                     },
                     child: Container(
                       margin: EdgeInsets.symmetric(vertical: 10.0),

@@ -6,7 +6,6 @@ import 'package:http/http.dart' as http;
 
 import 'agenda.dart';
 import 'consultation_page.dart';
-import 'create_new_patient.dart';
 import 'create_new_rdv_page.dart';
 
 class Medicament extends StatefulWidget {

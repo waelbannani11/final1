@@ -1,22 +1,21 @@
-import 'package:final1/screens/chercher_ajouter.dart';
-import 'package:final1/screens/create_new_patient.dart';
-import 'package:final1/screens/login.dart';
-import 'package:final1/screens/search.dart';
-import 'package:final1/widgets/Chercher_patient_button.dart';
+
 import 'package:flutter/material.dart';
 import 'package:final1/screens/home_page.dart';
 import 'package:final1/theme/colors/light_colors.dart';
 import 'package:flutter/services.dart';
-import 'widgets/top_container.dart';
+import 'package:get_it/get_it.dart';
+import 'models/patient_service.dart';
 
-
+void setupLocator() {
+  GetIt.I.registerLazySingleton(() => PatientService());
+}
 void main() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     systemNavigationBarColor: LightColors.kLightGreen, // navigation bar color
     statusBarColor: Colors.black, // status bar color
   ));
-
-  return runApp(MyApp());
+  setupLocator();
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {

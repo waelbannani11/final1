@@ -1,5 +1,5 @@
+import 'package:final1/screens/patient_screens/create_new_patient.dart';
 import 'package:flutter/material.dart';
-import 'package:final1/screens/create_new_patient.dart';
 
 class Nvpatient extends StatelessWidget {
   const Nvpatient({Key key}) : super(key: key);
