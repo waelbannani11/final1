@@ -1,7 +1,4 @@
-
-import 'package:flutter/material.dart';
-
-class Patient with ChangeNotifier   {
+class Patient {
   int idpatient;
   String nom;
   String prenom;
@@ -19,29 +16,6 @@ class Patient with ChangeNotifier   {
        statusmatriomo_id: json['statusmatriomo_id'],
     );
   }
-    /*Widget  _buildnom() {
-      return TextFormField(
-        initialValue: '',
-        decoration: InputDecoration(
-            labelText: 'nom',
-            border: new OutlineInputBorder(
-                borderRadius: new BorderRadius.circular(18.0),
-                borderSide: new BorderSide())),
-        maxLength: 20,
-        validator: (String value) {
-          if (value.isEmpty) {
-            return 'Name is Required';
-          }
-
-          return null;
-        },
-          onSaved: (String value) {
-           nom = value;
-          }
-       
-      );
-  }**/
-
 }
 
 

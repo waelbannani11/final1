@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'package:final1/models/patient.dart';
+import 'package:final1/models/patient_service.dart';
 import 'package:final1/screens/patient_screens/patient_delete.dart';
 import 'package:final1/screens/patient_screens/patient_modify.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 
 import 'create_new_patient.dart';
@@ -33,6 +35,8 @@ class _PatientsState extends State<Patients> {
       });
     }
   }
+
+  PatientService get service => GetIt.I<PatientService>();
 
   TextEditingController controller = new TextEditingController();
 
@@ -302,6 +306,7 @@ class _PatientsState extends State<Patients> {
                                   final result = await showDialog(
                                       context: context,
                                       builder: (_) => NoteDelete());
+
                                   print(result);
                                   return result;
                                 },
@@ -316,11 +321,11 @@ class _PatientsState extends State<Patients> {
                                 ),
                                 child: InkWell(
                                   onTap: () {
-                                    Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (_) => NoteModify(
-                                                noteID:
-                                                    (a.nom).toString())));
+                                    Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context)=>PatientModify(id: a.idpatient,nom: a.nom,prenom: a.prenom,),
+                                    ),
+                                  );
+
                                   },
                                   child: Row(
                                     children: <Widget>[
@@ -425,14 +430,17 @@ class _PatientsState extends State<Patients> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
+        onPressed:(){
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => Createnvpatient()),
+            MaterialPageRoute(
+              builder: (context) => Createnvpatient() 
+            ),
           );
         },
         child: Icon(Icons.add),
       ),
     );
+    
   }
 }

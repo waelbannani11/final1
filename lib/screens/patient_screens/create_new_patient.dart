@@ -1,3 +1,4 @@
+import 'package:final1/models/addpatient.dart';
 import 'package:final1/models/patient_service.dart';
 import 'package:final1/screens/calendar_page.dart';
 import 'package:flutter/material.dart';
@@ -8,43 +9,12 @@ import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 
 class Createnvpatient extends StatefulWidget {
-  final String idpatient;
-  Createnvpatient({this.idpatient});
+
   @override
   _CreatenvpatientState createState() => _CreatenvpatientState();
 }
 
 class _CreatenvpatientState extends State<Createnvpatient> {
-  bool get isEditing => widget.idpatient != null;
-  PatientService get patientServices => GetIt.I<PatientService>();
-
-  String errorMessage ; 
-  Patient patient ;
-  TextEditingController _idpatientcontroller = TextEditingController();
-  bool _isLoading = false;
-  @override 
-  void initState(){
-    setState(() {
-      _isLoading = true;
-      
-    });
-    patientServices.getPatientListid(widget.idpatient)
-    .then((response) {
-      setState(() {
-        _isLoading = false;
-      });
-      if(response.error){
-         errorMessage = response.error ?? 'An erreur occurred ';
-      }
-      //patient = response.data;
-      _idpatientcontroller.text=  (patient.idpatient).toString();
-
-
-    });
-    super.initState();
-  }
-
-
 
 
   int _groupValue = -1;
@@ -62,8 +32,14 @@ class _CreatenvpatientState extends State<Createnvpatient> {
     });
   }
 
+  PatientService get patientService => GetIt.I<PatientService>();
+  TextEditingController _idController = TextEditingController();
+  TextEditingController _nomController = TextEditingController();
+  TextEditingController _prenomController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+
 
     final _formKey = GlobalKey<FormState>();
     double width = MediaQuery.of(context).size.width;
@@ -74,7 +50,7 @@ class _CreatenvpatientState extends State<Createnvpatient> {
     //nom
     Widget _buildnom() {
       return TextFormField(
-        initialValue: '',
+        controller: _nomController,
         decoration: InputDecoration(
             labelText: 'nom',
             border: new OutlineInputBorder(
@@ -93,7 +69,7 @@ class _CreatenvpatientState extends State<Createnvpatient> {
     //prenom
     Widget _buildprenom() {
       return TextFormField(
-        initialValue: '',
+        controller: _prenomController,
         decoration: InputDecoration(
             labelText: 'prenom',
             border: new OutlineInputBorder(
@@ -113,13 +89,11 @@ class _CreatenvpatientState extends State<Createnvpatient> {
     Widget buildid() {
       return Padding(
         padding: const EdgeInsets.all(0.0),
-        child: _isLoading ? CircularProgressIndicator(): Column(
-          children: [
+        child:
             TextFormField(
-              controller:_idpatientcontroller ,
-              initialValue: '',
+              controller: _idController,
               decoration: InputDecoration(
-                  labelText: 'id',
+                  labelText: 'patientid',
                   border: new OutlineInputBorder(
                       borderRadius: new BorderRadius.circular(18.0),
                       borderSide: new BorderSide())),
@@ -131,8 +105,6 @@ class _CreatenvpatientState extends State<Createnvpatient> {
                 return null;
               },
             ),
-          ],
-        ),
       );
     }
 
@@ -372,7 +344,7 @@ class _CreatenvpatientState extends State<Createnvpatient> {
     return Scaffold(
       backgroundColor: Colors.blue[100],
       appBar: AppBar(
-        title: Text("Ajouter Patient"),
+        title: Text("Ajouter Patient "),
       ),
       body: SafeArea(
         child: Container(
@@ -400,16 +372,15 @@ class _CreatenvpatientState extends State<Createnvpatient> {
                     _buildadresse(),
                     _buildville(),
                     GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => CalendarPage()),
+                      onTap: () async{
+                        final patient = AddPatient(
+                          patientid: int.parse(_idController.text), 
+                          nom: _nomController.text, 
+                          prenom: _prenomController.text, 
+                          sex: "H", 
+                          statusmatriomo_id: 1
                         );
-                        if (!_formKey.currentState.validate()) {
-                          return;
-                        }
-                        _formKey.currentState.save();
+                        final result = await patientService.createPatient(patient);
                       },
                       child: Container(
                         height: 80,
