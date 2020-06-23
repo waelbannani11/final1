@@ -4,6 +4,7 @@ import 'package:final1/models/patient_service.dart';
 import 'package:final1/screens/patient_screens/patient_delete.dart';
 import 'package:final1/screens/patient_screens/patient_modify.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 
@@ -93,103 +94,6 @@ class _PatientsState extends State<Patients> {
                 ),
               ),
             ),
-            Row(
-              children: <Widget>[
-                SizedBox(height: 60),
-                Expanded(
-                  flex: 2,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                    child: Container(
-                      child: Center(
-                        child: Text(
-                          "Nom",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                      height: 50.0,
-                      decoration: new BoxDecoration(
-                        borderRadius: new BorderRadius.circular(25.0),
-                        color: Colors.blue,
-                        border: new Border.all(
-                          width: 2.0,
-                          color: Colors.blue,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(1, 0, 0, 0),
-                    child: Container(
-                      child: Center(
-                        child: Text(
-                          "Prenom",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                      height: 50.0,
-                      decoration: new BoxDecoration(
-                        borderRadius: new BorderRadius.circular(25.0),
-                        color: Colors.blue,
-                        border: new Border.all(
-                          width: 2.0,
-                          color: Colors.blue,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                    child: Container(
-                      child: Center(
-                        child: Text(
-                          "État Civil",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                      height: 50.0,
-                      decoration: new BoxDecoration(
-                        borderRadius: new BorderRadius.circular(25.0),
-                        color: Colors.blue,
-                        border: new Border.all(
-                          width: 2.0,
-                          color: Colors.blue,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                    child: Container(
-                      child: Center(
-                        child: Text(
-                          "Sex",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                      height: 50.0,
-                      decoration: new BoxDecoration(
-                        borderRadius: new BorderRadius.circular(25.0),
-                        color: Colors.blue,
-                        border: new Border.all(
-                          width: 2.0,
-                          color: Colors.blue,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
             loading
                 ? Padding(
                     padding: const EdgeInsets.all(50.0),
@@ -203,92 +107,59 @@ class _PatientsState extends State<Patients> {
                             itemCount: _search.length,
                             itemBuilder: (context, i) {
                               final b = _search[i];
-                              return Row(
-                                children: <Widget>[
-                                  Expanded(
-                                    flex: 2,
-                                    child: Padding(
-                                      padding:
-                                          const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                                      child: Container(
-                                        child: Center(
-                                          child: Text(b.nom),
-                                        ),
-                                        height: 50.0,
-                                        decoration: new BoxDecoration(
-                                          borderRadius:
-                                              new BorderRadius.circular(25.0),
-                                          border: new Border.all(
-                                            width: 2.0,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
+                              return Slidable(
+                                actionPane: SlidableDrawerActionPane(),
+                                actionExtentRatio: 0.25,
+                                child: ListTile(
+                                  leading: CircleAvatar(
+                                    backgroundColor: Color(0xffFDCF09),
+                                    radius: 20,
+                                    //backgroundColor: Colors.transparent,
+                                    backgroundImage: b.sex == 'H'
+                                        ? AssetImage('assets/images/boy.png')
+                                        : AssetImage('assets/images/girl.png'),
                                   ),
-                                  SizedBox(height: 60),
-                                  Expanded(
-                                    flex: 1,
-                                    child: Padding(
-                                      padding:
-                                          const EdgeInsets.fromLTRB(1, 0, 0, 0),
-                                      child: Container(
-                                        child: Center(
-                                          child: Text(b.prenom),
-                                        ),
-                                        height: 50.0,
-                                        decoration: new BoxDecoration(
-                                          borderRadius:
-                                              new BorderRadius.circular(25.0),
-                                          border: new Border.all(
-                                            width: 2.0,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
+                                  title: Text(b.nom),
+                                  trailing: IconButton(
+                                    icon: Icon(Icons.keyboard_arrow_right),
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => PatientModify(
+                                                  id: b.idpatient,
+                                                  nom: b.nom,
+                                                  prenom: b.prenom,
+                                                )),
+                                      );
+                                    },
                                   ),
-                                  Expanded(
-                                    flex: 1,
-                                    child: Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          10, 0, 0, 0),
-                                      child: Container(
-                                        child: Center(
-                                            child: Text((b.statusmatriomo_id)
-                                                .toString())),
-                                        height: 50.0,
-                                        decoration: new BoxDecoration(
-                                          borderRadius:
-                                              new BorderRadius.circular(25.0),
-                                          border: new Border.all(
-                                            width: 2.0,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
+                                  subtitle: Text((b.birthday.toString())),
+                                ),
+                                actions: <Widget>[
+                                  IconSlideAction(
+                                    caption: 'Modifier',
+                                    color: Colors.blue,
+                                    icon: Icons.more,
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => PatientModify(
+                                                  id: b.idpatient,
+                                                  nom: b.nom,
+                                                  prenom: b.prenom,
+                                                )),
+                                      );
+                                    },
                                   ),
-                                  Expanded(
-                                    flex: 1,
-                                    child: Padding(
-                                      padding:
-                                          const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                                      child: Container(
-                                        height: 50.0,
-                                        decoration: new BoxDecoration(
-                                          image: DecorationImage(
-                                            image: b.sex == 'H'
-                                                ? AssetImage(
-                                                    'assets/images/boy.png')
-                                                : AssetImage(
-                                                    'assets/images/girl.png'),
-                                          ),
-                                          borderRadius:
-                                              new BorderRadius.circular(25.0),
-                                        ),
-                                      ),
-                                    ),
+                                ],
+                                secondaryActions: <Widget>[
+                                  IconSlideAction(
+                                    caption: 'Supprimer',
+                                    color: Colors.red,
+                                    icon: Icons.delete,
+                                    //onTap: () => _showSnackBar('Delete'),
                                   ),
                                 ],
                               );
@@ -298,130 +169,61 @@ class _PatientsState extends State<Patients> {
                             itemCount: _list.length,
                             itemBuilder: (context, i) {
                               final a = _list[i];
-                              return Dismissible(
-                                key: ValueKey(a.nom),
-                                direction: DismissDirection.startToEnd,
-                                onDismissed: (direction) {},
-                                confirmDismiss: (direction) async {
-                                  final result = await showDialog(
-                                      context: context,
-                                      builder: (_) => NoteDelete());
-
-                                  print(result);
-                                  return result;
-                                },
-                                background: Container(
-                                  color: Colors.red,
-                                  padding: EdgeInsets.only(left: 16),
-                                  child: Align(
-                                    child:
-                                        Icon(Icons.delete, color: Colors.white),
-                                    alignment: Alignment.centerLeft,
+                              return Slidable(
+                                actionPane: SlidableDrawerActionPane(),
+                                actionExtentRatio: 0.25,
+                                child: ListTile(
+                                  leading: CircleAvatar(
+                                    backgroundColor: Color(0xffFDCF09),
+                                    radius: 20,
+                                    //backgroundColor: Colors.transparent,
+                                    backgroundImage: a.sex == 'H'
+                                        ? AssetImage('assets/images/boy.png')
+                                        : AssetImage('assets/images/girl.png'),
                                   ),
-                                ),
-                                child: InkWell(
-                                  onTap: () {
-                                    Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context)=>PatientModify(id: a.idpatient,nom: a.nom,prenom: a.prenom,),
-                                    ),
-                                  );
-
-                                  },
-                                  child: Row(
-                                    children: <Widget>[
-                                      Expanded(
-                                        flex: 2,
-                                        child: Padding(
-                                          padding: const EdgeInsets.fromLTRB(
-                                              5, 0, 5, 0),
-                                          child: Container(
-                                            child: Center(
-                                              child: Text(a.nom),
-                                            ),
-                                            height: 50.0,
-                                            decoration: new BoxDecoration(
-                                              borderRadius:
-                                                  new BorderRadius.circular(
-                                                      25.0),
-                                              border: new Border.all(
-                                                width: 2.0,
-                                                color: Colors.black,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(height: 60),
-                                      Expanded(
-                                        flex: 1,
-                                        child: Padding(
-                                          padding: const EdgeInsets.fromLTRB(
-                                              1, 0, 0, 0),
-                                          child: Container(
-                                            child: Center(
-                                              child: Text(a.prenom),
-                                            ),
-                                            height: 50.0,
-                                            decoration: new BoxDecoration(
-                                              borderRadius:
-                                                  new BorderRadius.circular(
-                                                      25.0),
-                                              border: new Border.all(
-                                                width: 2.0,
-                                                color: Colors.black,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        flex: 1,
-                                        child: Padding(
-                                          padding: const EdgeInsets.fromLTRB(
-                                              10, 0, 0, 0),
-                                          child: Container(
-                                            child: Center(
-                                                child: Text(
-                                                    (a.statusmatriomo_id)
-                                                        .toString())),
-                                            height: 50.0,
-                                            decoration: new BoxDecoration(
-                                              borderRadius:
-                                                  new BorderRadius.circular(
-                                                      25.0),
-                                              border: new Border.all(
-                                                width: 2.0,
-                                                color: Colors.black,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        flex: 1,
-                                        child: Padding(
-                                          padding: const EdgeInsets.fromLTRB(
-                                              5, 0, 5, 0),
-                                          child: Container(
-                                            height: 50.0,
-                                            decoration: new BoxDecoration(
-                                              image: DecorationImage(
-                                                image: a.sex == 'H'
-                                                    ? AssetImage(
-                                                        'assets/images/boy.png')
-                                                    : AssetImage(
-                                                        'assets/images/girl.png'),
-                                              ),
-                                              borderRadius:
-                                                  new BorderRadius.circular(
-                                                      25.0),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+                                  title: Text(a.nom),
+                                  trailing: IconButton(
+                                    icon: Icon(Icons.keyboard_arrow_right),
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => PatientModify(
+                                                  id: a.idpatient,
+                                                  nom: a.nom,
+                                                  prenom: a.prenom,
+                                                )),
+                                      );
+                                    },
                                   ),
+                                  subtitle: Text((a.birthday.toString())),
                                 ),
+                                actions: <Widget>[
+                                  IconSlideAction(
+                                    caption: 'Modifier',
+                                    color: Colors.blue,
+                                    icon: Icons.more,
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => PatientModify(
+                                                  id: a.idpatient,
+                                                  nom: a.nom,
+                                                  prenom: a.prenom,
+                                                )),
+                                      );
+                                    },
+                                  ),
+                                ],
+                                secondaryActions: <Widget>[
+                                  IconSlideAction(
+                                    caption: 'Supprimer',
+                                    color: Colors.red,
+                                    icon: Icons.delete,
+                                    //onTap: () => _showSnackBar('Delete'),
+                                  ),
+                                ],
                               );
                             },
                           ),
@@ -430,17 +232,14 @@ class _PatientsState extends State<Patients> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed:(){
+        onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
-              builder: (context) => Createnvpatient() 
-            ),
+            MaterialPageRoute(builder: (context) => Createnvpatient()),
           );
         },
         child: Icon(Icons.add),
       ),
     );
-    
   }
 }

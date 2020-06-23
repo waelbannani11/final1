@@ -4,8 +4,9 @@ class Patient {
   String prenom;
   String sex;
   int statusmatriomo_id;
+  DateTime birthday;
 
-  Patient({this.idpatient,this.nom, this.prenom,this.sex,this.statusmatriomo_id});
+  Patient({this.idpatient,this.nom, this.prenom,this.sex,this.statusmatriomo_id,this.birthday});
 
   factory Patient.formJson(Map <String, dynamic> json){
     return new Patient(
@@ -14,6 +15,7 @@ class Patient {
        prenom: json['prenom'],
        sex: json['sex'],
        statusmatriomo_id: json['statusmatriomo_id'],
+       birthday: json['birthday'],
     );
   }
 }
