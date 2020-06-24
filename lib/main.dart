@@ -1,4 +1,7 @@
 
+import 'package:final1/models/patient.dart';
+import 'package:final1/screens/login.dart';
+import 'package:final1/screens/patient_screens/patient_page.dart';
 import 'package:flutter/material.dart';
 import 'package:final1/screens/home_page.dart';
 import 'package:final1/theme/colors/light_colors.dart';
@@ -32,7 +35,7 @@ class MyApp extends StatelessWidget {
               fontFamily: 'Poppins'
             ),
       ),
-      home: HomePage(),
+      home: Login(),
       debugShowCheckedModeBanner: false,
     );
   }

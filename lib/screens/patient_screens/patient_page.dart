@@ -1,7 +1,11 @@
 import 'dart:convert';
+import 'package:final1/Animations/BouncyAnimation.dart';
+import 'package:final1/models/addpatient.dart';
+import 'package:final1/models/api_response.dart';
 import 'package:final1/models/patient.dart';
 import 'package:final1/models/patient_service.dart';
 import 'package:final1/screens/patient_screens/patient_delete.dart';
+import 'package:final1/screens/patient_screens/patient_info.dart';
 import 'package:final1/screens/patient_screens/patient_modify.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -16,10 +20,11 @@ class Patients extends StatefulWidget {
 }
 
 class _PatientsState extends State<Patients> {
+  PatientService get patientService => GetIt.I<PatientService>();
   List<Patient> _list = [];
   List<Patient> _search = [];
   var loading = false;
-  var url = 'http://10.0.3.2:5000/patien';
+  var url = 'http://10.0.3.2:5000/Patients';
   Future<Null> fetchData() async {
     setState(() {
       loading = true;
@@ -36,8 +41,6 @@ class _PatientsState extends State<Patients> {
       });
     }
   }
-
-  PatientService get service => GetIt.I<PatientService>();
 
   TextEditingController controller = new TextEditingController();
 
@@ -124,17 +127,25 @@ class _PatientsState extends State<Patients> {
                                     icon: Icon(Icons.keyboard_arrow_right),
                                     onPressed: () {
                                       Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => PatientModify(
-                                                  id: b.idpatient,
-                                                  nom: b.nom,
-                                                  prenom: b.prenom,
-                                                )),
-                                      );
+                                          context,
+                                          Bouncy(
+                                            widget: PatientInfo(
+                                              id: b.idpatient,
+                                              nom: b.nom,
+                                              prenom: b.prenom,
+                                              sex: b.sex,
+                                              profession: b.profession,
+                                              rue: b.rue,
+                                              ville: b.ville,
+                                              nationnalite: b.nationnalite,
+                                              tel_mobile: b.tel_mobile,
+                                              statusmatriomo_id:
+                                                  b.statusmatriomo_id,
+                                            ),
+                                          ));
                                     },
                                   ),
-                                  subtitle: Text((b.birthday.toString())),
+                                  subtitle: Text(b.prenom),
                                 ),
                                 actions: <Widget>[
                                   IconSlideAction(
@@ -159,7 +170,7 @@ class _PatientsState extends State<Patients> {
                                     caption: 'Supprimer',
                                     color: Colors.red,
                                     icon: Icons.delete,
-                                    //onTap: () => _showSnackBar('Delete'),
+                                    onTap: () {},
                                   ),
                                 ],
                               );
@@ -186,17 +197,25 @@ class _PatientsState extends State<Patients> {
                                     icon: Icon(Icons.keyboard_arrow_right),
                                     onPressed: () {
                                       Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => PatientModify(
-                                                  id: a.idpatient,
-                                                  nom: a.nom,
-                                                  prenom: a.prenom,
-                                                )),
-                                      );
+                                          context,
+                                          Bouncy(
+                                            widget: PatientInfo(
+                                              id: a.idpatient,
+                                              nom: a.nom,
+                                              prenom: a.prenom,
+                                              sex: a.sex,
+                                              profession: a.profession,
+                                              rue: a.rue,
+                                              ville: a.ville,
+                                              nationnalite: a.nationnalite,
+                                              tel_mobile: a.tel_mobile,
+                                              statusmatriomo_id:
+                                                  a.statusmatriomo_id,
+                                            ),
+                                          ));
                                     },
                                   ),
-                                  subtitle: Text((a.birthday.toString())),
+                                  subtitle: Text(a.prenom),
                                 ),
                                 actions: <Widget>[
                                   IconSlideAction(
