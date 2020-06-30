@@ -1,5 +1,4 @@
 import 'package:final1/Animations/FadeAnimation.dart';
-import 'package:final1/screens/medicaments_page.dart';
 import 'package:final1/screens/patient_screens/patient_page.dart';
 import 'package:flutter/material.dart';
 import 'package:final1/theme/colors/light_colors.dart';
@@ -8,6 +7,7 @@ import 'package:final1/widgets/top_container.dart';
 import 'consultation_page.dart';
 import 'agenda.dart';
 import 'create_new_rdv_page.dart';
+import 'medicament_screens/medicaments_page.dart';
 
 class HomePage extends StatelessWidget {
   Text subheading(String title) {

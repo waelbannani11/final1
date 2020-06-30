@@ -4,9 +4,9 @@ import 'package:final1/screens/create_new_medicament.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-import 'agenda.dart';
-import 'consultation_page.dart';
-import 'create_new_rdv_page.dart';
+import '../agenda.dart';
+import '../consultation_page.dart';
+import '../create_new_rdv_page.dart';
 
 class Medicament extends StatefulWidget {
   @override
@@ -17,14 +17,13 @@ class _MedicamentState extends State<Medicament> {
   List<Medic> _list = [];
   List<Medic> _search = [];
   var loading = false;
-  var url = 'http://10.0.3.2:5000/medic';
+  var url = 'http://10.0.3.2:5000/Medicaments';
   Future<Null> fetchData() async {
     setState(() {
       loading = true;
     });
     _list.clear();
-    var response =
-        await http.get(url);
+    var response = await http.get(url);
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       setState(() {
@@ -45,8 +44,8 @@ class _MedicamentState extends State<Medicament> {
       return;
     }
 
-    _list.forEach((f) { 
-      if ( f.DESIGN.contains(text) || f.DESIGN.toLowerCase().contains(text))
+    _list.forEach((f) {
+      if (f.DESIGN.contains(text) || f.DESIGN.toLowerCase().contains(text))
         _search.add(f);
     });
     setState(() {});
@@ -57,6 +56,7 @@ class _MedicamentState extends State<Medicament> {
     super.initState();
     fetchData();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,17 +87,44 @@ class _MedicamentState extends State<Medicament> {
                   ),
                 ),
               ),
-              
             ),
             Row(
               children: <Widget>[
-                SizedBox(height:60),
+                SizedBox(height: 60),
                 Expanded(
-                  flex: 2,
+                  flex: 1,
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
                     child: Container(
-                      child:Center(child: Text("Nom",style: TextStyle(color:Colors.white),),), 
+                      child: Center(
+                        child: Text(
+                          "Labo",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                      height: 50.0,
+                      decoration: new BoxDecoration(
+                        borderRadius: new BorderRadius.circular(25.0),
+                        color: Colors.blue,
+                        border: new Border.all(
+                          width: 2.0,
+                          color: Colors.blue,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 3,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                    child: Container(
+                      child: Center(
+                        child: Text(
+                          "Nom",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
                       height: 50.0,
                       decoration: new BoxDecoration(
                         borderRadius: new BorderRadius.circular(25.0),
@@ -113,48 +140,35 @@ class _MedicamentState extends State<Medicament> {
                 Expanded(
                   flex: 1,
                   child: Padding(
-                  padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                  child: Container(
-                    child:Center(child: Text("Labo",style: TextStyle(color:Colors.white),),), 
-                    height: 50.0,
-                    decoration: new BoxDecoration(
-                    borderRadius: new BorderRadius.circular(25.0),
-                    color: Colors.blue,
-                    border: new Border.all(
-                      width: 2.0,
-                      color: Colors.blue,
+                    padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                    child: Container(
+                      child: Center(
+                        child: Text(
+                          "Prix",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                      height: 50.0,
+                      decoration: new BoxDecoration(
+                        borderRadius: new BorderRadius.circular(25.0),
+                        color: Colors.blue,
+                        border: new Border.all(
+                          width: 2.0,
+                          color: Colors.blue,
                         ),
                       ),
                     ),
                   ),
                 ),
-                Expanded(
-                  flex: 1,
-                  child: Padding(
-                  padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                  child: Container(
-                    child:Center(child: Text("Prix",style: TextStyle(color:Colors.white),),), 
-                    height: 50.0,
-                    decoration: new BoxDecoration(
-                    borderRadius: new BorderRadius.circular(25.0),
-                    color: Colors.blue,
-                    border: new Border.all(
-                      width: 2.0,
-                      color: Colors.blue,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-            ],
-          ),                 
+              ],
+            ),
             loading
                 ? Padding(
-                  padding: const EdgeInsets.all(50.0),
-                  child: Center(
+                    padding: const EdgeInsets.all(50.0),
+                    child: Center(
                       child: CircularProgressIndicator(),
                     ),
-                )
+                  )
                 : Expanded(
                     child: _search.length != 0 || controller.text.isNotEmpty
                         ? ListView.builder(
@@ -166,15 +180,20 @@ class _MedicamentState extends State<Medicament> {
                                   Expanded(
                                     flex: 2,
                                     child: Padding(
-                                      padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                                      padding:
+                                          const EdgeInsets.fromLTRB(5, 0, 5, 0),
                                       child: Container(
-                                        child:Center(child: Padding(
-                                          padding: const EdgeInsets.fromLTRB(15, 0, 5, 0),
-                                          child: Text(b.DESIGN),
-                                        ),), 
+                                        child: Center(
+                                          child: Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                15, 0, 5, 0),
+                                            child: Text(b.DESIGN),
+                                          ),
+                                        ),
                                         height: 50.0,
                                         decoration: new BoxDecoration(
-                                          borderRadius: new BorderRadius.circular(25.0),
+                                          borderRadius:
+                                              new BorderRadius.circular(25.0),
                                           border: new Border.all(
                                             width: 2.0,
                                             color: Colors.black,
@@ -182,16 +201,21 @@ class _MedicamentState extends State<Medicament> {
                                         ),
                                       ),
                                     ),
-                                  ),SizedBox(height:60),
+                                  ),
+                                  SizedBox(height: 60),
                                   Expanded(
                                     flex: 1,
                                     child: Padding(
-                                      padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                                      padding:
+                                          const EdgeInsets.fromLTRB(5, 0, 5, 0),
                                       child: Container(
-                                        child:Center(child: Text(b.LABO),), 
+                                        child: Center(
+                                          child: Text(b.LABO),
+                                        ),
                                         height: 50.0,
                                         decoration: new BoxDecoration(
-                                          borderRadius: new BorderRadius.circular(25.0),
+                                          borderRadius:
+                                              new BorderRadius.circular(25.0),
                                           border: new Border.all(
                                             width: 2.0,
                                             color: Colors.black,
@@ -203,12 +227,16 @@ class _MedicamentState extends State<Medicament> {
                                   Expanded(
                                     flex: 1,
                                     child: Padding(
-                                      padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                                      padding:
+                                          const EdgeInsets.fromLTRB(5, 0, 5, 0),
                                       child: Container(
-                                        child:Center(child: Text((b.PRIX_REMB).toString()),), 
+                                        child: Center(
+                                          child: Text((b.PRIX_REMB).toString()),
+                                        ),
                                         height: 50.0,
                                         decoration: new BoxDecoration(
-                                          borderRadius: new BorderRadius.circular(25.0),
+                                          borderRadius:
+                                              new BorderRadius.circular(25.0),
                                           border: new Border.all(
                                             width: 2.0,
                                             color: Colors.black,
@@ -225,63 +253,59 @@ class _MedicamentState extends State<Medicament> {
                             itemCount: _list.length,
                             itemBuilder: (context, i) {
                               final a = _list[i];
-                              return Row(
-                                children: <Widget>[
-                                  Expanded(
-                                    flex: 2,
-                                    child: Padding(
-                                      padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                                      child: Container(
-                                        child:Center(child: Padding(
-                                          padding: const EdgeInsets.fromLTRB(15, 0, 5, 0),
-                                          child: Text(a.DESIGN),
-                                        ),), 
-                                        height: 50.0,
-                                        decoration: new BoxDecoration(
-                                          borderRadius: new BorderRadius.circular(25.0),
-                                          border: new Border.all(
-                                            width: 2.0,
-                                            color: Colors.black,
-                                          ),
+                              return Table(
+                                border: TableBorder(
+                                  left: BorderSide.none,
+                                  right: BorderSide.none,
+                                  top: BorderSide.none,
+                                  bottom: BorderSide(width: 1)
+                                
+                                ),
+                                children:[
+                                  TableRow(
+                                    children: [
+                                      TableCell(
+                                        child: Row(
+                                          children:<Widget>[
+                                            Expanded(
+                                              flex: 1,
+                                              child:Text(a.LABO)
+                                            ),
+                                            
+                                          ],
                                         ),
                                       ),
-                                    ),
-                                  ),SizedBox(height:60),
-                                  Expanded(
-                                    flex: 1,
-                                    child: Padding(
-                                      padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                                      child: Container(
-                                        child:Center(child: Text(a.LABO),), 
-                                        height: 50.0,
-                                        decoration: new BoxDecoration(
-                                          borderRadius: new BorderRadius.circular(25.0),
-                                          border: new Border.all(
-                                            width: 2.0,
-                                            color: Colors.black,
-                                          ),
+                                      TableCell(
+                                        child: Row(
+                                          children:<Widget>[
+
+                                            Expanded(
+                                              flex: 3,
+                                              child:Text(a.DESIGN)
+                                            ),
+                                            
+                                          ],
                                         ),
                                       ),
-                                    ),
+
+                                      TableCell(
+                                        child: Row(
+                                          children:<Widget>[
+                                            Padding(
+                                              padding: const EdgeInsets.only(left:40.0),
+                                              child: Expanded(
+                                                flex: 1,
+                                                child:Text((a.PRIX_REMB.toString()))
+                                              ),
+                                            ),
+                                            
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+
                                   ),
-                                  Expanded(
-                                    flex: 1,
-                                    child: Padding(
-                                      padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                                      child: Container(
-                                        child:Center(child: Text((a.PRIX_REMB).toString()),), 
-                                        height: 50.0,
-                                        decoration: new BoxDecoration(
-                                          borderRadius: new BorderRadius.circular(25.0),
-                                          border: new Border.all(
-                                            width: 2.0,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  
+
                                 ],
                               );
                             },
@@ -291,12 +315,10 @@ class _MedicamentState extends State<Medicament> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed:(){
+        onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
-              builder: (context) => NewMedicament() 
-            ),
+            MaterialPageRoute(builder: (context) => NewMedicament()),
           );
         },
         child: Icon(Icons.add),

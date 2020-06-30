@@ -1,4 +1,4 @@
-import 'package:final1/screens/medicaments_page.dart';
+import 'package:final1/screens/medicament_screens/medicaments_page.dart';
 import 'package:final1/screens/search.dart';
 import 'package:flutter/material.dart';
 
