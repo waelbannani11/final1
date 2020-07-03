@@ -4,7 +4,6 @@ import 'package:final1/models/addpatient.dart';
 import 'package:final1/models/api_response.dart';
 import 'package:final1/models/patient.dart';
 import 'package:final1/models/patient_service.dart';
-import 'package:final1/screens/patient_screens/patient_delete.dart';
 import 'package:final1/screens/patient_screens/patient_info.dart';
 import 'package:final1/screens/patient_screens/patient_modify.dart';
 import 'package:flutter/material.dart';
@@ -69,9 +68,17 @@ class _PatientsState extends State<Patients> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Les Patients"),
-      ),
+      appBar: AppBar(title: Text("Les Patients"), actions: <Widget>[
+        IconButton(
+          icon: Icon(Icons.restore_page),
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => Patients()),
+            );
+          },
+        ),
+      ]),
       body: Container(
         child: Column(
           children: <Widget>[
@@ -160,6 +167,11 @@ class _PatientsState extends State<Patients> {
                                                   id: b.idpatient,
                                                   nom: b.nom,
                                                   prenom: b.prenom,
+                                                  profession: b.profession,
+                                                  rue: b.rue,
+                                                  ville: b.ville,
+                                                  nationnalite: b.nationnalite,
+                                                  tel_mobile: b.tel_mobile,
                                                 )),
                                       );
                                     },
@@ -167,11 +179,21 @@ class _PatientsState extends State<Patients> {
                                 ],
                                 secondaryActions: <Widget>[
                                   IconSlideAction(
-                                    caption: 'Supprimer',
-                                    color: Colors.red,
-                                    icon: Icons.delete,
-                                    onTap: () {},
-                                  ),
+                                      caption: 'Supprimer',
+                                      color: Colors.red,
+                                      icon: Icons.delete,
+                                      onTap: () async {
+                                        final patient = AddPatient(
+                                          patientid: b.idpatient,
+                                        );
+                                        final deleteresult = patientService
+                                            .deletePatient(patient);
+                                        Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => Patients()),
+                                        );
+                                      }),
                                 ],
                               );
                             },
@@ -230,6 +252,11 @@ class _PatientsState extends State<Patients> {
                                                   id: a.idpatient,
                                                   nom: a.nom,
                                                   prenom: a.prenom,
+                                                  profession: a.profession,
+                                                  rue: a.rue,
+                                                  ville: a.ville,
+                                                  nationnalite: a.nationnalite,
+                                                  tel_mobile: a.tel_mobile,
                                                 )),
                                       );
                                     },
@@ -237,11 +264,21 @@ class _PatientsState extends State<Patients> {
                                 ],
                                 secondaryActions: <Widget>[
                                   IconSlideAction(
-                                    caption: 'Supprimer',
-                                    color: Colors.red,
-                                    icon: Icons.delete,
-                                    //onTap: () => _showSnackBar('Delete'),
-                                  ),
+                                      caption: 'Supprimer',
+                                      color: Colors.red,
+                                      icon: Icons.delete,
+                                      onTap: () async {
+                                        final patient = AddPatient(
+                                          patientid: a.idpatient,
+                                        );
+                                        final deleteresult = patientService
+                                            .deletePatient(patient);
+                                        Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => Patients()),
+                                        );
+                                      })
                                 ],
                               );
                             },

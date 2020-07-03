@@ -7,10 +7,12 @@ import 'package:final1/screens/home_page.dart';
 import 'package:final1/theme/colors/light_colors.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
+import 'models/medicament_service.dart';
 import 'models/patient_service.dart';
 
 void setupLocator() {
   GetIt.I.registerLazySingleton(() => PatientService());
+  GetIt.I.registerLazySingleton(() => MedicamentService());
 }
 void main() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(

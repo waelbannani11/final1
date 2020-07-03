@@ -1,12 +1,15 @@
 import 'dart:convert';
+import 'package:final1/models/addmedic.dart';
 import 'package:final1/models/medic.dart';
-import 'package:final1/screens/create_new_medicament.dart';
+import 'package:final1/models/medicament_service.dart';
+import 'package:final1/models/patient_service.dart';
+import 'package:final1/screens/medicament_screens/medicamen_modify.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 
-import '../agenda.dart';
-import '../consultation_page.dart';
-import '../create_new_rdv_page.dart';
+import 'create_new_medicament.dart';
 
 class Medicament extends StatefulWidget {
   @override
@@ -50,6 +53,7 @@ class _MedicamentState extends State<Medicament> {
     });
     setState(() {});
   }
+  MedicamentService get medicService =>GetIt.I<MedicamentService>();
 
   @override
   void initState() {
@@ -60,9 +64,17 @@ class _MedicamentState extends State<Medicament> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Les Médicaments"),
-      ),
+      appBar: AppBar(title: Text("Les Médicaments"), actions: <Widget>[
+        IconButton(
+          icon: Icon(Icons.restore_page),
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => Medicament()),
+            );
+          },
+        ),
+      ]),
       body: Container(
         child: Column(
           children: <Widget>[
@@ -88,77 +100,71 @@ class _MedicamentState extends State<Medicament> {
                 ),
               ),
             ),
-            Row(
+            Column(
               children: <Widget>[
-                SizedBox(height: 60),
-                Expanded(
-                  flex: 1,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                    child: Container(
-                      child: Center(
-                        child: Text(
-                          "Labo",
-                          style: TextStyle(color: Colors.white),
+                Table(
+                  border: TableBorder(
+                      left: BorderSide.none,
+                      right: BorderSide.none,
+                      top: BorderSide.none,
+                      bottom: BorderSide(width: 0.5)),
+                  children: [
+                    TableRow(
+                      children: [
+                        TableCell(
+                          child: Row(
+                            children: <Widget>[
+                              Expanded(
+                                flex: 1,
+                                child: Text(
+                                  "LABO",
+                                  style: TextStyle(
+                                    decoration: TextDecoration.underline,
+                                    fontStyle: FontStyle.italic,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      height: 50.0,
-                      decoration: new BoxDecoration(
-                        borderRadius: new BorderRadius.circular(25.0),
-                        color: Colors.blue,
-                        border: new Border.all(
-                          width: 2.0,
-                          color: Colors.blue,
+                        TableCell(
+                          child: Row(
+                            children: <Widget>[
+                              Expanded(
+                                flex: 4,
+                                child: Text(
+                                  "NOM",
+                                  style: TextStyle(
+                                    decoration: TextDecoration.underline,
+                                    fontStyle: FontStyle.italic,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
+                        TableCell(
+                          child: Row(
+                            children: <Widget>[
+                              Expanded(
+                                flex: 1,
+                                child: Text(
+                                  "FAMILLE",
+                                  style: TextStyle(
+                                    decoration: TextDecoration.underline,
+                                    fontStyle: FontStyle.italic,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ),
-                Expanded(
-                  flex: 3,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                    child: Container(
-                      child: Center(
-                        child: Text(
-                          "Nom",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                      height: 50.0,
-                      decoration: new BoxDecoration(
-                        borderRadius: new BorderRadius.circular(25.0),
-                        color: Colors.blue,
-                        border: new Border.all(
-                          width: 2.0,
-                          color: Colors.blue,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                    child: Container(
-                      child: Center(
-                        child: Text(
-                          "Prix",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                      height: 50.0,
-                      decoration: new BoxDecoration(
-                        borderRadius: new BorderRadius.circular(25.0),
-                        color: Colors.blue,
-                        border: new Border.all(
-                          width: 2.0,
-                          color: Colors.blue,
-                        ),
-                      ),
-                    ),
-                  ),
+                  ],
                 ),
               ],
             ),
@@ -175,77 +181,88 @@ class _MedicamentState extends State<Medicament> {
                             itemCount: _search.length,
                             itemBuilder: (context, i) {
                               final b = _search[i];
-                              return Row(
-                                children: <Widget>[
-                                  Expanded(
-                                    flex: 2,
-                                    child: Padding(
-                                      padding:
-                                          const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                                      child: Container(
-                                        child: Center(
-                                          child: Padding(
-                                            padding: const EdgeInsets.fromLTRB(
-                                                15, 0, 5, 0),
-                                            child: Text(b.DESIGN),
-                                          ),
-                                        ),
-                                        height: 50.0,
-                                        decoration: new BoxDecoration(
-                                          borderRadius:
-                                              new BorderRadius.circular(25.0),
-                                          border: new Border.all(
-                                            width: 2.0,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(height: 60),
-                                  Expanded(
-                                    flex: 1,
-                                    child: Padding(
-                                      padding:
-                                          const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                                      child: Container(
-                                        child: Center(
-                                          child: Text(b.LABO),
-                                        ),
-                                        height: 50.0,
-                                        decoration: new BoxDecoration(
-                                          borderRadius:
-                                              new BorderRadius.circular(25.0),
-                                          border: new Border.all(
-                                            width: 2.0,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    flex: 1,
-                                    child: Padding(
-                                      padding:
-                                          const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                                      child: Container(
-                                        child: Center(
-                                          child: Text((b.PRIX_REMB).toString()),
-                                        ),
-                                        height: 50.0,
-                                        decoration: new BoxDecoration(
-                                          borderRadius:
-                                              new BorderRadius.circular(25.0),
-                                          border: new Border.all(
-                                            width: 2.0,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
+                              return Slidable(
+                                actionPane: SlidableDrawerActionPane(),
+                                actionExtentRatio: 0.25,
+                                actions: <Widget>[
+                                  IconSlideAction(
+                                    caption: 'Modifier',
+                                    color: Colors.blue,
+                                    icon: Icons.more,
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                MedicamentModify(
+                                                  id: b.ID,
+                                                  DESIGN: b.DESIGN,
+                                                  LABO: b.LABO,
+                                                  FAMILLE: b.FAMILLE,
+                                                )),
+                                      );
+                                    },
                                   ),
                                 ],
+                                secondaryActions: <Widget>[
+                                  IconSlideAction(
+                                    caption: 'Supprimer',
+                                    color: Colors.red,
+                                    icon: Icons.delete,
+                                    onTap: () async {
+                                        final medic = AddMedic(
+                                          ID: b.ID,
+                                        );
+                                        final deleteresult = medicService
+                                            .deleteMedic(medic);
+                                        Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => Medicament()),
+                                        );
+                                      }
+                                  ),
+                                ],
+                                child: Table(
+                                  border: TableBorder(
+                                      left: BorderSide.none,
+                                      right: BorderSide.none,
+                                      top: BorderSide.none,
+                                      bottom: BorderSide(width: 0.5)),
+                                  children: [
+                                    TableRow(
+                                      children: [
+                                        TableCell(
+                                          child: Row(
+                                            children: <Widget>[
+                                              Expanded(
+                                                  flex: 1, child: Text(b.LABO)),
+                                            ],
+                                          ),
+                                        ),
+                                        TableCell(
+                                          child: Row(
+                                            children: <Widget>[
+                                              Expanded(
+                                                  flex: 4,
+                                                  child: Text(b.DESIGN)),
+                                            ],
+                                          ),
+                                        ),
+                                        TableCell(
+                                          child: Row(
+                                            children: <Widget>[
+                                              Expanded(
+                                                  flex: 1,
+                                                  child: Text(
+                                                      (b.FAMILLE).toString())),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               );
                             },
                           )
@@ -253,60 +270,88 @@ class _MedicamentState extends State<Medicament> {
                             itemCount: _list.length,
                             itemBuilder: (context, i) {
                               final a = _list[i];
-                              return Table(
-                                border: TableBorder(
-                                  left: BorderSide.none,
-                                  right: BorderSide.none,
-                                  top: BorderSide.none,
-                                  bottom: BorderSide(width: 1)
-                                
-                                ),
-                                children:[
-                                  TableRow(
-                                    children: [
-                                      TableCell(
-                                        child: Row(
-                                          children:<Widget>[
-                                            Expanded(
-                                              flex: 1,
-                                              child:Text(a.LABO)
-                                            ),
-                                            
-                                          ],
-                                        ),
-                                      ),
-                                      TableCell(
-                                        child: Row(
-                                          children:<Widget>[
-
-                                            Expanded(
-                                              flex: 3,
-                                              child:Text(a.DESIGN)
-                                            ),
-                                            
-                                          ],
-                                        ),
-                                      ),
-
-                                      TableCell(
-                                        child: Row(
-                                          children:<Widget>[
-                                            Padding(
-                                              padding: const EdgeInsets.only(left:40.0),
-                                              child: Expanded(
-                                                flex: 1,
-                                                child:Text((a.PRIX_REMB.toString()))
-                                              ),
-                                            ),
-                                            
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-
+                              return Slidable(
+                                actionPane: SlidableDrawerActionPane(),
+                                actionExtentRatio: 0.25,
+                                actions: <Widget>[
+                                  IconSlideAction(
+                                    caption: 'Modifier',
+                                    color: Colors.blue,
+                                    icon: Icons.more,
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                MedicamentModify(
+                                                  id: a.ID,
+                                                  DESIGN: a.DESIGN,
+                                                  LABO: a.LABO,
+                                                  FAMILLE: a.FAMILLE,
+                                                )),
+                                      );
+                                    },
                                   ),
-
                                 ],
+                                secondaryActions: <Widget>[
+                                  IconSlideAction(
+                                    caption: 'Supprimer',
+                                    color: Colors.red,
+                                    icon: Icons.delete,
+                                    onTap: () async {
+                                        final medic = AddMedic(
+                                          ID: a.ID,
+                                        );
+                                        final deleteresult = medicService
+                                            .deleteMedic(medic);
+                                        Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => Medicament()),
+                                        );
+                                      }
+                                  ),
+                                ],
+                                child: Table(
+                                  border: TableBorder(
+                                      left: BorderSide.none,
+                                      right: BorderSide.none,
+                                      top: BorderSide.none,
+                                      bottom: BorderSide(width: 0.5)),
+                                  children: [
+                                    TableRow(
+                                      children: [
+                                        TableCell(
+                                          child: Row(
+                                            children: <Widget>[
+                                              Expanded(
+                                                  flex: 1, child: Text(a.LABO)),
+                                            ],
+                                          ),
+                                        ),
+                                        TableCell(
+                                          child: Row(
+                                            children: <Widget>[
+                                              Expanded(
+                                                  flex: 4,
+                                                  child: Text(a.DESIGN)),
+                                            ],
+                                          ),
+                                        ),
+                                        TableCell(
+                                          child: Row(
+                                            children: <Widget>[
+                                              Expanded(
+                                                  flex: 1,
+                                                  child: Text(
+                                                      (a.FAMILLE).toString())),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               );
                             },
                           ),

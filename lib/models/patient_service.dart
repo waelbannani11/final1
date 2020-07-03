@@ -44,6 +44,17 @@ class PatientService {
   }
 
 
+  Future<APIResponse<bool>> deletePatient(AddPatient item) {
+    return http.put(API + '/Delete',body :json.encode(item.toJson())  ,headers: {"Content-Type": "application/json"},).then((data) {
+      if (data.statusCode == 200) {
+        return APIResponse<bool>(data: true);
+      }
+      return APIResponse<bool>(error: true, errorMessage: 'An error occured');
+    })
+    .catchError((_) => APIResponse<bool>(error: true, errorMessage: 'An error occured'));
+  }
+
+
 
 
 

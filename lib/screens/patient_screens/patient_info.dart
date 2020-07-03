@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:slimy_card/slimy_card.dart';
 
 class PatientInfo extends StatefulWidget {
@@ -160,7 +161,7 @@ class _PatientInfoState extends State<PatientInfo> {
                 ),
               ),
               Text(
-                "19/05/2020",
+                 "15/08/1995",
                 style: TextStyle(color: Colors.white, fontSize: 15),
               ),
             ],
@@ -225,7 +226,7 @@ class _PatientInfoState extends State<PatientInfo> {
               Padding(
                 padding: const EdgeInsets.only(right: 10),
                 child: Icon(
-                  Icons.phone_iphone,
+                  Icons.person_pin,
                   color: Colors.white,
                   size: 15.0,
                 ),

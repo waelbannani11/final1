@@ -9,9 +9,13 @@ class Patient {
   String ville;
   int statusmatriomo_id ;
   String tel_mobile ;
+  String numfiche;
+  String code_Year;
+  
+  
   
 
-  Patient({this.idpatient,this.nom, this.prenom,this.sex, this.profession,this.rue,this.nationnalite,this.ville,this.statusmatriomo_id,this.tel_mobile});
+  Patient({this.idpatient,this.nom, this.prenom,this.sex, this.profession,this.rue,this.nationnalite,this.ville,this.statusmatriomo_id,this.tel_mobile,this.numfiche ,this.code_Year});
 
   factory Patient.formJson(Map <String, dynamic> json){
     return new Patient(
@@ -25,6 +29,8 @@ class Patient {
        ville: json['ville'],
        statusmatriomo_id: json['statusmatriomo_id'],
        tel_mobile: json['tel_mobile'],
+       numfiche: json['numfiche'],
+       code_Year: json['code_Year'],
     );
   }
 }

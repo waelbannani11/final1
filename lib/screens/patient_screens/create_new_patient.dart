@@ -7,6 +7,7 @@ import 'package:final1/widgets/back_button.dart';
 import 'package:final1/models/patient.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
+import 'package:string_validator/string_validator.dart';
 
 class Createnvpatient extends StatefulWidget {
 
@@ -17,18 +18,18 @@ class Createnvpatient extends StatefulWidget {
 class _CreatenvpatientState extends State<Createnvpatient> {
 
 
-  int _groupValue = -1;
-  int _groupValue1 = -1;
+  String groupValue ='M';
+  int groupValue1 = 1;
 
-  void _handleRadioValueChanged(int value) {
+  void handleRadioValueChanged(String value) {
     setState(() {
-      this._groupValue = value;
+      this.groupValue = value;
     });
   }
 
-  void _handleRadioValueChangedd(int value) {
+  void handleRadioValueChangedd(int value) {
     setState(() {
-      this._groupValue1 = value;
+      this.groupValue1 = value;
     });
   }
 
@@ -36,6 +37,14 @@ class _CreatenvpatientState extends State<Createnvpatient> {
   TextEditingController _idController = TextEditingController();
   TextEditingController _nomController = TextEditingController();
   TextEditingController _prenomController = TextEditingController();
+  TextEditingController _nationnaliteConttoller = TextEditingController();
+  TextEditingController _villeConttoller = TextEditingController();
+  TextEditingController _professionConttoller = TextEditingController();
+  TextEditingController _tel_mobileConttoller = TextEditingController();
+  TextEditingController _rueConttoller = TextEditingController();
+  TextEditingController _codeyearConttoller = TextEditingController();
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +52,8 @@ class _CreatenvpatientState extends State<Createnvpatient> {
 
     final _formKey = GlobalKey<FormState>();
     double width = MediaQuery.of(context).size.width;
-    final List countryList = ['celeb', 'marie', 'diforce'];
 
-    
+
 
     //nom
     Widget _buildnom() {
@@ -57,9 +65,9 @@ class _CreatenvpatientState extends State<Createnvpatient> {
                 borderRadius: new BorderRadius.circular(18.0),
                 borderSide: new BorderSide())),
         maxLength: 20,
-        validator: (String value) {
-          if (value.isEmpty) {
-            return 'Name is Required';
+        validator: (String value ) {
+          if ((value.isEmpty) || (isNumeric(value))) {
+            return 'nom is Required';
           }
           return null;
         },
@@ -77,8 +85,8 @@ class _CreatenvpatientState extends State<Createnvpatient> {
                 borderSide: new BorderSide())),
         maxLength: 20,
         validator: (String value) {
-          if (value.isEmpty) {
-            return 'lastname is Required';
+          if ((value.isEmpty) || (isNumeric(value))) {
+            return 'prenom is Required';
           }
           return null;
         },
@@ -89,46 +97,27 @@ class _CreatenvpatientState extends State<Createnvpatient> {
     Widget buildid() {
       return Padding(
         padding: const EdgeInsets.all(0.0),
-        child:
-            TextFormField(
-              controller: _idController,
-              decoration: InputDecoration(
-                  labelText: 'patientid',
-                  border: new OutlineInputBorder(
-                      borderRadius: new BorderRadius.circular(18.0),
-                      borderSide: new BorderSide())),
-              maxLength: 20,
-              validator: (String value) {
-                if (value.isEmpty) {
-                  return 'id is Required';
-                }
-                return null;
-              },
-            ),
+        child: TextFormField(
+          controller: _idController,
+          decoration: InputDecoration(
+              labelText: 'idpatient',
+              border: new OutlineInputBorder(
+                  borderRadius: new BorderRadius.circular(18.0),
+                  borderSide: new BorderSide())),
+          maxLength: 20,
+          validator: (String value) {
+            if ((value.isEmpty) || !(isNumeric(value))) {
+              return 'id is Required';
+            }
+            return null;
+          },
+        ),
       );
     }
 
-    //code
-    Widget buildnumfiche() {
-      return TextFormField(
-        initialValue: '',
-        decoration: InputDecoration(
-            labelText: 'Num_fiche',
-            border: new OutlineInputBorder(
-                borderRadius: new BorderRadius.circular(18.0),
-                borderSide: new BorderSide())),
-        maxLength: 30,
-        validator: (String value) {
-          if (value.isEmpty) {
-            return 'Num_fiche is Required';
-          }
-          return null;
-        },
-      );
-    }
     //deb
 
-    Widget builddatenai() {
+    Widget _builddatenai() {
       return TextFormField(
         initialValue: '',
         decoration: InputDecoration(
@@ -138,94 +127,13 @@ class _CreatenvpatientState extends State<Createnvpatient> {
                 borderSide: new BorderSide())),
         keyboardType: TextInputType.datetime,
         maxLength: 10,
-        validator: (String value) {
-          if (value.isEmpty) {
-            return 'date de naissance is Required';
-          }
-          return null;
-        },
       );
     }
 
-    //gender
-    Widget _genderRadio(int groupValue, handleRadioValueChanged) =>
-        Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
-          Text(
-            'Sexe',
-            style: new TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
-          ),
-          Row(
-            children: <Widget>[
-              Radio(
-                  value: 0,
-                  groupValue: groupValue,
-                  onChanged: handleRadioValueChanged),
-              Text(
-                "Male",
-                style: new TextStyle(
-                  fontSize: 14.0,
-                ),
-              ),
-              Radio(
-                  value: 1,
-                  groupValue: groupValue,
-                  onChanged: handleRadioValueChanged),
-              Text(
-                "Female",
-                style: new TextStyle(
-                  fontSize: 14.0,
-                ),
-              ),
-            ],
-          )
-        ]);
-
-    //etatcivil
-    Widget _etatcivil(int groupValue1, handleRadioValueChangedd) =>
-        Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
-          Text(
-            'Etat civil',
-            style: new TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
-          ),
-          Row(
-            children: <Widget>[
-              Radio(
-                  value: 0,
-                  groupValue: groupValue1,
-                  onChanged: handleRadioValueChangedd),
-              Text(
-                "celeb",
-                style: new TextStyle(
-                  fontSize: 14.0,
-                ),
-              ),
-              Radio(
-                  value: 1,
-                  groupValue: groupValue1,
-                  onChanged: handleRadioValueChangedd),
-              Text(
-                "marie",
-                style: new TextStyle(
-                  fontSize: 14.0,
-                ),
-              ),
-              Radio(
-                  value: 2,
-                  groupValue: groupValue1,
-                  onChanged: handleRadioValueChangedd),
-              Text(
-                "divorce",
-                style: new TextStyle(
-                  fontSize: 14.0,
-                ),
-              ),
-            ],
-          )
-        ]);
     //nation
     Widget _buildnationn() {
       return TextFormField(
-        initialValue: '',
+        controller: _nationnaliteConttoller,
         decoration: InputDecoration(
             labelText: 'nationnalite',
             border: new OutlineInputBorder(
@@ -233,7 +141,7 @@ class _CreatenvpatientState extends State<Createnvpatient> {
                 borderSide: new BorderSide())),
         maxLength: 20,
         validator: (String value) {
-          if (value.isEmpty) {
+          if ((value.isEmpty) || (isNumeric(value))) {
             return 'nationnalite is Required';
           }
           return null;
@@ -244,7 +152,7 @@ class _CreatenvpatientState extends State<Createnvpatient> {
     //profession
     Widget _buildprofession() {
       return TextFormField(
-        initialValue: '',
+        controller: _professionConttoller,
         decoration: InputDecoration(
             labelText: 'profession',
             border: new OutlineInputBorder(
@@ -252,28 +160,8 @@ class _CreatenvpatientState extends State<Createnvpatient> {
                 borderSide: new BorderSide())),
         maxLength: 20,
         validator: (String value) {
-          if (value.isEmpty) {
+          if ((value.isEmpty) || (isNumeric(value))) {
             return 'profession is Required';
-          }
-          return null;
-        },
-      );
-    }
-
-    //teldom
-    Widget _buildteldom() {
-      return TextFormField(
-        initialValue: '',
-        decoration: InputDecoration(
-            labelText: 'tel dom',
-            border: new OutlineInputBorder(
-                borderRadius: new BorderRadius.circular(18.0),
-                borderSide: new BorderSide())),
-        maxLength: 8,
-        keyboardType: TextInputType.phone,
-        validator: (String value) {
-          if (value.isEmpty) {
-            return 'teldom is Required';
           }
           return null;
         },
@@ -283,16 +171,16 @@ class _CreatenvpatientState extends State<Createnvpatient> {
     //    //telmob
     Widget _buildtelmob() {
       return TextFormField(
-        initialValue: '',
+        controller: _tel_mobileConttoller,
         decoration: InputDecoration(
             labelText: 'tel mob',
             border: new OutlineInputBorder(
                 borderRadius: new BorderRadius.circular(18.0),
                 borderSide: new BorderSide())),
-        maxLength: 8,
+        maxLength: 11,
         keyboardType: TextInputType.phone,
         validator: (String value) {
-          if (value.isEmpty) {
+          if ((value.isEmpty) || !(isNumeric(value))) {
             return 'telmob is Required';
           }
           return null;
@@ -300,20 +188,20 @@ class _CreatenvpatientState extends State<Createnvpatient> {
       );
     }
 
-    //adresse
-    Widget _buildadresse() {
+    //rue
+    Widget _buildrue() {
       return TextFormField(
-        initialValue: '',
+        controller: _rueConttoller,
         decoration: InputDecoration(
-            labelText: 'adresse',
+            labelText: 'rue',
             border: new OutlineInputBorder(
                 borderRadius: new BorderRadius.circular(18.0),
                 borderSide: new BorderSide())),
-        maxLength: 50,
+        maxLength: 20,
         maxLines: 2,
         validator: (String value) {
           if (value.isEmpty) {
-            return 'adresse is Required';
+            return 'rue is Required';
           }
           return null;
         },
@@ -323,7 +211,7 @@ class _CreatenvpatientState extends State<Createnvpatient> {
     //ville
     Widget _buildville() {
       return TextFormField(
-        initialValue: '',
+        controller: _villeConttoller,
         decoration: InputDecoration(
             labelText: 'ville',
             border: new OutlineInputBorder(
@@ -337,6 +225,68 @@ class _CreatenvpatientState extends State<Createnvpatient> {
           return null;
         },
       );
+    }
+
+    //gendre
+    Widget _gendre(String groupValue, handleRadioValueChanged) {
+      return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              'SEXE',
+              style: new TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+            ),
+            Row(
+              children: <Widget>[
+                Radio<String>(
+                  value: "M",
+                  groupValue: groupValue,
+                  onChanged: handleRadioValueChanged,
+                ),
+                Text("Male"),
+                Radio<String>(
+                  value: "F",
+                  groupValue: groupValue,
+                  onChanged: handleRadioValueChanged,
+                ),
+                Text("Female"),
+              ],
+            )
+          ]);
+    }
+
+    //gendre
+    Widget _etatcivil(int groupValue1, handleRadioValueChangedd) {
+      return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              'Etat civil',
+              style: new TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+            ),
+            Row(
+              children: <Widget>[
+                Radio<int>(
+                  value: 1,
+                  groupValue: groupValue1,
+                  onChanged: handleRadioValueChangedd,
+                ),
+                Text("celeb"),
+                Radio<int>(
+                  value: 2,
+                  groupValue: groupValue1,
+                  onChanged: handleRadioValueChangedd,
+                ),
+                Text("marie"),
+                Radio<int>(
+                  value: 3,
+                  groupValue: groupValue1,
+                  onChanged: handleRadioValueChangedd,
+                ),
+                Text("marie"),
+              ],
+            )
+          ]);
     }
 
     //*************************************************** */
@@ -359,28 +309,38 @@ class _CreatenvpatientState extends State<Createnvpatient> {
                       height: 15,
                     ),
                     buildid(),
-                    buildnumfiche(),
                     _buildnom(),
                     _buildprenom(),
-                    builddatenai(),
-                    _genderRadio(_groupValue, _handleRadioValueChanged),
-                    _etatcivil(_groupValue1, _handleRadioValueChangedd),
+                    _builddatenai(),
+                    _gendre(groupValue, handleRadioValueChanged),
+                    _etatcivil(groupValue1, handleRadioValueChangedd),
                     _buildnationn(),
                     _buildprofession(),
-                    _buildteldom(),
                     _buildtelmob(),
-                    _buildadresse(),
                     _buildville(),
                     GestureDetector(
                       onTap: () async{
-                        final patient = AddPatient(
-                          patientid: int.parse(_idController.text), 
-                          nom: _nomController.text, 
-                          prenom: _prenomController.text, 
-                          sex: "H", 
-                          statusmatriomo_id: 1
+
+                        if(_formKey.currentState.validate()){ 
+                                                  final patient = AddPatient(
+                          patientid: int.parse(_idController.text),
+                          nom: _nomController.text,
+                          prenom: _prenomController.text,
+                          sex: groupValue,
+                          statusmatriomo_id: groupValue1,
+                          profession: _professionConttoller.text,
+                          rue: _rueConttoller.text,
+                          nationnalite: _nationnaliteConttoller.text,
+                          ville: _villeConttoller.text,
+                          tel_mobile: _tel_mobileConttoller.text,
                         );
                         final result = await patientService.createPatient(patient);
+
+                        }else {
+                          Scaffold.of(context)
+                      .showSnackBar(SnackBar(content: Text('NO Data')));
+                        }
+
                       },
                       child: Container(
                         height: 80,
