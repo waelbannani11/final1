@@ -1,4 +1,7 @@
+import 'package:final1/models/addconsultation.dart';
+import 'package:final1/models/consultation.service.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:final1/theme/colors/light_colors.dart';
 import 'package:final1/widgets/back_button.dart';
@@ -9,25 +12,39 @@ import 'package:final1/models/patient.dart';
 import 'calendar_page.dart';
 import 'package:final1/models/rdv.dart';
 
-class Consultation extends StatelessWidget {
-  final Patient patient;
-  final Rdv rdv;
-  Consultation({this.patient, this.rdv});
+class Consultation extends StatefulWidget {
+  int id;
 
+  Consultation({
+    this.id,
+  });
+  @override
+  _ConsultationState createState() => _ConsultationState(
+        id,
+      );
+}
+
+class _ConsultationState extends State<Consultation> {
+  int id;
+
+  _ConsultationState(
+    this.id,
+  );
+
+  ConsultationService get consultationService => GetIt.I<ConsultationService>();
+  TextEditingController _idConttoller = TextEditingController();
+  TextEditingController _motifController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    //final patient =Provider.of<List<Patient>>(context)?? [];
+    _idConttoller.text = id.toString();
     final _formKey = GlobalKey<FormState>();
     final Post post = ModalRoute.of(context).settings.arguments;
     double width = MediaQuery.of(context).size.width;
-    var downwardIcon = Icon(
-      Icons.keyboard_arrow_down,
-      color: Colors.black54,
-    );
+
     //nom
     Widget _buildrdvid() {
       return TextFormField(
-       // initialValue: post.title,
+        // initialValue: post.title,
         decoration: InputDecoration(
             labelText: 'rdvid',
             border: new OutlineInputBorder(
@@ -41,16 +58,13 @@ class Consultation extends StatelessWidget {
 
           return null;
         },
-        onSaved: (String value) {
-          patient.nom = value;
-        },
       );
     }
 
     //prenom
     Widget _buildmotif() {
       return TextFormField(
-       // initialValue: post.title,
+        controller: _motifController,
         decoration: InputDecoration(
             labelText: 'motif',
             border: new OutlineInputBorder(
@@ -64,16 +78,14 @@ class Consultation extends StatelessWidget {
 
           return null;
         },
-        onSaved: (String value) {
-          patient.prenom = value;
-        },
       );
     }
 
     //id
     Widget buildid() {
       return TextFormField(
-        //initialValue: post.title,
+        controller: _idConttoller,
+        enabled: false,
         decoration: InputDecoration(
             labelText: 'patient id',
             border: new OutlineInputBorder(
@@ -86,9 +98,6 @@ class Consultation extends StatelessWidget {
           }
 
           return null;
-        },
-        onSaved: (String value) {
-          patient.nom = value;
         },
       );
     }
@@ -109,9 +118,6 @@ class Consultation extends StatelessWidget {
           }
 
           return null;
-        },
-        onSaved: (String value) {
-          rdv.pid = value;
         },
       );
     }
@@ -134,9 +140,6 @@ class Consultation extends StatelessWidget {
 
           return null;
         },
-        onSaved: (String value) {
-          rdv.dateDeb = value;
-        },
       );
     }
 
@@ -158,9 +161,6 @@ class Consultation extends StatelessWidget {
 
           return null;
         },
-        onSaved: (String value) {
-          rdv.dateFin = value;
-        },
       );
     }
 
@@ -179,9 +179,6 @@ class Consultation extends StatelessWidget {
             return 'pressionsyst is Required';
           }
           return null;
-        },
-        onSaved: (String value) {
-          rdv.type = value;
         },
       );
     }
@@ -202,9 +199,6 @@ class Consultation extends StatelessWidget {
           }
           return null;
         },
-        onSaved: (String value) {
-          rdv.type = value;
-        },
       );
     }
 
@@ -223,9 +217,6 @@ class Consultation extends StatelessWidget {
             return 'temperature is Required';
           }
           return null;
-        },
-        onSaved: (String value) {
-          rdv.type = value;
         },
       );
     }
@@ -287,9 +278,6 @@ class Consultation extends StatelessWidget {
           }
           return null;
         },
-        onSaved: (String value) {
-          rdv.type = value;
-        },
       );
     }
 
@@ -300,72 +288,61 @@ class Consultation extends StatelessWidget {
       ),
       body: SafeArea(
         child: Container(
-            child: SingleChildScrollView(
-              child: Container(
-                margin: EdgeInsets.all(24),
-                child: Form(
-                  //key: _formKey,
-                  child: Column(
-                    children: <Widget>[
-                      //MyBackButton(),
-                      buildid(),
-                      //buildnumfiche(),
-                      _buildrdvid(),
-                      _buildmotif(),
-                      builddatedeb(),
-                      //builddatefin(),
-                      buildpressionsyst(),
-                      buildpressiondiast(),
-                      buildtemperature(),
-                      //buildtemperature(),
-                      buildpoids(),
-                      buildtaille(),
-                      buildrdvid(),
-                      //buildsujet(),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => CalendarPage()),
-                          );
-                          //if (!_formKey.currentState.validate()) {
-                          //return;
-                          //}
-                          //_formKey.currentState.save();
-                        },
-                        child: Container(
-                          height: 80,
-                          width: width,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              Container(
-                                child: Text(
-                                  'valider',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 18),
-                                ),
-                                alignment: Alignment.center,
-                                margin: EdgeInsets.fromLTRB(20, 10, 20, 20),
-                                width: width / 1.3,
-                                decoration: BoxDecoration(
-                                  color: LightColors.kBlue,
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
+          child: SingleChildScrollView(
+            child: Container(
+              margin: EdgeInsets.all(24),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: <Widget>[
+                    buildid(),
+                    _buildmotif(),
+                    builddatedeb(),
+                    buildpressionsyst(),
+                    buildpressiondiast(),
+                    buildtemperature(),
+                    buildpoids(),
+                    buildtaille(),
+                    GestureDetector(
+                      onTap: () async {
+                        print(_motifController.text);
+                        final consult = AddConsultation(
+                          motif: _motifController.text,
+                        );
+                        final result =
+                            await consultationService.createConcult(consult);
+                      },
+                      child: Container(
+                        height: 80,
+                        width: width,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Container(
+                              child: Text(
+                                'valider',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 18),
                               ),
-                            ],
-                          ),
+                              alignment: Alignment.center,
+                              margin: EdgeInsets.fromLTRB(20, 10, 20, 20),
+                              width: width / 1.3,
+                              decoration: BoxDecoration(
+                                color: Colors.blue,
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
-          
+          ),
         ),
       ),
     );

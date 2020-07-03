@@ -10,15 +10,12 @@ import 'package:provider/provider.dart';
 import 'package:string_validator/string_validator.dart';
 
 class Createnvpatient extends StatefulWidget {
-
   @override
   _CreatenvpatientState createState() => _CreatenvpatientState();
 }
 
 class _CreatenvpatientState extends State<Createnvpatient> {
-
-
-  String groupValue ='M';
+  String groupValue = 'M';
   int groupValue1 = 1;
 
   void handleRadioValueChanged(String value) {
@@ -44,16 +41,10 @@ class _CreatenvpatientState extends State<Createnvpatient> {
   TextEditingController _rueConttoller = TextEditingController();
   TextEditingController _codeyearConttoller = TextEditingController();
 
-
-
   @override
   Widget build(BuildContext context) {
-
-
     final _formKey = GlobalKey<FormState>();
     double width = MediaQuery.of(context).size.width;
-
-
 
     //nom
     Widget _buildnom() {
@@ -65,7 +56,7 @@ class _CreatenvpatientState extends State<Createnvpatient> {
                 borderRadius: new BorderRadius.circular(18.0),
                 borderSide: new BorderSide())),
         maxLength: 20,
-        validator: (String value ) {
+        validator: (String value) {
           if ((value.isEmpty) || (isNumeric(value))) {
             return 'nom is Required';
           }
@@ -94,20 +85,20 @@ class _CreatenvpatientState extends State<Createnvpatient> {
     }
 
     //id
-    Widget buildid() {
+    Widget _buildid() {
       return Padding(
         padding: const EdgeInsets.all(0.0),
         child: TextFormField(
-          controller: _idController,
+          controller: _codeyearConttoller,
           decoration: InputDecoration(
-              labelText: 'idpatient',
+              labelText: 'Code Year',
               border: new OutlineInputBorder(
                   borderRadius: new BorderRadius.circular(18.0),
                   borderSide: new BorderSide())),
           maxLength: 20,
           validator: (String value) {
             if ((value.isEmpty) || !(isNumeric(value))) {
-              return 'id is Required';
+              return 'Code Year is Required';
             }
             return null;
           },
@@ -308,39 +299,38 @@ class _CreatenvpatientState extends State<Createnvpatient> {
                     SizedBox(
                       height: 15,
                     ),
-                    buildid(),
                     _buildnom(),
                     _buildprenom(),
                     _builddatenai(),
                     _gendre(groupValue, handleRadioValueChanged),
                     _etatcivil(groupValue1, handleRadioValueChangedd),
+                    _buildid(),
                     _buildnationn(),
                     _buildprofession(),
                     _buildtelmob(),
                     _buildville(),
+                    _buildrue(),
                     GestureDetector(
-                      onTap: () async{
-
-                        if(_formKey.currentState.validate()){ 
-                                                  final patient = AddPatient(
-                          patientid: int.parse(_idController.text),
-                          nom: _nomController.text,
-                          prenom: _prenomController.text,
-                          sex: groupValue,
-                          statusmatriomo_id: groupValue1,
-                          profession: _professionConttoller.text,
-                          rue: _rueConttoller.text,
-                          nationnalite: _nationnaliteConttoller.text,
-                          ville: _villeConttoller.text,
-                          tel_mobile: _tel_mobileConttoller.text,
-                        );
-                        final result = await patientService.createPatient(patient);
-
-                        }else {
+                      onTap: () async {
+                        if (_formKey.currentState.validate()) {
+                          final patient = AddPatient(
+                            code_Year: _codeyearConttoller.text,
+                            nom: _nomController.text,
+                            prenom: _prenomController.text,
+                            sex: groupValue,
+                            statusmatriomo_id: groupValue1,
+                            profession: _professionConttoller.text,
+                            rue: _rueConttoller.text,
+                            nationnalite: _nationnaliteConttoller.text,
+                            ville: _villeConttoller.text,
+                            tel_mobile: _tel_mobileConttoller.text,
+                          );
+                          final result =
+                              await patientService.createPatient(patient);
+                        } else {
                           Scaffold.of(context)
-                      .showSnackBar(SnackBar(content: Text('NO Data')));
+                              .showSnackBar(SnackBar(content: Text('NO Data')));
                         }
-
                       },
                       child: Container(
                         height: 80,

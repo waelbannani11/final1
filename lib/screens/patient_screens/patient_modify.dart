@@ -19,26 +19,29 @@ class PatientModify extends StatefulWidget {
   String nationnalite;
   String ville;
   String tel_mobile;
-  PatientModify(
-      {this.id,
-      this.nom,
-      this.prenom,
-      this.profession,
-      this.rue,
-      this.nationnalite,
-      this.ville,
-      this.tel_mobile,
-      });
+  String code_Year;
+  PatientModify({
+    this.id,
+    this.nom,
+    this.prenom,
+    this.profession,
+    this.rue,
+    this.nationnalite,
+    this.ville,
+    this.tel_mobile,
+    this.code_Year,
+  });
   @override
   _PatientModifyState createState() => _PatientModifyState(
-      id,
-      nom,
-      prenom,
-      profession,
-      rue,
-      nationnalite,
-      ville,
-      tel_mobile,
+        id,
+        nom,
+        prenom,
+        profession,
+        rue,
+        nationnalite,
+        ville,
+        tel_mobile,
+        code_Year,
       );
 }
 
@@ -51,16 +54,18 @@ class _PatientModifyState extends State<PatientModify> {
   String nationnalite;
   String ville;
   String tel_mobile;
+  String code_Year;
   _PatientModifyState(
-      this.id,
-      this.nom,
-      this.prenom,
-      this.profession,
-      this.rue,
-      this.nationnalite,
-      this.ville,
-      this.tel_mobile,
-      );
+    this.id,
+    this.nom,
+    this.prenom,
+    this.profession,
+    this.rue,
+    this.nationnalite,
+    this.ville,
+    this.tel_mobile,
+    this.code_Year,
+  );
 
   String groupValue = 'M';
   int groupValue1 = 1;
@@ -89,10 +94,11 @@ class _PatientModifyState extends State<PatientModify> {
   TextEditingController _statusmatriomo_idConttoller = TextEditingController();
   TextEditingController _tel_mobileConttoller = TextEditingController();
   TextEditingController _villeConttoller = TextEditingController();
+  TextEditingController _codeYearConttoller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    _idConttoller.text = (id).toString();
+    _codeYearConttoller.text = code_Year;
     _nomConttoller.text = nom;
     _prenomConttoller.text = prenom;
     _professionConttoller.text = profession;
@@ -104,8 +110,6 @@ class _PatientModifyState extends State<PatientModify> {
     final _formKey = GlobalKey<FormState>();
     double width = MediaQuery.of(context).size.width;
 
-
-
     //nom
     Widget _buildnom() {
       return TextFormField(
@@ -116,7 +120,7 @@ class _PatientModifyState extends State<PatientModify> {
                 borderRadius: new BorderRadius.circular(18.0),
                 borderSide: new BorderSide())),
         maxLength: 20,
-        validator: (String value ) {
+        validator: (String value) {
           if ((value.isEmpty) || (isNumeric(value))) {
             return 'nom is Required';
           }
@@ -145,21 +149,20 @@ class _PatientModifyState extends State<PatientModify> {
     }
 
     //id
-    Widget buildid() {
+    Widget _buildid() {
       return Padding(
         padding: const EdgeInsets.all(0.0),
         child: TextFormField(
-          enabled: false,
-          controller: _idConttoller,
+          controller: _codeYearConttoller,
           decoration: InputDecoration(
-              labelText: 'idpatient',
+              labelText: 'Code Year',
               border: new OutlineInputBorder(
                   borderRadius: new BorderRadius.circular(18.0),
                   borderSide: new BorderSide())),
           maxLength: 20,
           validator: (String value) {
             if ((value.isEmpty) || !(isNumeric(value))) {
-              return 'id is Required';
+              return 'Code Year';
             }
             return null;
           },
@@ -360,10 +363,10 @@ class _PatientModifyState extends State<PatientModify> {
                     SizedBox(
                       height: 15,
                     ),
-                    buildid(),
                     _buildnom(),
                     _buildprenom(),
                     _builddatenai(),
+                    _buildid(),
                     _gendre(groupValue, handleRadioValueChanged),
                     _etatcivil(groupValue1, handleRadioValueChangedd),
                     _buildnationn(),
@@ -373,27 +376,25 @@ class _PatientModifyState extends State<PatientModify> {
                     _buildrue(),
                     GestureDetector(
                       onTap: () async {
-                        if(_formKey.currentState.validate()){ 
+                        if (_formKey.currentState.validate()) {
                           final patient = AddPatient(
-                          patientid: int.parse(_idConttoller.text),
-                          nom: _nomConttoller.text,
-                          prenom: _prenomConttoller.text,
-                          sex: groupValue,
-                          statusmatriomo_id: groupValue1,
-                          profession: _professionConttoller.text,
-                          rue: _rueConttoller.text,
-                          nationnalite: _nationnaliteConttoller.text,
-                          ville: _villeConttoller.text,
-                          tel_mobile: _tel_mobileConttoller.text,
-                        );
-                        final result =
-                            await patientService.updatePatient(patient);
-
-                        }else {
+                            patientid: int.parse(_idConttoller.text),
+                            nom: _nomConttoller.text,
+                            prenom: _prenomConttoller.text,
+                            sex: groupValue,
+                            statusmatriomo_id: groupValue1,
+                            profession: _professionConttoller.text,
+                            rue: _rueConttoller.text,
+                            nationnalite: _nationnaliteConttoller.text,
+                            ville: _villeConttoller.text,
+                            tel_mobile: _tel_mobileConttoller.text,
+                          );
+                          final result =
+                              await patientService.updatePatient(patient);
+                        } else {
                           Scaffold.of(context)
-                      .showSnackBar(SnackBar(content: Text('NO Data')));
+                              .showSnackBar(SnackBar(content: Text('NO Data')));
                         }
-                        
                       },
                       child: Container(
                         height: 80,

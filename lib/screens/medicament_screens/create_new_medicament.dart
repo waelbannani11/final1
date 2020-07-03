@@ -10,8 +10,6 @@ class NewMedicament extends StatefulWidget {
 }
 
 class _NewMedicamentState extends State<NewMedicament> {
-
-
   String errorMessage;
 
   MedicamentService get medicamentService => GetIt.I<MedicamentService>();
@@ -83,8 +81,6 @@ class _NewMedicamentState extends State<NewMedicament> {
       );
     }
 
-
-
     //Famille
     Widget _buildFamille() {
       return TextFormField(
@@ -129,21 +125,20 @@ class _NewMedicamentState extends State<NewMedicament> {
                     _buildFamille(),
                     GestureDetector(
                       onTap: () async {
-                        if(_formKey.currentState.validate()){ 
+                        if (_formKey.currentState.validate()) {
                           final medic = AddMedic(
-                          ID: int.parse(_idController.text),
-                          DESIGN: _DESIGNController.text,
-                          LABO: _LABOController.text,
-                          FAMILLE:_FAMILLEController.text ,
-                        );
-                          final result = await medicamentService.createMedic(medic);
-                          if(result.data == true){
+                            ID: int.parse(_idController.text),
+                            DESIGN: _DESIGNController.text,
+                            LABO: _LABOController.text,
+                            FAMILLE: _FAMILLEController.text,
+                          );
+                          final result =
+                              await medicamentService.createMedic(medic);
+                          if (result.data == true) {
                             print(result.data);
-                                
-                          }else print('no');
-                        
+                          } else
+                            print('no');
                         }
-                        
                       },
                       child: Container(
                         height: 80,

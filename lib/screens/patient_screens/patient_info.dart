@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:slimy_card/slimy_card.dart';
 
+import '../consultation_page.dart';
+import 'create_new_patient.dart';
+
 class PatientInfo extends StatefulWidget {
   int id;
   String nom;
@@ -73,7 +76,12 @@ class _PatientInfoState extends State<PatientInfo> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Createnvpatient()),
+          );
+        },
         child: Icon(Icons.add),
         elevation: 20.0,
       ),
@@ -81,20 +89,27 @@ class _PatientInfoState extends State<PatientInfo> {
         shape: CircularNotchedRectangle(),
         child: new Row(
           children: <Widget>[
-            IconButton(
-              icon: Icon(Icons.menu),
-              color: Colors.white,
-              onPressed: () {},
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => Consultation(
+                            id: id,
+                          )),
+                );
+              },
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(10, 10, 230, 10),
+                child: Text(
+                  "Consultation",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(right: 150.0),
-              child: Text("Consultation",style: TextStyle(color:Colors.white),),
-            ),
-            Text("Historique ",style: TextStyle(color:Colors.white),),
-            IconButton(
-              icon: Icon(Icons.menu),
-              color: Colors.white,
-              onPressed: () {},
+            Text(
+              "Historique ",
+              style: TextStyle(color: Colors.white),
             ),
           ],
         ),
@@ -161,7 +176,7 @@ class _PatientInfoState extends State<PatientInfo> {
                 ),
               ),
               Text(
-                 "15/08/1995",
+                "15/08/1995",
                 style: TextStyle(color: Colors.white, fontSize: 15),
               ),
             ],

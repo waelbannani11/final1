@@ -172,6 +172,7 @@ class _PatientsState extends State<Patients> {
                                                   ville: b.ville,
                                                   nationnalite: b.nationnalite,
                                                   tel_mobile: b.tel_mobile,
+                                                  code_Year: b.code_Year,
                                                 )),
                                       );
                                     },
@@ -257,6 +258,7 @@ class _PatientsState extends State<Patients> {
                                                   ville: a.ville,
                                                   nationnalite: a.nationnalite,
                                                   tel_mobile: a.tel_mobile,
+                                                  code_Year: a.code_Year,
                                                 )),
                                       );
                                     },
