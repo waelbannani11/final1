@@ -1,16 +1,13 @@
 import 'package:final1/Animations/FadeAnimation.dart';
-import 'package:final1/models/medic.dart';
-import 'package:final1/screens/medicaments_page.dart';
+import 'package:final1/screens/patient_screens/patient_page.dart';
 import 'package:flutter/material.dart';
-import 'package:final1/screens/calendar_page.dart';
 import 'package:final1/theme/colors/light_colors.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-import 'package:final1/widgets/active_project_card.dart';
 import 'package:final1/widgets/top_container.dart';
-import 'Patient_page.dart';
 import 'consultation_page.dart';
 import 'agenda.dart';
 import 'create_new_rdv_page.dart';
+import 'medicament_screens/medicaments_page.dart';
 
 class HomePage extends StatelessWidget {
   Text subheading(String title) {
@@ -106,15 +103,14 @@ class HomePage extends StatelessWidget {
                   ),
                 )),
             ListTile(
-              leading: Icon(Icons.home),
               title: Text('Les Patients'),
-              subtitle: Text("me@codesundar.com"),
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => Patients()),
                 );
               },
+<<<<<<< HEAD
             ),
             const Divider(
               thickness: 0.5,
@@ -127,17 +123,26 @@ class HomePage extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => Medicament()),
                 );
               },
+=======
+>>>>>>> 47b5990ce5bf5c391bddf91706b64ff20ea017f7
             ),
             const Divider(
               thickness: 0.5,
             ),
             ListTile(
+<<<<<<< HEAD
               leading: Icon(Icons.description),
               title: Text('Deconnecter'),
+=======
+              title: Text('Les Médicaments'),
+>>>>>>> 47b5990ce5bf5c391bddf91706b64ff20ea017f7
               onTap: () {
-                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Medicament()),
+                );
               },
-            )
+            ),
           ],
         ),
       ),

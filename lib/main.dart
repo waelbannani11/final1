@@ -1,22 +1,28 @@
-import 'package:final1/screens/chercher_ajouter.dart';
-import 'package:final1/screens/create_new_patient.dart';
+import 'package:final1/models/patient.dart';
 import 'package:final1/screens/login.dart';
-import 'package:final1/screens/search.dart';
-import 'package:final1/widgets/Chercher_patient_button.dart';
+import 'package:final1/screens/patient_screens/patient_page.dart';
 import 'package:flutter/material.dart';
 import 'package:final1/screens/home_page.dart';
 import 'package:final1/theme/colors/light_colors.dart';
 import 'package:flutter/services.dart';
-import 'widgets/top_container.dart';
+import 'package:get_it/get_it.dart';
+import 'models/consultation.service.dart';
+import 'models/medicament_service.dart';
+import 'models/patient_service.dart';
 
+void setupLocator() {
+  GetIt.I.registerLazySingleton(() => PatientService());
+  GetIt.I.registerLazySingleton(() => MedicamentService());
+  GetIt.I.registerLazySingleton(() => ConsultationService());
+}
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     systemNavigationBarColor: LightColors.kLightGreen, // navigation bar color
     statusBarColor: Colors.black, // status bar color
   ));
-
-  return runApp(MyApp());
+  setupLocator();
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -28,12 +34,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         textTheme: Theme.of(context).textTheme.apply(
-              bodyColor: LightColors.kDarkBlue,
-              displayColor: LightColors.kDarkBlue,
-              fontFamily: 'Poppins'
-            ),
+            bodyColor: LightColors.kDarkBlue,
+            displayColor: LightColors.kDarkBlue,
+            fontFamily: 'Poppins'),
       ),
-      home: HomePage(),
+      home: Login(),
       debugShowCheckedModeBanner: false,
     );
   }
