@@ -184,12 +184,12 @@ class _PatientsState extends State<Patients> {
                                       padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
                                       child: Container(
                                         child:Center(child: Text(b.nom),), 
-                                        height: 50.0,
+                                        height: 20.0,
                                         decoration: new BoxDecoration(
-                                          borderRadius: new BorderRadius.circular(25.0),
+                                          borderRadius: new BorderRadius.circular(50.0),
                                           border: new Border.all(
                                             width: 2.0,
-                                            color: Colors.black,
+                                            color: Colors.brown,
                                           ),
                                         ),
                                       ),
@@ -198,7 +198,7 @@ class _PatientsState extends State<Patients> {
                                   Expanded(
                                     flex: 1,
                                     child: Padding(
-                                      padding: const EdgeInsets.fromLTRB(1, 0, 0, 0),
+                                      padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
                                       child: Container(
                                         child:Center(child: Text(b.prenom),), 
                                         height: 50.0,

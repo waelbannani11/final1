@@ -1,4 +1,4 @@
-part of event_calendar;
+/*part of event_calendar;
 
 class AppointmentEditor extends StatefulWidget {
   @override
@@ -215,7 +215,6 @@ class AppointmentEditorState extends State<AppointmentEditor> {
                                     }
                                   })),
                     ])),
-        
             ListTile(
               contentPadding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
               leading: Icon(Icons.lens,
@@ -316,7 +315,7 @@ class AppointmentEditorState extends State<AppointmentEditor> {
                       ));
 
                       _events.appointments.add(meetings[0]);
-
+                      print(meetings[0].from);
                       _events.notifyListeners(
                           CalendarDataSourceAction.add, meetings);
                       _selectedAppointment = null;
@@ -354,3 +353,4 @@ class AppointmentEditorState extends State<AppointmentEditor> {
     return _subject.isEmpty ? 'New event' : 'Event details';
   }
 }
+**/

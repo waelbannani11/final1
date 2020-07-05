@@ -35,108 +35,105 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
-  
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        title:Text('Home'),
+        title: Text('Home'),
       ),
       drawer: Drawer(
         child: ListView(
           children: <Widget>[
             DrawerHeader(
-              decoration: BoxDecoration(
-                color:Colors.blue[100],
-              ),
-              child: Padding(
-                padding: EdgeInsets.all(0),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    CircularPercentIndicator(
-                      radius: 90.0,
-                      lineWidth: 5.0,
-                      animation: true,
-                      percent: 0.75,
-                      circularStrokeCap: CircularStrokeCap.round,
-                      progressColor: LightColors.kRed,
-                      backgroundColor: Colors.blue[200],
-                      center: CircleAvatar(
-                        backgroundColor: Colors.blue[100],
-                        radius: 35.0,
-                        backgroundImage: AssetImage(
-                          'assets/images/avatar.png',
+                decoration: BoxDecoration(
+                  color: Colors.blue[100],
+                ),
+                child: Padding(
+                  padding: EdgeInsets.all(0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      CircularPercentIndicator(
+                        radius: 90.0,
+                        lineWidth: 5.0,
+                        animation: true,
+                        percent: 0.75,
+                        circularStrokeCap: CircularStrokeCap.round,
+                        progressColor: LightColors.kRed,
+                        backgroundColor: Colors.blue[200],
+                        center: CircleAvatar(
+                          backgroundColor: Colors.blue[100],
+                          radius: 35.0,
+                          backgroundImage: AssetImage(
+                            'assets/images/avatar.png',
                           ),
                         ),
                       ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(0, 35, 0, 0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Container(
-                            child: Text(
-                              'wael bannani',
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                fontSize: 22.0,
-                                color: LightColors.kDarkBlue,
-                                fontWeight: FontWeight.w800,
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(0, 35, 0, 0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Container(
+                              child: Text(
+                                'wael bannani',
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                  fontSize: 22.0,
+                                  color: LightColors.kDarkBlue,
+                                  fontWeight: FontWeight.w800,
+                                ),
                               ),
                             ),
-                          ),
-                      Container(
-                        child: Text(
-                          'App Developer',
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            color: Colors.black45,
-                            fontWeight: FontWeight.w400,
-                          ),
+                            Container(
+                              child: Text(
+                                'App Developer',
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                  fontSize: 16.0,
+                                  color: Colors.black45,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                  ],
-                ),
-                    )
-              ],
-            ),
-            )
-            ),
+                      )
+                    ],
+                  ),
+                )),
             ListTile(
               leading: Icon(Icons.home),
               title: Text('Les Patients'),
               subtitle: Text("me@codesundar.com"),
               onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Patients() ),
-                        );  
-                    },
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Patients()),
+                );
+              },
             ),
             const Divider(
               thickness: 0.5,
             ),
             ListTile(
-               title: Text('Les Médicaments'),
+              title: Text('Les Médicaments'),
               onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Medicament() ),
-                        );  
-                    },
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Medicament()),
+                );
+              },
             ),
             const Divider(
               thickness: 0.5,
             ),
             ListTile(
               leading: Icon(Icons.description),
-               title: Text('Deconnecter'),
+              title: Text('Deconnecter'),
               onTap: () {
                 Navigator.pop(context);
               },
@@ -144,11 +141,12 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
-      backgroundColor:Colors.blue[100],
+      backgroundColor: Colors.blue[100],
       body: SafeArea(
         child: Column(
           children: <Widget>[
-            FadeAnimation(1,
+            FadeAnimation(
+              1,
               TopContainer(
                 height: 130,
                 width: width,
@@ -211,7 +209,8 @@ class HomePage extends StatelessWidget {
                     ]),
               ),
             ),
-            FadeAnimation(3,
+            FadeAnimation(
+              3,
               Expanded(
                 child: SingleChildScrollView(
                   child: Column(
@@ -231,8 +230,8 @@ class HomePage extends StatelessWidget {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => AgendaViewCustomization()
-                                      ),
+                                          builder: (context) =>
+                                              AgendaViewCustomization()),
                                     );
                                   },
                                   child: calendarIcon(),
@@ -269,14 +268,13 @@ class HomePage extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                          builder: (context) => Patients() ),
-                        );  
+                        MaterialPageRoute(builder: (context) => Patients()),
+                      );
                     },
                     child: Container(
                       margin: EdgeInsets.symmetric(vertical: 10.0),
                       padding: EdgeInsets.all(15.0),
-                      height: 500,
+                      height: 450,
                       width: width,
                       decoration: BoxDecoration(
                         color: LightColors.kGreen,
@@ -301,7 +299,8 @@ class HomePage extends StatelessWidget {
                                 ),
                               ),
                               Center(
-                                child: Image.asset('assets/images/avatar.png',width: 100),
+                                child: Image.asset('assets/images/avatar.png',
+                                    width: 100),
                               ),
                             ],
                           ),
@@ -313,9 +312,8 @@ class HomePage extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                          builder: (context) => Consultation() ),
-                        );  
+                        MaterialPageRoute(builder: (context) => Consultation()),
+                      );
                     },
                     child: Container(
                       margin: EdgeInsets.symmetric(vertical: 10.0),
@@ -345,7 +343,9 @@ class HomePage extends StatelessWidget {
                                 ),
                               ),
                               Center(
-                                child: Image.asset('assets/images/consulta2.png',width: 100),
+                                child: Image.asset(
+                                    'assets/images/consulta2.png',
+                                    width: 100),
                               ),
                             ],
                           ),
@@ -357,14 +357,13 @@ class HomePage extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                          builder: (context) => Medicament() ),
-                        );  
+                        MaterialPageRoute(builder: (context) => Medicament()),
+                      );
                     },
                     child: Container(
                       margin: EdgeInsets.symmetric(vertical: 10.0),
                       padding: EdgeInsets.all(15.0),
-                      height: 150,
+                      height: 175,
                       width: width,
                       decoration: BoxDecoration(
                         color: LightColors.kDarkYellow,
@@ -389,7 +388,8 @@ class HomePage extends StatelessWidget {
                                 ),
                               ),
                               Center(
-                                child: Image.asset('assets/images/medic.png',width: 100),
+                                child: Image.asset('assets/images/medic.png',
+                                    width: 100),
                               ),
                             ],
                           ),
@@ -402,8 +402,8 @@ class HomePage extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => CreateNewTaskPage() ),
-                        );  
+                            builder: (context) => CreateNewTaskPage()),
+                      );
                     },
                     child: Container(
                       margin: EdgeInsets.symmetric(vertical: 10.0),
@@ -433,7 +433,8 @@ class HomePage extends StatelessWidget {
                                 ),
                               ),
                               Center(
-                                child: Image.asset('assets/images/avatar.png',width: 100),
+                                child: Image.asset('assets/images/avatar.png',
+                                    width: 100),
                               ),
                             ],
                           ),

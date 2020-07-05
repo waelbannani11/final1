@@ -1,5 +1,7 @@
 library event_calendar;
+
 import 'dart:math';
+import 'package:final1/models/app.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -8,8 +10,11 @@ import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:intl/intl.dart';
 import 'dart:async';
 import 'dart:convert';
-part 'appointment-editor.dart';
 
+import 'create_new_rdv_page.dart';
+import 'modif.dart';
+
+//part 'appointment-editor.dart';
 
 part 'timezone-picker.dart';
 part 'color-picker.dart';
@@ -28,6 +33,7 @@ class CustomAgenda extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => ScheduleExample();
 }
+
 List<Color> _colorCollection;
 List<String> _colorNames;
 int _selectedColorIndex = 0;
@@ -42,21 +48,56 @@ TimeOfDay _endTime;
 bool _isAllDay;
 String _subject = '';
 String _notes = '';
+bool b = false;
 
 class ScheduleExample extends State<CustomAgenda> {
   CalendarView _calendarView;
-  //List<Appointment> appointmentDetails;
-   DateTime _jumpToTime = DateTime.now();
-   String _text='';
-    Color headerColor, viewHeaderColor, calendarColor, defaultColor;
-     List<String> eventNameCollection;
-  List<Meeting> appointments;
+  List<Appointment> appointmentDetails;
+  DateTime _jumpToTime = DateTime.now();
+  String _text = '';
+  Color headerColor, viewHeaderColor, calendarColor, defaultColor;
+  List<String> eventNameCollection;
+  List<Meeting> appointments = List<Meeting>();
+  //List<Meeting> appointments;
+
+  //List<Meeting> _app = List<Meeting>();
+
+  /*Future<List<Meeting>> fetchNotes() async {
+    var url = 'https://testjsonwael.000webhostapp.com/test11.json';
+    var response = await http.get(url);
+
+    var app = List<Meeting>();
+
+    if (response.statusCode == 200) {
+      var notesJson = json.decode(response.body);
+      for (var noteJson in notesJson) {
+        app.add(Meeting.fromJson(noteJson));
+      }
+    }
+    return app;
+  }**/
+
+  List<Meeting> insertData(_app) {
+    final List<Meeting> meetingCollection = <Meeting>[];
+    meetingCollection.add(Meeting(
+      from: _app.from,
+      to: _app.to,
+      isAllDay: _app.isAllDay,
+      eventName: _app.eventName,
+    ));
+  }
 
   @override
   void initState() {
-   // appointmentDetails = <Appointment>[];
+    /* fetchNotes().then((value) {
+      setState(() {
+        _app.addAll(value);
+      });
+    });**/
+    appointmentDetails = <Appointment>[];
     _calendarView = CalendarView.month;
     _text = DateFormat('MMMM yyyy').format(_jumpToTime).toString();
+    // appointments = _getDataFromJson() as List<Meeting>;
     appointments = getMeetingDetails();
     _events = DataSource(appointments);
     _selectedAppointment = null;
@@ -66,98 +107,121 @@ class ScheduleExample extends State<CustomAgenda> {
     _notes = '';
     super.initState();
   }
-    List<String> colors = <String>[
-   
+
+  List<String> colors = <String>[
     'Blue',
     'Yellow',
     'Wall Brown',
     'Default',
-    
   ];
 
   List<String> views = <String>[
     'Day',
     'Month',
   ];
-    Future<List<OnlineAppointmentData>> _getOnlineData() async {
-    var data = await http.get(
-        "https://js.syncfusion.com/demos/ejservices/api/Schedule/LoadData");
+  Future<List<OnlineAppointmentData>> _getOnlineData() async {
+    var data =
+        await http.get("https://testjsonwael.000webhostapp.com/test11.json");
     var jsonData = json.decode(data.body);
     List<OnlineAppointmentData> appointmentData = [];
     for (var u in jsonData) {
       OnlineAppointmentData user = OnlineAppointmentData(
           u['StartTime'], u['EndTime'], u['Subject'], u['AllDay']);
       appointmentData.add(user);
+      //print(user.subject);
     }
-    print(appointmentData.length);
+    //print(appointmentData.length);
     return appointmentData;
   }
+
+  /* Future<List<Meeting>> _getDataFromJson() async {
+    var data =
+        await http.get("https://testjsonwael.000webhostapp.com/test11.json");
+    var jsonData = json.decode(data.body);
+    List<OnlineAppointmentData> appointmentData = [];
+    int i = 0;
+    List<Meeting> collection;
+    for (var u in jsonData) {
+      i++;
+      OnlineAppointmentData user = OnlineAppointmentData(
+          u['StartTime'], u['EndTime'], u['Subject'], u['AllDay']);
+      appointmentData.add(user);
+      appointments ??= <Meeting>[];
+      var meeting = appointmentData[0];
+      appointments.add(
+        Meeting(
+            from: convertDateFromString(meeting.startTime),
+            to: convertDateFromString(meeting.endTime),
+            eventName: meeting.subject),
+      );
+    }
+    print(appointmentData.length);
+    return appointments;
+  }**/
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomInset: false,
-        resizeToAvoidBottomPadding: false,
-              appBar: AppBar(
-          actions: <Widget>[
-            PopupMenuButton<String>(
-              icon: Icon(Icons.color_lens),
-              itemBuilder: (BuildContext context) =>
-                  colors.map((String choice) {
-                return PopupMenuItem<String>(
-                    value: choice, child: Text(choice));
-              }).toList(),
-              onSelected: (String value) {
-                setState(() {
-                  if (value == 'Pink') {
-                    headerColor = const Color(0xFF09e8189);
-                    viewHeaderColor = const Color(0xFF0f3acb6);
-                    calendarColor = const Color(0xFF0ffe5d8);
-                  } else if (value == 'Blue') {
-                    headerColor = const Color(0xFF0007eff);
-                    viewHeaderColor = const Color(0xFF03aa4f6);
-                    calendarColor = const Color(0xFF0bae5ff);
-                  } else if (value == 'Wall Brown') {
-                    headerColor = const Color(0xFF0937c5d);
-                    viewHeaderColor = const Color(0xFF0e6d9b1);
-                    calendarColor = const Color(0xFF0d1d2d6);
-                  } else if (value == 'Yellow') {
-                    headerColor = const Color(0xFF0f7ed53);
-                    viewHeaderColor = const Color(0xFF0fff77f);
-                    calendarColor = const Color(0xFF0f7f2cc);
-                  } else if (value == 'Default') {
-                    headerColor = null;
-                    viewHeaderColor = null;
-                    calendarColor = null;
-                  }
-                });
-              },
-            ),
-          ],
-          backgroundColor: headerColor,
-          //Color(0xFF003264),
-          centerTitle: true,
-          titleSpacing: 60,
-          title: Text(_text),
-          leading: PopupMenuButton<String>(
-            icon: Icon(Icons.calendar_today),
-            itemBuilder: (BuildContext context) => views.map((String choice) {
-              return PopupMenuItem<String>(
-                value: choice,
-                child: Text(choice),
-              );
+      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomPadding: false,
+      appBar: AppBar(
+        actions: <Widget>[
+          PopupMenuButton<String>(
+            icon: Icon(Icons.color_lens),
+            itemBuilder: (BuildContext context) => colors.map((String choice) {
+              return PopupMenuItem<String>(value: choice, child: Text(choice));
             }).toList(),
             onSelected: (String value) {
               setState(() {
-                if (value == 'Day') {
-                  _calendarView = CalendarView.day;
-                } else if (value == 'Month') {
-                  _calendarView = CalendarView.month;
+                if (value == 'Pink') {
+                  headerColor = const Color(0xFF09e8189);
+                  viewHeaderColor = const Color(0xFF0f3acb6);
+                  calendarColor = const Color(0xFF0ffe5d8);
+                } else if (value == 'Blue') {
+                  headerColor = const Color(0xFF0007eff);
+                  viewHeaderColor = const Color(0xFF03aa4f6);
+                  calendarColor = const Color(0xFF0bae5ff);
+                } else if (value == 'Wall Brown') {
+                  headerColor = const Color(0xFF0937c5d);
+                  viewHeaderColor = const Color(0xFF0e6d9b1);
+                  calendarColor = const Color(0xFF0d1d2d6);
+                } else if (value == 'Yellow') {
+                  headerColor = const Color(0xFF0f7ed53);
+                  viewHeaderColor = const Color(0xFF0fff77f);
+                  calendarColor = const Color(0xFF0f7f2cc);
+                } else if (value == 'Default') {
+                  headerColor = null;
+                  viewHeaderColor = null;
+                  calendarColor = null;
                 }
               });
             },
           ),
+        ],
+        backgroundColor: headerColor,
+        //Color(0xFF003264),
+        centerTitle: true,
+        titleSpacing: 60,
+        title: Text(_text),
+        leading: PopupMenuButton<String>(
+          icon: Icon(Icons.calendar_today),
+          itemBuilder: (BuildContext context) => views.map((String choice) {
+            return PopupMenuItem<String>(
+              value: choice,
+              child: Text(choice),
+            );
+          }).toList(),
+          onSelected: (String value) {
+            setState(() {
+              if (value == 'Day') {
+                _calendarView = CalendarView.day;
+              } else if (value == 'Month') {
+                _calendarView = CalendarView.month;
+              }
+            });
+          },
         ),
+      ),
       body: Container(
         child: FutureBuilder(
           future: _getOnlineData(),
@@ -167,57 +231,128 @@ class ScheduleExample extends State<CustomAgenda> {
               if (snapshot.data != null) {
                 for (int i = 0; i < snapshot.data.length; i++) {
                   collection ??= <Meeting>[];
-                  var meeting= snapshot.data[i];
+                  var meeting = snapshot.data[i];
                   collection.add(
                     Meeting(
-                        eventName: meeting.subject,
                         from: convertDateFromString(meeting.startTime),
                         to: convertDateFromString(meeting.endTime),
-                        background: Colors.red,
-                        isAllDay: meeting.allDay),
+                        eventName: meeting.subject),
                   );
+                  appointments = collection;
+                  print(appointments[0].eventName);
                 }
-              }return Container(
-        
-        child: getEventCalendar(_calendarView, _events, onCalendarTapped,collection));
-            
+              }
+              return Column(
+                children: <Widget>[
+                  Expanded(
+                    child: Container(
+                        child: getEventCalendar(_calendarView, _events,
+                            onCalendarTapped, collection)),
+                  ),
+                  /*Expanded(
+        child: Container(
+            color: Colors.black12,
+            child: ListView.separated(
+              padding: const EdgeInsets.all(2),
+              itemCount: appointmentDetails.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Container(
+                    padding: EdgeInsets.all(2),
+                    height: 60,
+                    color: appointmentDetails[index].color,
+                    child: ListTile(
+                      leading: Column(
+                        children: <Widget>[
+                          Text(
+                            appointmentDetails[index].isAllDay
+                                ? ''
+                                : '${DateFormat('hh:mm a').format(appointmentDetails[index].startTime)}',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                                height: 1.7),
+                          ),
+                          Text(
+                            appointmentDetails[index].isAllDay
+                                ? 'All day'
+                                : '',
+                            style: TextStyle(
+                                height: 0.5, color: Colors.white),
+                          ),
+                          Text(
+                            appointmentDetails[index].isAllDay
+                                ? ''
+                                : '${DateFormat('hh:mm a').format(appointmentDetails[index].endTime)}',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white),
+                          ),
+                        ],
+                      ),
+                      trailing: Container(
+                          child: Icon(
+                        getIcon(appointmentDetails[index].subject),
+                        size: 30,
+                        color: Colors.white,
+                      )),
+                      title: Container(
+                          child: Text(
+                              '${appointmentDetails[index].subject}',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white))),
+                    ));
+              },
+              separatorBuilder: (BuildContext context, int index) =>
+                  const Divider(
+                height: 5,
+              ),
+            )))**/
+                ],
+              );
             } else {
               return Container(
                 child: Center(
-                  child: Text('loading...'),
+                  child: Text("donnes en cours"),
                 ),
               );
             }
-            },
-            
-      
-    ),
-    ),
+          },
+        ),
+      ),
     );
-    
   }
-    SfCalendar getEventCalendar(
-      [CalendarView _calendarView,
-      CalendarDataSource _calendarDataSource,
-      CalendarTapCallback calendarTapCallback,
-      List<Meeting> collection,
-      ]) {
+
+  SfCalendar getEventCalendar([
+    CalendarView _calendarView,
+    CalendarDataSource _getCalendarDataSource1,
+    CalendarTapCallback calendarTapCallback,
+    List<Meeting> collection,
+  ]) {
     return SfCalendar(
         view: _calendarView,
-        dataSource: _getCalendarDataSource(collection),
+        dataSource: _getCalendarDataSource(appointments),
         onTap: calendarTapCallback,
-        initialDisplayDate:  DateTime(2017, 6, 23, 9, 0, 0),
+        initialDisplayDate: DateTime(2020, 7, 02, 9, 0, 0),
         monthViewSettings: MonthViewSettings(
             appointmentDisplayMode: MonthAppointmentDisplayMode.appointment),
         timeSlotViewSettings: TimeSlotViewSettings(
-          startHour: 1,
-          endHour: 23,
+            startHour: 1,
+            endHour: 23,
             minimumAppointmentDuration: const Duration(minutes: 30)));
   }
-    void onCalendarTapped(CalendarTapDetails calendarTapDetails) {
+
+  void onCalendarTapped(CalendarTapDetails calendarTapDetails) {
     if (calendarTapDetails.targetElement != CalendarElement.calendarCell &&
         calendarTapDetails.targetElement != CalendarElement.appointment) {
+      b = true;
       return;
+    }
+    bool tapped(CalendarTapDetails calendarTapDetails) {
+      if (calendarTapDetails.targetElement != CalendarElement.calendarCell) {}
     }
 
     setState(() {
@@ -231,7 +366,7 @@ class ScheduleExample extends State<CustomAgenda> {
         _calendarView = CalendarView.day;
       } else {
         if (calendarTapDetails.appointments != null &&
-            calendarTapDetails.appointments.length == 1) {
+            calendarTapDetails.appointments.length > 1) {
           final Meeting meetingDetails = calendarTapDetails.appointments[0];
           _startDate = meetingDetails.from;
           _endDate = meetingDetails.to;
@@ -255,24 +390,55 @@ class ScheduleExample extends State<CustomAgenda> {
             TimeOfDay(hour: _startDate.hour, minute: _startDate.minute);
         _endTime = TimeOfDay(hour: _endDate.hour, minute: _endDate.minute);
         Navigator.push<Widget>(
-          context,
-          MaterialPageRoute(
-              builder: (BuildContext context) => AppointmentEditor()),
-        );
+            context,
+            MaterialPageRoute(
+              builder: (BuildContext context) => Modif(),
+              settings: RouteSettings(arguments: appointments),
+            ));
       }
     });
   }
 
   void calendarTapped(CalendarTapDetails calendarTapDetails) {
-    if (calendarTapDetails.targetElement == CalendarElement.calendarCell
-    && _calendarView == CalendarView.month) {
+    if (calendarTapDetails.targetElement == CalendarElement.calendarCell &&
+        _calendarView == CalendarView.month) {
       setState(() {
-       // appointmentDetails = calendarTapDetails.appointments;
-        _calendarView=CalendarView.day;
+        appointmentDetails = calendarTapDetails.appointments;
+        _calendarView = CalendarView.day;
         _updateState(calendarTapDetails.date);
       });
     }
   }
+
+  /*List<Meeting> getMeetingFromJson() {
+    final List<Meeting> meetingCollection = <Meeting>[];
+
+    var list = _getOnlineData();
+    for (var v in list) {}
+    print(list);
+    /*FutureBuilder(
+        future: _getOnlineData(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.data != null) {
+            List<Meeting> collection;
+            if (snapshot.data != null) {
+              for (int i = 0; i < snapshot.data.length; i++) {
+                collection ??= <Meeting>[];
+                var meeting = snapshot.data[i];
+                collection.add(
+                  Meeting(
+                      eventName: meeting.subject,
+                      from: convertDateFromString(meeting.startTime),
+                      to: convertDateFromString(meeting.endTime),
+                      background: Colors.red,
+                      isAllDay: meeting.allDay),
+                );
+              }
+            }
+          }
+        });**/
+  }**/
+
   List<Meeting> getMeetingDetails() {
     final List<Meeting> meetingCollection = <Meeting>[];
     eventNameCollection = <String>[];
@@ -309,7 +475,6 @@ class ScheduleExample extends State<CustomAgenda> {
     _colorNames.add('Peach');
     _colorNames.add('Gray');
 
-
     final DateTime today = DateTime.now();
     final Random random = Random();
     for (int month = -1; month < 2; month++) {
@@ -335,14 +500,38 @@ class ScheduleExample extends State<CustomAgenda> {
 
     return meetingCollection;
   }
-    void _updateState(DateTime date) {
+
+  void _updateState(DateTime date) {
     setState(() {
       _jumpToTime = date.add(const Duration(hours: 3, minutes: 30));
       _text = DateFormat('MMMM yyyy').format(_jumpToTime).toString();
     });
   }
 
-  /*DataSource getCalendarDataSource() {
+  IconData getIcon(String subject) {
+    if (subject == 'Planning') {
+      return Icons.subject;
+    } else if (subject == 'Development Meeting   New York, U.S.A') {
+      return Icons.people;
+    } else if (subject == 'Support - Web Meeting   Dubai, UAE') {
+      return Icons.settings;
+    } else if (subject == 'Project Plan Meeting   Kuala Lumpur, Malaysia') {
+      return Icons.check_circle_outline;
+    } else if (subject == 'Retrospective') {
+      return Icons.people_outline;
+    } else if (subject == 'Project Release Meeting   Istanbul, Turkey') {
+      return Icons.people_outline;
+    } else if (subject == 'Customer Meeting   Tokyo, Japan') {
+      return Icons.settings_phone;
+    } else if (subject == 'Release Meeting') {
+      return Icons.view_day;
+    } else {
+      return Icons.beach_access;
+    }
+  }
+}
+
+/*DataSource getCalendarDataSource() {
     final List<Appointment> appointments = <Appointment>[];
     appointments.add(Appointment(
       startTime: DateTime.now(),
@@ -402,7 +591,7 @@ class ScheduleExample extends State<CustomAgenda> {
     return DataSource(appointments);
   }**/
 
- /* IconData getIcon(String subject) {
+/* IconData getIcon(String subject) {
     if (subject == 'Planning') {
       return Icons.subject;
     } else if (subject == 'Development Meeting   New York, U.S.A') {
@@ -423,13 +612,18 @@ class ScheduleExample extends State<CustomAgenda> {
       return Icons.beach_access;
     }
   }**/
-   DateTime convertDateFromString(String date) {
-    DateTime todayDate = DateTime.parse(date);
-    return todayDate;
-  }
-} 
+DateTime convertDateFromString(String date) {
+  DateTime todayDate = DateTime.parse(date);
+  return todayDate;
+}
+
 DataSource _getCalendarDataSource([List<Meeting> collection]) {
   List<Meeting> meetings = collection ?? <Meeting>[];
+  return DataSource(meetings);
+}
+
+DataSource _getCalendarDataSource1(appointments) {
+  List<Meeting> meetings = appointments ?? <Meeting>[];
   return DataSource(meetings);
 }
 
@@ -437,7 +631,7 @@ class DataSource extends CalendarDataSource {
   DataSource(List<Meeting> source) {
     appointments = source;
   }
-     @override
+  @override
   bool isAllDay(int index) => appointments[index].isAllDay;
 
   @override
@@ -460,18 +654,18 @@ class DataSource extends CalendarDataSource {
 
   @override
   DateTime getEndTime(int index) => appointments[index].to;
-
 }
+
 class OnlineAppointmentData {
   String startTime;
   String endTime;
   String subject;
   bool allDay;
-  
 
   OnlineAppointmentData(
       this.startTime, this.endTime, this.subject, this.allDay);
 }
+
 class Meeting {
   Meeting(
       {@required this.from,
@@ -481,14 +675,37 @@ class Meeting {
       this.eventName = '',
       this.startTimeZone = '',
       this.endTimeZone = '',
-     this.description = ''});
+      this.description = ''});
 
-  final String eventName;
-  final DateTime from;
-  final DateTime to;
-  final Color background;
-  final bool isAllDay;
-  final String startTimeZone;
-  final String endTimeZone;
-  final String description;
+  String eventName;
+  DateTime from;
+  DateTime to;
+  Color background;
+  bool isAllDay;
+  String startTimeZone;
+  String endTimeZone;
+  String description;
+
+  Meeting.fromJson(Map<String, dynamic> json) {
+    eventName = json['Subject'];
+    from = json['StartTime'];
+    to = json['EndTime'];
+    isAllDay = json['AllDay'];
+  }
+}
+
+class App {
+  String subject;
+  String startTime;
+  String endTime;
+  bool allDay;
+
+  App(this.allDay, this.endTime, this.startTime, this.subject);
+
+  App.fromJson(Map<String, dynamic> json) {
+    subject = json['Subject'];
+    startTime = json['StartTime'];
+    endTime = json['EndTime'];
+    allDay = json['AllDay'];
+  }
 }
