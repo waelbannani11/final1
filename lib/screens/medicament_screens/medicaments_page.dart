@@ -53,7 +53,8 @@ class _MedicamentState extends State<Medicament> {
     });
     setState(() {});
   }
-  MedicamentService get medicService =>GetIt.I<MedicamentService>();
+
+  MedicamentService get medicService => GetIt.I<MedicamentService>();
 
   @override
   void initState() {
@@ -206,22 +207,22 @@ class _MedicamentState extends State<Medicament> {
                                 ],
                                 secondaryActions: <Widget>[
                                   IconSlideAction(
-                                    caption: 'Supprimer',
-                                    color: Colors.red,
-                                    icon: Icons.delete,
-                                    onTap: () async {
+                                      caption: 'Supprimer',
+                                      color: Colors.red,
+                                      icon: Icons.delete,
+                                      onTap: () async {
                                         final medic = AddMedic(
                                           ID: b.ID,
                                         );
-                                        final deleteresult = medicService
-                                            .deleteMedic(medic);
+                                        final deleteresult =
+                                            medicService.deleteMedic(medic);
                                         Navigator.pushReplacement(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => Medicament()),
+                                              builder: (context) =>
+                                                  Medicament()),
                                         );
-                                      }
-                                  ),
+                                      }),
                                 ],
                                 child: Table(
                                   border: TableBorder(
@@ -279,7 +280,7 @@ class _MedicamentState extends State<Medicament> {
                                     color: Colors.blue,
                                     icon: Icons.more,
                                     onTap: () {
-                                      Navigator.push(
+                                      Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
@@ -295,22 +296,22 @@ class _MedicamentState extends State<Medicament> {
                                 ],
                                 secondaryActions: <Widget>[
                                   IconSlideAction(
-                                    caption: 'Supprimer',
-                                    color: Colors.red,
-                                    icon: Icons.delete,
-                                    onTap: () async {
+                                      caption: 'Supprimer',
+                                      color: Colors.red,
+                                      icon: Icons.delete,
+                                      onTap: () async {
                                         final medic = AddMedic(
                                           ID: a.ID,
                                         );
-                                        final deleteresult = medicService
-                                            .deleteMedic(medic);
+                                        final deleteresult =
+                                            medicService.deleteMedic(medic);
                                         Navigator.pushReplacement(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => Medicament()),
+                                              builder: (context) =>
+                                                  Medicament()),
                                         );
-                                      }
-                                  ),
+                                      }),
                                 ],
                                 child: Table(
                                   border: TableBorder(
@@ -361,7 +362,7 @@ class _MedicamentState extends State<Medicament> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => NewMedicament()),
           );

@@ -4,6 +4,8 @@ import 'package:final1/models/medicament_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
+import 'medicaments_page.dart';
+
 class NewMedicament extends StatefulWidget {
   @override
   _NewMedicamentState createState() => _NewMedicamentState();
@@ -134,10 +136,11 @@ class _NewMedicamentState extends State<NewMedicament> {
                           );
                           final result =
                               await medicamentService.createMedic(medic);
-                          if (result.data == true) {
-                            print(result.data);
-                          } else
-                            print('no');
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Medicament()),
+                          );
                         }
                       },
                       child: Container(

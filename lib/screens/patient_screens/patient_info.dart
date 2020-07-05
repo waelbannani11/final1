@@ -1,3 +1,4 @@
+import 'package:final1/historique.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:slimy_card/slimy_card.dart';
@@ -96,6 +97,8 @@ class _PatientInfoState extends State<PatientInfo> {
                   MaterialPageRoute(
                       builder: (context) => Consultation(
                             id: id,
+                            nom: nom,
+                            prenom: prenom,
                           )),
                 );
               },
@@ -107,9 +110,22 @@ class _PatientInfoState extends State<PatientInfo> {
                 ),
               ),
             ),
-            Text(
-              "Historique ",
-              style: TextStyle(color: Colors.white),
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => HistoriqueMed(
+                            id: id,
+                            nom: nom,
+                            prenom: prenom,
+                          )),
+                );
+              },
+              child: Text(
+                "Historique ",
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           ],
         ),
@@ -160,7 +176,6 @@ class _PatientInfoState extends State<PatientInfo> {
         ]);
   }
 
-  // This widget will be passed as Bottom Card's Widget.
   Widget bottomCardWidget() {
     return Column(
         mainAxisAlignment: MainAxisAlignment.center,

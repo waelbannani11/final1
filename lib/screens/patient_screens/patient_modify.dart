@@ -1,6 +1,7 @@
 import 'package:final1/models/addpatient.dart';
 import 'package:final1/models/patient_service.dart';
 import 'package:final1/screens/calendar_page.dart';
+import 'package:final1/screens/patient_screens/patient_page.dart';
 import 'package:flutter/material.dart';
 import 'package:final1/theme/colors/light_colors.dart';
 import 'package:final1/widgets/back_button.dart';
@@ -378,7 +379,8 @@ class _PatientModifyState extends State<PatientModify> {
                       onTap: () async {
                         if (_formKey.currentState.validate()) {
                           final patient = AddPatient(
-                            patientid: int.parse(_idConttoller.text),
+                            patientid: id,
+                            code_Year: _codeYearConttoller.text,
                             nom: _nomConttoller.text,
                             prenom: _prenomConttoller.text,
                             sex: groupValue,
@@ -391,9 +393,10 @@ class _PatientModifyState extends State<PatientModify> {
                           );
                           final result =
                               await patientService.updatePatient(patient);
-                        } else {
-                          Scaffold.of(context)
-                              .showSnackBar(SnackBar(content: Text('NO Data')));
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(builder: (context) => Patients()),
+                          );
                         }
                       },
                       child: Container(

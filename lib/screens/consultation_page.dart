@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:final1/models/addconsultation.dart';
 import 'package:final1/models/consultation.service.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +9,8 @@ import 'package:final1/theme/colors/light_colors.dart';
 import 'package:final1/widgets/back_button.dart';
 import 'package:final1/widgets/my_text_field.dart';
 import 'package:final1/screens/home_page.dart';
+import 'package:string_validator/string_validator.dart';
+import '../historique.dart';
 import 'search.dart';
 import 'package:final1/models/patient.dart';
 import 'calendar_page.dart';
@@ -14,26 +18,36 @@ import 'package:final1/models/rdv.dart';
 
 class Consultation extends StatefulWidget {
   int id;
+  String nom;
+  String prenom;
 
-  Consultation({
-    this.id,
-  });
+  Consultation({this.id, this.nom, this.prenom});
   @override
   _ConsultationState createState() => _ConsultationState(
         id,
+        nom,
+        prenom,
       );
 }
 
 class _ConsultationState extends State<Consultation> {
   int id;
+  String nom;
+  String prenom;
 
-  _ConsultationState(
-    this.id,
-  );
+  _ConsultationState(this.id, this.nom, this.prenom);
 
   ConsultationService get consultationService => GetIt.I<ConsultationService>();
   TextEditingController _idConttoller = TextEditingController();
   TextEditingController _motifController = TextEditingController();
+  TextEditingController _pressionsysController = TextEditingController();
+  TextEditingController _pressiondiastController = TextEditingController();
+  TextEditingController _temperatureController = TextEditingController();
+  TextEditingController _poidsController = TextEditingController();
+  TextEditingController _tailleController = TextEditingController();
+  TextEditingController _subjectifController = TextEditingController();
+  TextEditingController _consultidController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     _idConttoller.text = id.toString();
@@ -41,27 +55,7 @@ class _ConsultationState extends State<Consultation> {
     final Post post = ModalRoute.of(context).settings.arguments;
     double width = MediaQuery.of(context).size.width;
 
-    //nom
-    Widget _buildrdvid() {
-      return TextFormField(
-        // initialValue: post.title,
-        decoration: InputDecoration(
-            labelText: 'rdvid',
-            border: new OutlineInputBorder(
-                borderRadius: new BorderRadius.circular(18.0),
-                borderSide: new BorderSide())),
-        maxLength: 20,
-        validator: (String value) {
-          if (value.isEmpty) {
-            return 'Name is Required';
-          }
-
-          return null;
-        },
-      );
-    }
-
-    //prenom
+    //motif
     Widget _buildmotif() {
       return TextFormField(
         controller: _motifController,
@@ -73,7 +67,27 @@ class _ConsultationState extends State<Consultation> {
         maxLength: 20,
         validator: (String value) {
           if (value.isEmpty) {
-            return 'lastname is Required';
+            return 'motif is Required';
+          }
+
+          return null;
+        },
+      );
+    }
+
+    //consultid
+    Widget buildconsultid() {
+      return TextFormField(
+        controller: _consultidController,
+        decoration: InputDecoration(
+            labelText: 'Consult id',
+            border: new OutlineInputBorder(
+                borderRadius: new BorderRadius.circular(18.0),
+                borderSide: new BorderSide())),
+        maxLength: 20,
+        validator: (String value) {
+          if (value.isEmpty) {
+            return 'Consult id is Required';
           }
 
           return null;
@@ -102,72 +116,10 @@ class _ConsultationState extends State<Consultation> {
       );
     }
 
-    //num_fiche
-    Widget buildnumfiche() {
-      return TextFormField(
-        //initialValue: '$post.title /20',
-        decoration: InputDecoration(
-            labelText: 'Num_fiche',
-            border: new OutlineInputBorder(
-                borderRadius: new BorderRadius.circular(18.0),
-                borderSide: new BorderSide())),
-        maxLength: 30,
-        validator: (String value) {
-          if (value.isEmpty) {
-            return 'Num_fiche is Required';
-          }
-
-          return null;
-        },
-      );
-    }
-    //deb
-
-    Widget builddatedeb() {
-      return TextFormField(
-        initialValue: '',
-        decoration: InputDecoration(
-            labelText: 'Date de consultation',
-            border: new OutlineInputBorder(
-                borderRadius: new BorderRadius.circular(18.0),
-                borderSide: new BorderSide())),
-        keyboardType: TextInputType.datetime,
-        maxLength: 10,
-        validator: (String value) {
-          if (value.isEmpty) {
-            return 'date is Required';
-          }
-
-          return null;
-        },
-      );
-    }
-
-    //fin
-    Widget builddatefin() {
-      return TextFormField(
-        initialValue: '',
-        decoration: InputDecoration(
-            labelText: 'Date de fin',
-            border: new OutlineInputBorder(
-                borderRadius: new BorderRadius.circular(18.0),
-                borderSide: new BorderSide())),
-        keyboardType: TextInputType.datetime,
-        maxLength: 10,
-        validator: (String value) {
-          if (value.isEmpty) {
-            return 'datefin is Required';
-          }
-
-          return null;
-        },
-      );
-    }
-
     //pressionsyst
     Widget buildpressionsyst() {
       return TextFormField(
-        initialValue: '',
+        controller: _pressionsysController,
         decoration: InputDecoration(
             labelText: 'pressionsyst',
             border: new OutlineInputBorder(
@@ -175,7 +127,7 @@ class _ConsultationState extends State<Consultation> {
                 borderSide: new BorderSide())),
         maxLength: 10,
         validator: (String value) {
-          if (value.isEmpty) {
+          if (value.isEmpty || !isNumeric(value)) {
             return 'pressionsyst is Required';
           }
           return null;
@@ -186,7 +138,7 @@ class _ConsultationState extends State<Consultation> {
     //pressiondiast
     Widget buildpressiondiast() {
       return TextFormField(
-        initialValue: '',
+        controller: _pressiondiastController,
         decoration: InputDecoration(
             labelText: 'pressiondiast',
             border: new OutlineInputBorder(
@@ -194,7 +146,7 @@ class _ConsultationState extends State<Consultation> {
                 borderSide: new BorderSide())),
         maxLength: 10,
         validator: (String value) {
-          if (value.isEmpty) {
+          if (value.isEmpty || !isNumeric(value)) {
             return 'pressiondiast is Required';
           }
           return null;
@@ -205,7 +157,7 @@ class _ConsultationState extends State<Consultation> {
     //temperature
     Widget buildtemperature() {
       return TextFormField(
-        initialValue: '',
+        controller: _temperatureController,
         decoration: InputDecoration(
             labelText: 'temperature',
             border: new OutlineInputBorder(
@@ -213,7 +165,7 @@ class _ConsultationState extends State<Consultation> {
                 borderSide: new BorderSide())),
         maxLength: 10,
         validator: (String value) {
-          if (value.isEmpty) {
+          if (value.isEmpty || !isNumeric(value)) {
             return 'temperature is Required';
           }
           return null;
@@ -223,7 +175,7 @@ class _ConsultationState extends State<Consultation> {
 
     Widget buildpoids() {
       return TextFormField(
-        initialValue: '',
+        controller: _poidsController,
         decoration: InputDecoration(
             labelText: 'poids',
             border: new OutlineInputBorder(
@@ -231,20 +183,17 @@ class _ConsultationState extends State<Consultation> {
                 borderSide: new BorderSide())),
         maxLength: 10,
         validator: (String value) {
-          if (value.isEmpty) {
+          if (value.isEmpty || !isNumeric(value)) {
             return 'poids is Required';
           }
           return null;
-        },
-        onSaved: (String value) {
-          //rdv.type = value;
         },
       );
     }
 
     Widget buildtaille() {
       return TextFormField(
-        initialValue: '',
+        controller: _tailleController,
         decoration: InputDecoration(
             labelText: 'taille',
             border: new OutlineInputBorder(
@@ -252,29 +201,27 @@ class _ConsultationState extends State<Consultation> {
                 borderSide: new BorderSide())),
         maxLength: 10,
         validator: (String value) {
-          if (value.isEmpty) {
+          if (value.isEmpty || !isNumeric(value)) {
             return 'taille is Required';
           }
           return null;
         },
-        onSaved: (String value) {
-          //rdv.type = value;
-        },
       );
     }
 
-    Widget buildrdvid() {
+    Widget buildsubjectif() {
       return TextFormField(
-        initialValue: '',
+        controller: _subjectifController,
         decoration: InputDecoration(
-            labelText: 'rdvid',
+            labelText: 'subjectif',
             border: new OutlineInputBorder(
                 borderRadius: new BorderRadius.circular(18.0),
                 borderSide: new BorderSide())),
-        maxLength: 10,
+        maxLength: 40,
+        maxLines: 2,
         validator: (String value) {
           if (value.isEmpty) {
-            return 'rdvid is Required';
+            return 'taille is Required';
           }
           return null;
         },
@@ -295,22 +242,45 @@ class _ConsultationState extends State<Consultation> {
                 key: _formKey,
                 child: Column(
                   children: <Widget>[
+                    buildconsultid(),
                     buildid(),
                     _buildmotif(),
-                    builddatedeb(),
                     buildpressionsyst(),
                     buildpressiondiast(),
                     buildtemperature(),
                     buildpoids(),
                     buildtaille(),
+                    buildsubjectif(),
                     GestureDetector(
                       onTap: () async {
-                        print(_motifController.text);
-                        final consult = AddConsultation(
-                          motif: _motifController.text,
-                        );
-                        final result =
-                            await consultationService.createConcult(consult);
+                        if (_formKey.currentState.validate()) {
+                          final consult = AddConsultation(
+                            consultid: _consultidController.text,
+                            motif: _motifController.text,
+                            patientid: _idConttoller.text,
+                            sv_poids: double.parse(_poidsController.text),
+                            sv_pressiondiast:
+                                double.parse(_pressiondiastController.text),
+                            sv_pressionsyst:
+                                double.parse(_pressionsysController.text),
+                            sv_taille: double.parse(_tailleController.text),
+                            sv_temperature:
+                                double.parse(_temperatureController.text),
+                            subjectif: _subjectifController.text,
+                          );
+                          final result =
+                              await consultationService.createConcult(consult);
+
+                          Navigator.pop(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HistoriqueMed(
+                                      id: id,
+                                      nom: nom,
+                                      prenom: prenom,
+                                    )),
+                          );
+                        }
                       },
                       child: Container(
                         height: 80,

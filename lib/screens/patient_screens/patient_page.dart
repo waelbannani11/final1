@@ -160,7 +160,7 @@ class _PatientsState extends State<Patients> {
                                     color: Colors.blue,
                                     icon: Icons.more,
                                     onTap: () {
-                                      Navigator.push(
+                                      Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) => PatientModify(

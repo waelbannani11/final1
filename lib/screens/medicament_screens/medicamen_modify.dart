@@ -1,23 +1,27 @@
 import 'package:final1/models/addmedic.dart';
 import 'package:final1/models/medicament_service.dart';
+import 'package:final1/screens/medicament_screens/medicaments_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+
 class MedicamentModify extends StatefulWidget {
   int id;
   String DESIGN;
   String LABO;
   String FAMILLE;
-  MedicamentModify(
-      {this.id,
-      this.DESIGN,
-      this.LABO,
-      this.FAMILLE,});
+  MedicamentModify({
+    this.id,
+    this.DESIGN,
+    this.LABO,
+    this.FAMILLE,
+  });
   @override
   _MedicamentModifyState createState() => _MedicamentModifyState(
-      id,
-      DESIGN,
-      LABO,
-      FAMILLE,);
+        id,
+        DESIGN,
+        LABO,
+        FAMILLE,
+      );
 }
 
 class _MedicamentModifyState extends State<MedicamentModify> {
@@ -26,18 +30,17 @@ class _MedicamentModifyState extends State<MedicamentModify> {
   String LABO;
   String FAMILLE;
   _MedicamentModifyState(
-      this.id,
-      this.DESIGN,
-      this.LABO,
-      this.FAMILLE,);
-
+    this.id,
+    this.DESIGN,
+    this.LABO,
+    this.FAMILLE,
+  );
 
   MedicamentService get medicamentService => GetIt.I<MedicamentService>();
   TextEditingController _idConttoller = TextEditingController();
   TextEditingController _DESIGNConttoller = TextEditingController();
   TextEditingController _LABOConttoller = TextEditingController();
   TextEditingController _FAMILLEConttoller = TextEditingController();
-
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +84,6 @@ class _MedicamentModifyState extends State<MedicamentModify> {
         },
       );
     }
-    
 
     //LABO
     Widget _buildLABO() {
@@ -101,8 +103,6 @@ class _MedicamentModifyState extends State<MedicamentModify> {
         },
       );
     }
-
-
 
     //Famille
     Widget _buildFamille() {
@@ -148,21 +148,21 @@ class _MedicamentModifyState extends State<MedicamentModify> {
                     _buildFamille(),
                     GestureDetector(
                       onTap: () async {
-                        if(_formKey.currentState.validate()){                        
+                        if (_formKey.currentState.validate()) {
                           final medic = AddMedic(
-                          ID: int.parse(_idConttoller.text),
-                          DESIGN: _DESIGNConttoller.text,
-                          LABO: _LABOConttoller.text,
-                          FAMILLE: _FAMILLEConttoller.text,
-                        );
-                        final result =
-                            await medicamentService.updatemedic(medic);
-                            
-                        }else{
-                          Scaffold.of(context)
-                      .showSnackBar(SnackBar(content: Text('NO Data')));
+                            ID: int.parse(_idConttoller.text),
+                            DESIGN: _DESIGNConttoller.text,
+                            LABO: _LABOConttoller.text,
+                            FAMILLE: _FAMILLEConttoller.text,
+                          );
+                          final result =
+                              await medicamentService.updatemedic(medic);
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Medicament()),
+                          );
                         }
-
                       },
                       child: Container(
                         height: 80,
