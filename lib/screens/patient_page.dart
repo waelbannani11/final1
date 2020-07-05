@@ -1,9 +1,8 @@
 import 'dart:convert';
 import 'package:final1/models/patient.dart';
+import 'package:final1/screens/patient_screens/create_new_patient.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
-import 'create_new_patient.dart';
 
 class Patients extends StatefulWidget {
   @override
@@ -20,8 +19,7 @@ class _PatientsState extends State<Patients> {
       loading = true;
     });
     _list.clear();
-    var response =
-        await http.get(url);
+    var response = await http.get(url);
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       setState(() {
@@ -42,9 +40,11 @@ class _PatientsState extends State<Patients> {
       return;
     }
 
-    _list.forEach((f) { 
-      if (f.nom.toLowerCase().contains(text) || f.prenom.toLowerCase().contains(text) || f.nom.contains(text) || f.prenom.contains(text))
-        _search.add(f);
+    _list.forEach((f) {
+      if (f.nom.toLowerCase().contains(text) ||
+          f.prenom.toLowerCase().contains(text) ||
+          f.nom.contains(text) ||
+          f.prenom.contains(text)) _search.add(f);
     });
     setState(() {});
   }
@@ -54,6 +54,7 @@ class _PatientsState extends State<Patients> {
     super.initState();
     fetchData();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,17 +85,21 @@ class _PatientsState extends State<Patients> {
                   ),
                 ),
               ),
-              
             ),
             Row(
               children: <Widget>[
-                SizedBox(height:60),
+                SizedBox(height: 60),
                 Expanded(
                   flex: 2,
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
                     child: Container(
-                      child:Center(child: Text("Nom",style: TextStyle(color:Colors.white),),), 
+                      child: Center(
+                        child: Text(
+                          "Nom",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
                       height: 50.0,
                       decoration: new BoxDecoration(
                         borderRadius: new BorderRadius.circular(25.0),
@@ -110,16 +115,21 @@ class _PatientsState extends State<Patients> {
                 Expanded(
                   flex: 1,
                   child: Padding(
-                  padding: const EdgeInsets.fromLTRB(1, 0, 0, 0),
-                  child: Container(
-                    child:Center(child: Text("Prenom",style: TextStyle(color:Colors.white),),), 
-                    height: 50.0,
-                    decoration: new BoxDecoration(
-                    borderRadius: new BorderRadius.circular(25.0),
-                    color: Colors.blue,
-                    border: new Border.all(
-                      width: 2.0,
-                      color: Colors.blue,
+                    padding: const EdgeInsets.fromLTRB(1, 0, 0, 0),
+                    child: Container(
+                      child: Center(
+                        child: Text(
+                          "Prenom",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                      height: 50.0,
+                      decoration: new BoxDecoration(
+                        borderRadius: new BorderRadius.circular(25.0),
+                        color: Colors.blue,
+                        border: new Border.all(
+                          width: 2.0,
+                          color: Colors.blue,
                         ),
                       ),
                     ),
@@ -128,48 +138,58 @@ class _PatientsState extends State<Patients> {
                 Expanded(
                   flex: 1,
                   child: Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                  child: Container(
-                  child:Center(child: Text("État Civil",style: TextStyle(color:Colors.white),),), 
-                  height: 50.0,
-                  decoration: new BoxDecoration(
-                    borderRadius: new BorderRadius.circular(25.0),
-                    color: Colors.blue,
-                    border: new Border.all(
-                      width: 2.0,
-                      color: Colors.blue,
-                    ),
-                  ),
-                ),
-                ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Padding(
-                  padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                  child: Container(
-                    child:Center(child: Text("Sex",style: TextStyle(color:Colors.white),),), 
+                    padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                    child: Container(
+                      child: Center(
+                        child: Text(
+                          "État Civil",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
                       height: 50.0,
                       decoration: new BoxDecoration(
                         borderRadius: new BorderRadius.circular(25.0),
                         color: Colors.blue,
                         border: new Border.all(
-                        width: 2.0,
-                        color: Colors.blue,
+                          width: 2.0,
+                          color: Colors.blue,
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            ],
-          ),                 
+                Expanded(
+                  flex: 1,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                    child: Container(
+                      child: Center(
+                        child: Text(
+                          "Sex",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                      height: 50.0,
+                      decoration: new BoxDecoration(
+                        borderRadius: new BorderRadius.circular(25.0),
+                        color: Colors.blue,
+                        border: new Border.all(
+                          width: 2.0,
+                          color: Colors.blue,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
             loading
                 ? Padding(
-                  padding: const EdgeInsets.all(50.0),
-                  child: Center(
+                    padding: const EdgeInsets.all(50.0),
+                    child: Center(
                       child: CircularProgressIndicator(),
                     ),
-                )
+                  )
                 : Expanded(
                     child: _search.length != 0 || controller.text.isNotEmpty
                         ? ListView.builder(
@@ -181,12 +201,16 @@ class _PatientsState extends State<Patients> {
                                   Expanded(
                                     flex: 2,
                                     child: Padding(
-                                      padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                                      padding:
+                                          const EdgeInsets.fromLTRB(5, 0, 5, 0),
                                       child: Container(
-                                        child:Center(child: Text(b.nom),), 
+                                        child: Center(
+                                          child: Text(b.nom),
+                                        ),
                                         height: 20.0,
                                         decoration: new BoxDecoration(
-                                          borderRadius: new BorderRadius.circular(50.0),
+                                          borderRadius:
+                                              new BorderRadius.circular(50.0),
                                           border: new Border.all(
                                             width: 2.0,
                                             color: Colors.brown,
@@ -194,16 +218,21 @@ class _PatientsState extends State<Patients> {
                                         ),
                                       ),
                                     ),
-                                  ),SizedBox(height:60),
+                                  ),
+                                  SizedBox(height: 60),
                                   Expanded(
                                     flex: 1,
                                     child: Padding(
-                                      padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                      padding: const EdgeInsets.fromLTRB(
+                                          10, 0, 0, 0),
                                       child: Container(
-                                        child:Center(child: Text(b.prenom),), 
+                                        child: Center(
+                                          child: Text(b.prenom),
+                                        ),
                                         height: 50.0,
                                         decoration: new BoxDecoration(
-                                          borderRadius: new BorderRadius.circular(25.0),
+                                          borderRadius:
+                                              new BorderRadius.circular(25.0),
                                           border: new Border.all(
                                             width: 2.0,
                                             color: Colors.black,
@@ -215,12 +244,16 @@ class _PatientsState extends State<Patients> {
                                   Expanded(
                                     flex: 1,
                                     child: Padding(
-                                      padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                      padding: const EdgeInsets.fromLTRB(
+                                          10, 0, 0, 0),
                                       child: Container(
-                                        child:Center(child: Text((b.statusmatriomo_id).toString())), 
+                                        child: Center(
+                                            child: Text((b.statusmatriomo_id)
+                                                .toString())),
                                         height: 50.0,
                                         decoration: new BoxDecoration(
-                                          borderRadius: new BorderRadius.circular(25.0),
+                                          borderRadius:
+                                              new BorderRadius.circular(25.0),
                                           border: new Border.all(
                                             width: 2.0,
                                             color: Colors.black,
@@ -232,14 +265,20 @@ class _PatientsState extends State<Patients> {
                                   Expanded(
                                     flex: 1,
                                     child: Padding(
-                                      padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                                      padding:
+                                          const EdgeInsets.fromLTRB(5, 0, 5, 0),
                                       child: Container(
                                         height: 50.0,
                                         decoration: new BoxDecoration(
                                           image: DecorationImage(
-                                            image:b.sex == 'H' ?AssetImage('assets/images/boy.png'):AssetImage('assets/images/girl.png') ,
+                                            image: b.sex == 'H'
+                                                ? AssetImage(
+                                                    'assets/images/boy.png')
+                                                : AssetImage(
+                                                    'assets/images/girl.png'),
                                           ),
-                                          borderRadius: new BorderRadius.circular(25.0),
+                                          borderRadius:
+                                              new BorderRadius.circular(25.0),
                                         ),
                                       ),
                                     ),
@@ -257,12 +296,16 @@ class _PatientsState extends State<Patients> {
                                   Expanded(
                                     flex: 2,
                                     child: Padding(
-                                      padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                                      padding:
+                                          const EdgeInsets.fromLTRB(5, 0, 5, 0),
                                       child: Container(
-                                        child:Center(child: Text(a.nom),), 
+                                        child: Center(
+                                          child: Text(a.nom),
+                                        ),
                                         height: 50.0,
                                         decoration: new BoxDecoration(
-                                          borderRadius: new BorderRadius.circular(25.0),
+                                          borderRadius:
+                                              new BorderRadius.circular(25.0),
                                           border: new Border.all(
                                             width: 2.0,
                                             color: Colors.black,
@@ -270,16 +313,21 @@ class _PatientsState extends State<Patients> {
                                         ),
                                       ),
                                     ),
-                                  ),SizedBox(height:60),
+                                  ),
+                                  SizedBox(height: 60),
                                   Expanded(
                                     flex: 1,
                                     child: Padding(
-                                      padding: const EdgeInsets.fromLTRB(1, 0, 0, 0),
+                                      padding:
+                                          const EdgeInsets.fromLTRB(1, 0, 0, 0),
                                       child: Container(
-                                        child:Center(child: Text(a.prenom),), 
+                                        child: Center(
+                                          child: Text(a.prenom),
+                                        ),
                                         height: 50.0,
                                         decoration: new BoxDecoration(
-                                          borderRadius: new BorderRadius.circular(25.0),
+                                          borderRadius:
+                                              new BorderRadius.circular(25.0),
                                           border: new Border.all(
                                             width: 2.0,
                                             color: Colors.black,
@@ -291,12 +339,16 @@ class _PatientsState extends State<Patients> {
                                   Expanded(
                                     flex: 1,
                                     child: Padding(
-                                      padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                      padding: const EdgeInsets.fromLTRB(
+                                          10, 0, 0, 0),
                                       child: Container(
-                                        child:Center(child: Text((a.statusmatriomo_id).toString())), 
+                                        child: Center(
+                                            child: Text((a.statusmatriomo_id)
+                                                .toString())),
                                         height: 50.0,
                                         decoration: new BoxDecoration(
-                                          borderRadius: new BorderRadius.circular(25.0),
+                                          borderRadius:
+                                              new BorderRadius.circular(25.0),
                                           border: new Border.all(
                                             width: 2.0,
                                             color: Colors.black,
@@ -308,15 +360,20 @@ class _PatientsState extends State<Patients> {
                                   Expanded(
                                     flex: 1,
                                     child: Padding(
-                                      padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                                      padding:
+                                          const EdgeInsets.fromLTRB(5, 0, 5, 0),
                                       child: Container(
-                                        
                                         height: 50.0,
                                         decoration: new BoxDecoration(
                                           image: DecorationImage(
-                                            image:a.sex == 'H' ?AssetImage('assets/images/boy.png'):AssetImage('assets/images/girl.png') ,
+                                            image: a.sex == 'H'
+                                                ? AssetImage(
+                                                    'assets/images/boy.png')
+                                                : AssetImage(
+                                                    'assets/images/girl.png'),
                                           ),
-                                          borderRadius: new BorderRadius.circular(25.0),
+                                          borderRadius:
+                                              new BorderRadius.circular(25.0),
                                         ),
                                       ),
                                     ),
@@ -330,12 +387,10 @@ class _PatientsState extends State<Patients> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed:(){
+        onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
-              builder: (context) => Createnvpatient() 
-            ),
+            MaterialPageRoute(builder: (context) => Createnvpatient()),
           );
         },
         child: Icon(Icons.add),

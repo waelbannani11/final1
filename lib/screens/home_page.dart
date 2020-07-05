@@ -110,7 +110,6 @@ class HomePage extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => Patients()),
                 );
               },
-<<<<<<< HEAD
             ),
             const Divider(
               thickness: 0.5,
@@ -123,19 +122,13 @@ class HomePage extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => Medicament()),
                 );
               },
-=======
->>>>>>> 47b5990ce5bf5c391bddf91706b64ff20ea017f7
             ),
             const Divider(
               thickness: 0.5,
             ),
             ListTile(
-<<<<<<< HEAD
               leading: Icon(Icons.description),
               title: Text('Deconnecter'),
-=======
-              title: Text('Les Médicaments'),
->>>>>>> 47b5990ce5bf5c391bddf91706b64ff20ea017f7
               onTap: () {
                 Navigator.push(
                   context,

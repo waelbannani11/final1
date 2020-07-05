@@ -120,13 +120,12 @@ class ScheduleExample extends State<CustomAgenda> {
     'Month',
   ];
   Future<List<OnlineAppointmentData>> _getOnlineData() async {
-    var data =
-        await http.get("https://testjsonwael.000webhostapp.com/test11.json");
+    var data = await http.get("http://10.0.3.2:5000/Rdv");
     var jsonData = json.decode(data.body);
     List<OnlineAppointmentData> appointmentData = [];
     for (var u in jsonData) {
-      OnlineAppointmentData user = OnlineAppointmentData(
-          u['StartTime'], u['EndTime'], u['Subject'], u['AllDay']);
+      OnlineAppointmentData user =
+          OnlineAppointmentData(u['startTime'], u['endTime'], u['subject']);
       appointmentData.add(user);
       //print(user.subject);
     }
@@ -336,7 +335,7 @@ class ScheduleExample extends State<CustomAgenda> {
         view: _calendarView,
         dataSource: _getCalendarDataSource(appointments),
         onTap: calendarTapCallback,
-        initialDisplayDate: DateTime(2020, 7, 02, 9, 0, 0),
+        initialDisplayDate: DateTime(2020, 07, 02, 9, 0, 0),
         monthViewSettings: MonthViewSettings(
             appointmentDisplayMode: MonthAppointmentDisplayMode.appointment),
         timeSlotViewSettings: TimeSlotViewSettings(
@@ -660,10 +659,10 @@ class OnlineAppointmentData {
   String startTime;
   String endTime;
   String subject;
-  bool allDay;
+  //bool allDay;
 
   OnlineAppointmentData(
-      this.startTime, this.endTime, this.subject, this.allDay);
+      this.startTime, this.endTime, this.subject /*, this.allDay**/);
 }
 
 class Meeting {
