@@ -3,6 +3,7 @@ import 'package:final1/models/addpatient.dart';
 import 'package:final1/models/medicament_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:string_validator/string_validator.dart';
 
 import 'medicaments_page.dart';
 
@@ -37,7 +38,7 @@ class _NewMedicamentState extends State<NewMedicament> {
                 borderSide: new BorderSide())),
         maxLength: 20,
         validator: (String value) {
-          if (value.isEmpty) {
+          if (value.isEmpty || !isNumeric(value)) {
             return 'ID is Required';
           }
           return null;

@@ -131,19 +131,21 @@ class _PatientInfoState extends State<PatientInfo> {
         ),
         color: Colors.blue,
       ),
-      body: ListView(
-        padding: EdgeInsets.zero,
-        children: <Widget>[
-          SizedBox(
-            height: 10,
-          ),
-          SlimyCard(
-            slimeEnabled: false,
-            color: Colors.blue,
-            topCardWidget: topCardWidget(),
-            bottomCardWidget: bottomCardWidget(),
-          )
-        ],
+      body: Container(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            SizedBox(
+              height: 10,
+            ),
+            SlimyCard(
+              slimeEnabled: false,
+              color: Colors.blue,
+              topCardWidget: topCardWidget(),
+              bottomCardWidget: bottomCardWidget(),
+            )
+          ],
+        ),
       ),
     );
   }

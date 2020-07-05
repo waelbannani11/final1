@@ -56,6 +56,7 @@ class _HistoriqueMedState extends State<HistoriqueMed> {
     return Scaffold(
       appBar: AppBar(title: Text("Les Consultations")),
       body: ListView.builder(
+        scrollDirection: Axis.vertical,
         itemCount: _list.length,
         itemBuilder: (context, i) {
           final a = _list[i];

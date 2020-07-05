@@ -77,6 +77,12 @@ class _MedicamentState extends State<Medicament> {
         ),
       ]),
       body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/background.jpg"),
+            fit: BoxFit.cover,
+          ),
+        ),
         child: Column(
           children: <Widget>[
             Container(
@@ -103,69 +109,84 @@ class _MedicamentState extends State<Medicament> {
             ),
             Column(
               children: <Widget>[
-                Table(
-                  border: TableBorder(
-                      left: BorderSide.none,
-                      right: BorderSide.none,
-                      top: BorderSide.none,
-                      bottom: BorderSide(width: 0.5)),
-                  children: [
-                    TableRow(
-                      children: [
-                        TableCell(
-                          child: Row(
-                            children: <Widget>[
-                              Expanded(
-                                flex: 1,
-                                child: Text(
-                                  "LABO",
-                                  style: TextStyle(
-                                    decoration: TextDecoration.underline,
-                                    fontStyle: FontStyle.italic,
-                                    fontWeight: FontWeight.bold,
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(70, 8, 8, 8),
+                  child: Table(
+                    children: [
+                      TableRow(
+                        children: [
+                          TableCell(
+                            child: Row(
+                              children: <Widget>[
+                                Expanded(
+                                  flex: 1,
+                                  child: Text(
+                                    "LABO",
+                                    style: TextStyle(
+                                      decoration: TextDecoration.underline,
+                                      fontStyle: FontStyle.italic,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                        TableCell(
-                          child: Row(
-                            children: <Widget>[
-                              Expanded(
-                                flex: 4,
-                                child: Text(
-                                  "NOM",
-                                  style: TextStyle(
-                                    decoration: TextDecoration.underline,
-                                    fontStyle: FontStyle.italic,
-                                    fontWeight: FontWeight.bold,
+                          TableCell(
+                            child: Row(
+                              children: <Widget>[
+                                Expanded(
+                                  flex: 4,
+                                  child: Text(
+                                    "NOM",
+                                    style: TextStyle(
+                                      decoration: TextDecoration.underline,
+                                      fontStyle: FontStyle.italic,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                        TableCell(
-                          child: Row(
-                            children: <Widget>[
-                              Expanded(
-                                flex: 1,
-                                child: Text(
-                                  "FAMILLE",
-                                  style: TextStyle(
-                                    decoration: TextDecoration.underline,
-                                    fontStyle: FontStyle.italic,
-                                    fontWeight: FontWeight.bold,
+                          TableCell(
+                            child: Row(
+                              children: <Widget>[
+                                Expanded(
+                                  flex: 1,
+                                  child: Text(
+                                    "FAMILLE",
+                                    style: TextStyle(
+                                      decoration: TextDecoration.underline,
+                                      fontStyle: FontStyle.italic,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                          TableCell(
+                            child: Row(
+                              children: <Widget>[
+                                Expanded(
+                                  flex: 1,
+                                  child: Text(
+                                    "ID",
+                                    style: TextStyle(
+                                      decoration: TextDecoration.underline,
+                                      fontStyle: FontStyle.italic,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -183,88 +204,117 @@ class _MedicamentState extends State<Medicament> {
                             itemBuilder: (context, i) {
                               final b = _search[i];
                               return Slidable(
-                                actionPane: SlidableDrawerActionPane(),
-                                actionExtentRatio: 0.25,
-                                actions: <Widget>[
-                                  IconSlideAction(
-                                    caption: 'Modifier',
-                                    color: Colors.blue,
-                                    icon: Icons.more,
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                MedicamentModify(
-                                                  id: b.ID,
-                                                  DESIGN: b.DESIGN,
-                                                  LABO: b.LABO,
-                                                  FAMILLE: b.FAMILLE,
-                                                )),
-                                      );
-                                    },
-                                  ),
-                                ],
-                                secondaryActions: <Widget>[
-                                  IconSlideAction(
-                                      caption: 'Supprimer',
-                                      color: Colors.red,
-                                      icon: Icons.delete,
-                                      onTap: () async {
-                                        final medic = AddMedic(
-                                          ID: b.ID,
-                                        );
-                                        final deleteresult =
-                                            medicService.deleteMedic(medic);
+                                  actionPane: SlidableDrawerActionPane(),
+                                  actionExtentRatio: 0.25,
+                                  actions: <Widget>[
+                                    IconSlideAction(
+                                      caption: 'Modifier',
+                                      color: Colors.blue,
+                                      icon: Icons.more,
+                                      onTap: () {
                                         Navigator.pushReplacement(
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  Medicament()),
+                                                  MedicamentModify(
+                                                    id: b.ID,
+                                                    DESIGN: b.DESIGN,
+                                                    LABO: b.LABO,
+                                                    FAMILLE: b.FAMILLE,
+                                                  )),
                                         );
-                                      }),
-                                ],
-                                child: Table(
-                                  border: TableBorder(
-                                      left: BorderSide.none,
-                                      right: BorderSide.none,
-                                      top: BorderSide.none,
-                                      bottom: BorderSide(width: 0.5)),
-                                  children: [
-                                    TableRow(
+                                      },
+                                    ),
+                                  ],
+                                  secondaryActions: <Widget>[
+                                    IconSlideAction(
+                                        caption: 'Supprimer',
+                                        color: Colors.red,
+                                        icon: Icons.delete,
+                                        onTap: () async {
+                                          final medic = AddMedic(
+                                            ID: b.ID,
+                                          );
+                                          final deleteresult =
+                                              medicService.deleteMedic(medic);
+                                          Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    Medicament()),
+                                          );
+                                        }),
+                                  ],
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 10.0),
+                                    child: Row(
                                       children: [
-                                        TableCell(
-                                          child: Row(
+                                        Expanded(
+                                          flex: 2,
+                                          child: Wrap(
+                                            // set your alignment
                                             children: <Widget>[
-                                              Expanded(
-                                                  flex: 1, child: Text(b.LABO)),
+                                              Chip(
+                                                avatar: CircleAvatar(
+                                                    backgroundColor:
+                                                        Colors.orange,
+                                                    child: Text(b.LABO[0],
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white))),
+                                                label: Text(b.LABO,
+                                                    style: TextStyle(
+                                                        color: Colors.white)),
+                                                backgroundColor: Colors.blue,
+                                              ),
                                             ],
                                           ),
                                         ),
-                                        TableCell(
-                                          child: Row(
+                                        Expanded(
+                                          flex: 2,
+                                          child: Wrap(
+                                            // set your alignment
                                             children: <Widget>[
-                                              Expanded(
-                                                  flex: 4,
-                                                  child: Text(b.DESIGN)),
+                                              Chip(
+                                                label: Text(b.DESIGN,
+                                                    style: TextStyle(
+                                                        color: Colors.white)),
+                                                backgroundColor: Colors.blue,
+                                              ),
                                             ],
                                           ),
                                         ),
-                                        TableCell(
-                                          child: Row(
+                                        Expanded(
+                                          flex: 2,
+                                          child: Wrap(
+                                            // set your alignment
                                             children: <Widget>[
-                                              Expanded(
-                                                  flex: 1,
-                                                  child: Text(
-                                                      (b.FAMILLE).toString())),
+                                              Chip(
+                                                label: Text(b.FAMILLE,
+                                                    style: TextStyle(
+                                                        color: Colors.white)),
+                                                backgroundColor: Colors.blue,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Expanded(
+                                          flex: 1,
+                                          child: Wrap(
+                                            // set your alignment
+                                            children: <Widget>[
+                                              Chip(
+                                                label: Text(b.ID.toString(),
+                                                    style: TextStyle(
+                                                        color: Colors.white)),
+                                                backgroundColor: Colors.blue,
+                                              ),
                                             ],
                                           ),
                                         ),
                                       ],
                                     ),
-                                  ],
-                                ),
-                              );
+                                  ));
                             },
                           )
                         : ListView.builder(
@@ -272,88 +322,117 @@ class _MedicamentState extends State<Medicament> {
                             itemBuilder: (context, i) {
                               final a = _list[i];
                               return Slidable(
-                                actionPane: SlidableDrawerActionPane(),
-                                actionExtentRatio: 0.25,
-                                actions: <Widget>[
-                                  IconSlideAction(
-                                    caption: 'Modifier',
-                                    color: Colors.blue,
-                                    icon: Icons.more,
-                                    onTap: () {
-                                      Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                MedicamentModify(
-                                                  id: a.ID,
-                                                  DESIGN: a.DESIGN,
-                                                  LABO: a.LABO,
-                                                  FAMILLE: a.FAMILLE,
-                                                )),
-                                      );
-                                    },
-                                  ),
-                                ],
-                                secondaryActions: <Widget>[
-                                  IconSlideAction(
-                                      caption: 'Supprimer',
-                                      color: Colors.red,
-                                      icon: Icons.delete,
-                                      onTap: () async {
-                                        final medic = AddMedic(
-                                          ID: a.ID,
-                                        );
-                                        final deleteresult =
-                                            medicService.deleteMedic(medic);
+                                  actionPane: SlidableDrawerActionPane(),
+                                  actionExtentRatio: 0.25,
+                                  actions: <Widget>[
+                                    IconSlideAction(
+                                      caption: 'Modifier',
+                                      color: Colors.blue,
+                                      icon: Icons.more,
+                                      onTap: () {
                                         Navigator.pushReplacement(
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  Medicament()),
+                                                  MedicamentModify(
+                                                    id: a.ID,
+                                                    DESIGN: a.DESIGN,
+                                                    LABO: a.LABO,
+                                                    FAMILLE: a.FAMILLE,
+                                                  )),
                                         );
-                                      }),
-                                ],
-                                child: Table(
-                                  border: TableBorder(
-                                      left: BorderSide.none,
-                                      right: BorderSide.none,
-                                      top: BorderSide.none,
-                                      bottom: BorderSide(width: 0.5)),
-                                  children: [
-                                    TableRow(
+                                      },
+                                    ),
+                                  ],
+                                  secondaryActions: <Widget>[
+                                    IconSlideAction(
+                                        caption: 'Supprimer',
+                                        color: Colors.red,
+                                        icon: Icons.delete,
+                                        onTap: () async {
+                                          final medic = AddMedic(
+                                            ID: a.ID,
+                                          );
+                                          final deleteresult =
+                                              medicService.deleteMedic(medic);
+                                          Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    Medicament()),
+                                          );
+                                        }),
+                                  ],
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 10.0),
+                                    child: Row(
                                       children: [
-                                        TableCell(
-                                          child: Row(
+                                        Expanded(
+                                          flex: 2,
+                                          child: Wrap(
+                                            // set your alignment
                                             children: <Widget>[
-                                              Expanded(
-                                                  flex: 1, child: Text(a.LABO)),
+                                              Chip(
+                                                avatar: CircleAvatar(
+                                                    backgroundColor:
+                                                        Colors.orange,
+                                                    child: Text(a.LABO[0],
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white))),
+                                                label: Text(a.LABO,
+                                                    style: TextStyle(
+                                                        color: Colors.white)),
+                                                backgroundColor: Colors.blue,
+                                              ),
                                             ],
                                           ),
                                         ),
-                                        TableCell(
-                                          child: Row(
+                                        Expanded(
+                                          flex: 2,
+                                          child: Wrap(
+                                            // set your alignment
                                             children: <Widget>[
-                                              Expanded(
-                                                  flex: 4,
-                                                  child: Text(a.DESIGN)),
+                                              Chip(
+                                                label: Text(a.DESIGN,
+                                                    style: TextStyle(
+                                                        color: Colors.white)),
+                                                backgroundColor: Colors.blue,
+                                              ),
                                             ],
                                           ),
                                         ),
-                                        TableCell(
-                                          child: Row(
+                                        Expanded(
+                                          flex: 2,
+                                          child: Wrap(
+                                            // set your alignment
                                             children: <Widget>[
-                                              Expanded(
-                                                  flex: 1,
-                                                  child: Text(
-                                                      (a.FAMILLE).toString())),
+                                              Chip(
+                                                label: Text(a.FAMILLE,
+                                                    style: TextStyle(
+                                                        color: Colors.white)),
+                                                backgroundColor: Colors.blue,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Expanded(
+                                          flex: 1,
+                                          child: Wrap(
+                                            // set your alignment
+                                            children: <Widget>[
+                                              Chip(
+                                                label: Text(a.ID.toString(),
+                                                    style: TextStyle(
+                                                        color: Colors.white)),
+                                                backgroundColor: Colors.blue,
+                                              ),
                                             ],
                                           ),
                                         ),
                                       ],
                                     ),
-                                  ],
-                                ),
-                              );
+                                  ));
                             },
                           ),
                   ),
