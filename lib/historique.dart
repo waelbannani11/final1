@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:http/http.dart' as http;
 import 'models/consultation.dart';
+import 'dart:ui' as ui;
 
 class HistoriqueMed extends StatefulWidget {
   int id;
@@ -62,39 +63,90 @@ class _HistoriqueMedState extends State<HistoriqueMed> {
           final a = _list[i];
           return Container(
             child: a.patientid == id.toString()
-                ? Table(
-                    border: TableBorder(
-                        left: BorderSide.none,
-                        right: BorderSide.none,
-                        top: BorderSide.none,
-                        bottom: BorderSide(width: 0.5)),
-                    children: [
-                      TableRow(
-                        children: [
-                          TableCell(
-                            child: Row(
-                              children: <Widget>[
-                                Expanded(flex: 1, child: Text(a.consultid)),
-                              ],
-                            ),
+                ? Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Stack(
+                      children: <Widget>[
+                        Container(
+                          height: 150,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              gradient: LinearGradient(
+                                  colors: [Colors.green, Colors.blue],
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.blue,
+                                    blurRadius: 12,
+                                    offset: Offset(0, 6)),
+                              ]),
+                        ),
+                        Positioned(
+                          right: 0,
+                          bottom: 0,
+                          top: 0,
+                          child: CustomPaint(
+                            size: Size(100, 150),
+                            painter: CustomCardShapePainter(
+                                30.0, Colors.green, Colors.blue),
                           ),
-                          TableCell(
-                            child: Row(
-                              children: <Widget>[
-                                Expanded(flex: 4, child: Text(a.patientid)),
-                              ],
-                            ),
+                        ),
+                        Positioned.fill(
+                          child: Row(
+                            children: <Widget>[
+                              Expanded(
+                                flex: 1,
+                                child: Image.asset(
+                                  "assets/images/hr.png",
+                                  height: 50,
+                                  width: 50,
+                                ),
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    Text(
+                                      nom + " " + prenom,
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    Text(
+                                      a.motif,
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    SizedBox(
+                                      height: 16.0,
+                                    ),
+                                    Text(
+                                      a.subjectif,
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    Text("Patient ID",
+                                        style: TextStyle(color: Colors.white)),
+                                    Text(id.toString(),
+                                        style: TextStyle(color: Colors.white)),
+                                    Text("Consult ID",
+                                        style: TextStyle(color: Colors.white)),
+                                    Text(a.consultid,
+                                        style: TextStyle(color: Colors.white)),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
-                          TableCell(
-                            child: Row(
-                              children: <Widget>[
-                                Expanded(flex: 1, child: Text(nom)),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                        )
+                      ],
+                    ),
                   )
                 : SizedBox(
                     height: 0,
@@ -103,5 +155,38 @@ class _HistoriqueMedState extends State<HistoriqueMed> {
         },
       ),
     );
+  }
+}
+
+class CustomCardShapePainter extends CustomPainter {
+  final double radius;
+  final Color startColor;
+  final Color endColor;
+
+  CustomCardShapePainter(this.radius, this.startColor, this.endColor);
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    var radius = 24.0;
+    var paint = Paint();
+    paint.shader = ui.Gradient.linear(
+        Offset(0, 0), Offset(size.width, size.height), [
+      HSLColor.fromColor(startColor).withLightness(0.8).toColor(),
+      endColor
+    ]);
+
+    var path = Path()
+      ..moveTo(0, size.height)
+      ..lineTo(size.width - radius, size.height)
+      ..quadraticBezierTo(size.width, 0, size.width - radius, 0)
+      ..lineTo(size.width - 1.5 * radius, 0)
+      ..quadraticBezierTo(-radius, 2 * radius, 0, size.height)
+      ..close();
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return true;
   }
 }

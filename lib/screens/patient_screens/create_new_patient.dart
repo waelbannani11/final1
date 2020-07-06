@@ -302,7 +302,7 @@ class _CreatenvpatientState extends State<Createnvpatient> {
                     ),
                     _buildnom(),
                     _buildprenom(),
-                    _builddatenai(),
+                    //_builddatenai(),
                     _gendre(groupValue, handleRadioValueChanged),
                     _etatcivil(groupValue1, handleRadioValueChangedd),
                     _buildid(),

@@ -335,7 +335,7 @@ class ScheduleExample extends State<CustomAgenda> {
         view: _calendarView,
         dataSource: _getCalendarDataSource(appointments),
         onTap: calendarTapCallback,
-        initialDisplayDate: DateTime(2020, 07, 02, 9, 0, 0),
+        initialDisplayDate: DateTime(2015, 04, 07, 11, 0, 0),
         monthViewSettings: MonthViewSettings(
             appointmentDisplayMode: MonthAppointmentDisplayMode.appointment),
         timeSlotViewSettings: TimeSlotViewSettings(

@@ -187,22 +187,6 @@ class _PatientInfoState extends State<PatientInfo> {
               Padding(
                 padding: const EdgeInsets.only(right: 10),
                 child: Icon(
-                  Icons.calendar_today,
-                  color: Colors.white,
-                  size: 15.0,
-                ),
-              ),
-              Text(
-                "15/08/1995",
-                style: TextStyle(color: Colors.white, fontSize: 15),
-              ),
-            ],
-          ),
-          Row(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(right: 10),
-                child: Icon(
                   Icons.work,
                   color: Colors.white,
                   size: 15.0,

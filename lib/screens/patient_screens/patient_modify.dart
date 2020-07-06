@@ -366,7 +366,7 @@ class _PatientModifyState extends State<PatientModify> {
                     ),
                     _buildnom(),
                     _buildprenom(),
-                    _builddatenai(),
+                    //_builddatenai(),
                     _buildid(),
                     _gendre(groupValue, handleRadioValueChanged),
                     _etatcivil(groupValue1, handleRadioValueChangedd),

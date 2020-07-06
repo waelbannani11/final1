@@ -217,7 +217,7 @@ class _ConsultationState extends State<Consultation> {
             border: new OutlineInputBorder(
                 borderRadius: new BorderRadius.circular(18.0),
                 borderSide: new BorderSide())),
-        maxLength: 40,
+        maxLength: 100,
         maxLines: 2,
         validator: (String value) {
           if (value.isEmpty) {
