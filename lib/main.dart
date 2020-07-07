@@ -1,3 +1,4 @@
+import 'package:final1/models/login_service.dart';
 import 'package:final1/models/patient.dart';
 import 'package:final1/screens/login.dart';
 import 'package:final1/screens/patient_screens/patient_page.dart';
@@ -14,6 +15,7 @@ void setupLocator() {
   GetIt.I.registerLazySingleton(() => PatientService());
   GetIt.I.registerLazySingleton(() => MedicamentService());
   GetIt.I.registerLazySingleton(() => ConsultationService());
+  GetIt.I.registerLazySingleton(() => LoginService());
 }
 
 void main() {

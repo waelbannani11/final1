@@ -1,8 +1,15 @@
+import 'dart:convert';
+
 import 'package:final1/Animations/FadeAnimation.dart';
+import 'package:final1/models/addlogin.dart';
+import 'package:final1/models/login_model.dart';
+import 'package:final1/models/login_service.dart';
 import 'package:final1/screens/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:final1/widgets/constants.dart';
+import 'package:get_it/get_it.dart';
+import 'package:http/http.dart' as http;
 
 class Login extends StatefulWidget {
   @override
@@ -10,15 +17,38 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  bool _rememberMe = false;
-  bool passwordVisible ;
-  @override
-    void initState() {
-      passwordVisible = true;
+  LoginService get loginService => GetIt.I<LoginService>();
+  List<Loginn> _list = [];
+  var loading = false;
+  var url = 'http://10.0.3.2:5000/Logins';
+  Future<Null> fetchData() async {
+    setState(() {
+      loading = true;
+    });
+    _list.clear();
+    var response = await http.get(url);
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      setState(() {
+        for (Map i in data) {
+          _list.add(Loginn.formJson(i));
+          loading = false;
+        }
+      });
     }
+  }
+
+  bool _rememberMe = false;
+  bool passwordVisible;
+  @override
+  void initState() {
+    passwordVisible = true;
+    fetchData();
+  }
+
   Widget build(BuildContext context) {
     return SafeArea(
-          child: Scaffold(
+      child: Scaffold(
         body: AnnotatedRegion<SystemUiOverlayStyle>(
           value: SystemUiOverlayStyle.light,
           child: GestureDetector(
@@ -43,9 +73,10 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 SizedBox(),
-                FadeAnimation(1,
+                FadeAnimation(
+                  1,
                   Container(
-                    child:Padding(
+                    child: Padding(
                       padding: EdgeInsets.symmetric(
                         horizontal: 40,
                         vertical: 100.0,
@@ -73,24 +104,24 @@ class _LoginState extends State<Login> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-
-                        FadeAnimation(2, 
-                        _buildEmailTF(),
+                        FadeAnimation(
+                          2,
+                          _buildEmailTF(),
                         ),
-
                         SizedBox(
                           height: 20.0,
                         ),
-                        FadeAnimation(3, 
-                        _buildPasswordTF(),
+                        FadeAnimation(
+                          3,
+                          _buildPasswordTF(),
                         ),
-
-                        FadeAnimation(4, 
-                       _buildRememberMeCheckbox(),
+                        FadeAnimation(
+                          4,
+                          _buildRememberMeCheckbox(),
                         ),
-
-                        FadeAnimation(5, 
-                         _buildLoginBtn(),
+                        FadeAnimation(
+                          5,
+                          _buildLoginBtn(),
                         ),
                       ],
                     ),
@@ -102,7 +133,6 @@ class _LoginState extends State<Login> {
         ),
       ),
     );
-
   }
 
   Widget _buildEmailTF() {
@@ -146,12 +176,19 @@ class _LoginState extends State<Login> {
       width: double.infinity,
       child: RaisedButton(
         elevation: 5.0,
-       onPressed: () {
-        Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => HomePage()),
-            );
-          },
+        onPressed: () {
+          @override
+          void initState() {
+            passwordVisible = true;
+            fetchData();
+          }
+
+          final a = _list[0];
+          print(a.Prenom);
+          print(a.Code);
+          final login = AddLogin(Code: "1", Prenom: "sdsdf");
+          final result = loginService.verifierlogin(login);
+        },
         padding: EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.0),
@@ -176,7 +213,6 @@ class _LoginState extends State<Login> {
       height: 20.0,
       child: Row(
         children: <Widget>[
-          
           Theme(
             data: ThemeData(unselectedWidgetColor: Colors.white),
             child: Checkbox(
@@ -199,56 +235,54 @@ class _LoginState extends State<Login> {
     );
   }
 
-Widget _buildPasswordTF() {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: <Widget>[
-      Text(
-        'Password',
-        style: kLabelStyle,
-      ),
-      SizedBox(height: 20.0),
-       Container(
-        alignment: Alignment.centerLeft,
-        decoration: kBoxDecorationStyle,
-        height: 60.0,
-        child: TextField(
-          obscureText: passwordVisible,
-          style: TextStyle(
-            color: Colors.white,
-            fontFamily: 'OpenSans',
-          ),
-          decoration: InputDecoration(
-          border: InputBorder.none,
-          contentPadding: EdgeInsets.only(top: 14.0),
-          prefixIcon: Icon(
-            Icons.lock,
-            color: Colors.white,
-          ),
-          hintText: 'Enter your Password',
-          hintStyle: kHintTextStyle,
-          suffixIcon: IconButton(
-          icon: Icon(
-            passwordVisible
-            ? Icons.visibility
-            : Icons.visibility_off,
-            color: Colors.white,
-          ), 
-          onPressed:(){
-            setState(() {
-              passwordVisible = !passwordVisible;
-            });
-            } ,
-            ), 
+  Widget _buildPasswordTF() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          'Password',
+          style: kLabelStyle,
+        ),
+        SizedBox(height: 20.0),
+        Container(
+          alignment: Alignment.centerLeft,
+          decoration: kBoxDecorationStyle,
+          height: 60.0,
+          child: TextField(
+            obscureText: passwordVisible,
+            style: TextStyle(
+              color: Colors.white,
+              fontFamily: 'OpenSans',
+            ),
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.only(top: 14.0),
+              prefixIcon: Icon(
+                Icons.lock,
+                color: Colors.white,
+              ),
+              hintText: 'Enter your Password',
+              hintStyle: kHintTextStyle,
+              suffixIcon: IconButton(
+                icon: Icon(
+                  passwordVisible ? Icons.visibility : Icons.visibility_off,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  setState(() {
+                    passwordVisible = !passwordVisible;
+                  });
+                },
+              ),
             ),
           ),
-	      ),
+        ),
         SizedBox(height: 20.0),
       ],
     );
   }
 
-   /* Widget _buildForgotPasswordBtn() {
+  /* Widget _buildForgotPasswordBtn() {
     return Container(
       alignment: Alignment.centerRight,
       child: FlatButton(
@@ -305,7 +339,7 @@ Widget _buildPasswordTF() {
     );
   }
 **/
- /* Widget _buildSocialBtnRow() {
+  /* Widget _buildSocialBtnRow() {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 30.0),
       child: Row(
@@ -356,4 +390,3 @@ Widget _buildPasswordTF() {
     );
   }* */
 }
-
