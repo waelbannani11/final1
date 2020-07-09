@@ -1,8 +1,6 @@
 import 'dart:convert';
-import 'package:final1/screens/medicament_screens/create_new_medicament.dart';
-import 'package:final1/screens/medicament_screens/medicaments_page.dart';
+import 'package:final1/models/ordan.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:http/http.dart' as http;
 import 'models/consultation.dart';
 import 'dart:ui' as ui;
@@ -26,7 +24,7 @@ class _HistoriqueMedState extends State<HistoriqueMed> {
   String prenom;
   _HistoriqueMedState(this.id, this.nom, this.prenom);
   List<Consultation> _list = [];
-  List<Consultation> _search = [];
+  List<Ordan> _list1 = [];
   var loading = false;
   var url = 'http://10.0.3.2:5000/Consultations';
   Future<Null> fetchData() async {
@@ -46,10 +44,28 @@ class _HistoriqueMedState extends State<HistoriqueMed> {
     }
   }
 
+  Future<Null> fetchData1() async {
+    setState(() {
+      loading = true;
+    });
+    _list1.clear();
+    var response = await http.get('http://10.0.3.2:5000/Ordonnances');
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      setState(() {
+        for (Map i in data) {
+          _list1.add(Ordan.formJson(i));
+          loading = false;
+        }
+      });
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     fetchData();
+    fetchData1();
   }
 
   @override
@@ -117,11 +133,36 @@ class _HistoriqueMedState extends State<HistoriqueMed> {
                                       style: TextStyle(color: Colors.white),
                                     ),
                                     SizedBox(
-                                      height: 16.0,
+                                      height: 5.0,
                                     ),
                                     Text(
                                       a.subjectif,
                                       style: TextStyle(color: Colors.white),
+                                    ),
+                                    Expanded(
+                                      child: ListView.builder(
+                                          itemCount: _list1.length,
+                                          itemBuilder: (context1, j) {
+                                            final b = _list1[j];
+                                            return Container(
+                                                child: a.consultid ==
+                                                        b.consultid
+                                                    ? Text(
+                                                        "Ordonnance" +
+                                                            ' ' +
+                                                            b.SujetNormal +
+                                                            ' ' +
+                                                            "Indication" +
+                                                            ' ' +
+                                                            b.Indication,
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      )
+                                                    : SizedBox(
+                                                        height: 0,
+                                                      ));
+                                          }),
                                     ),
                                   ],
                                 ),

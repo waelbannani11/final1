@@ -4,6 +4,7 @@ import 'package:final1/Animations/FadeAnimation.dart';
 import 'package:final1/models/addlogin.dart';
 import 'package:final1/models/login_model.dart';
 import 'package:final1/models/login_service.dart';
+import 'package:final1/ordonnance.dart';
 import 'package:final1/screens/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -182,6 +183,11 @@ class _LoginState extends State<Login> {
             passwordVisible = true;
             fetchData();
           }
+
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => HomePage()),
+          );
 
           final a = _list[0];
           print(a.Prenom);

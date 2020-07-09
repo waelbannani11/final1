@@ -1,83 +1,67 @@
-import 'package:final1/models/addconsultation.dart';
-import 'package:final1/models/consultation.service.dart';
-import 'package:final1/ordonnance.dart';
+import 'package:final1/models/addOrdonnance.dart';
+import 'package:final1/models/addpatient.dart';
+import 'package:final1/models/ordonnance_service.dart';
+import 'package:final1/models/patient_service.dart';
+import 'package:final1/screens/calendar_page.dart';
+import 'package:final1/screens/patient_screens/patient_info.dart';
+import 'package:final1/screens/patient_screens/patient_page.dart';
 import 'package:flutter/material.dart';
+import 'package:final1/theme/colors/light_colors.dart';
+import 'package:final1/widgets/back_button.dart';
+import 'package:final1/models/patient.dart';
 import 'package:get_it/get_it.dart';
+import 'package:provider/provider.dart';
 import 'package:string_validator/string_validator.dart';
-import 'search.dart';
 
-class Consultation extends StatefulWidget {
+class Ordonnance extends StatefulWidget {
   int id;
-  String nom;
-  String prenom;
+  String consultid;
 
-  Consultation({this.id, this.nom, this.prenom});
+  Ordonnance({this.id, this.consultid});
   @override
-  _ConsultationState createState() => _ConsultationState(
+  _OrdonnanceState createState() => _OrdonnanceState(
         id,
-        nom,
-        prenom,
+        consultid,
       );
 }
 
-class _ConsultationState extends State<Consultation> {
+class _OrdonnanceState extends State<Ordonnance> {
   int id;
-  String nom;
-  String prenom;
+  String consultid;
 
-  _ConsultationState(this.id, this.nom, this.prenom);
-
-  ConsultationService get consultationService => GetIt.I<ConsultationService>();
-  TextEditingController _idConttoller = TextEditingController();
-  TextEditingController _motifController = TextEditingController();
-  TextEditingController _pressionsysController = TextEditingController();
-  TextEditingController _pressiondiastController = TextEditingController();
-  TextEditingController _temperatureController = TextEditingController();
-  TextEditingController _poidsController = TextEditingController();
-  TextEditingController _tailleController = TextEditingController();
-  TextEditingController _subjectifController = TextEditingController();
+  _OrdonnanceState(this.id, this.consultid);
+  OrdonnanceService get ordonnanceService => GetIt.I<OrdonnanceService>();
+  TextEditingController _indication1Controller = TextEditingController();
+  TextEditingController _ordonnance1Controller = TextEditingController();
+  TextEditingController _indication2Controller = TextEditingController();
+  TextEditingController _ordonnance2Controller = TextEditingController();
+  TextEditingController _indication3Controller = TextEditingController();
+  TextEditingController _ordonnance3Controller = TextEditingController();
   TextEditingController _consultidController = TextEditingController();
+  TextEditingController _idConttoller = TextEditingController();
+  TextEditingController _ageController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    _idConttoller.text = id.toString();
     final _formKey = GlobalKey<FormState>();
-    final Post post = ModalRoute.of(context).settings.arguments;
     double width = MediaQuery.of(context).size.width;
-
-    //motif
-    Widget _buildmotif() {
-      return TextFormField(
-        controller: _motifController,
-        decoration: InputDecoration(
-            labelText: 'motif',
-            border: new OutlineInputBorder(
-                borderRadius: new BorderRadius.circular(18.0),
-                borderSide: new BorderSide())),
-        maxLength: 20,
-        validator: (String value) {
-          if (value.isEmpty) {
-            return 'motif is Required';
-          }
-
-          return null;
-        },
-      );
-    }
+    _idConttoller.text = id.toString();
+    _consultidController.text = consultid;
 
     //consultid
     Widget buildconsultid() {
       return TextFormField(
         controller: _consultidController,
+        enabled: false,
         decoration: InputDecoration(
-            labelText: 'Consult id',
+            labelText: 'consultid id',
             border: new OutlineInputBorder(
                 borderRadius: new BorderRadius.circular(18.0),
                 borderSide: new BorderSide())),
         maxLength: 20,
         validator: (String value) {
           if (value.isEmpty) {
-            return 'Consult id is Required';
+            return 'consultid is Required';
           }
 
           return null;
@@ -106,122 +90,121 @@ class _ConsultationState extends State<Consultation> {
       );
     }
 
-    //pressionsyst
-    Widget buildpressionsyst() {
+    //Ordonnance
+    Widget _buildOrdonnance1() {
       return TextFormField(
-        controller: _pressionsysController,
+        controller: _ordonnance1Controller,
         decoration: InputDecoration(
-            labelText: 'pressionsyst',
+            labelText: 'Ordonnance',
             border: new OutlineInputBorder(
                 borderRadius: new BorderRadius.circular(18.0),
                 borderSide: new BorderSide())),
-        maxLength: 10,
-        validator: (String value) {
-          if (value.isEmpty || !isNumeric(value)) {
-            return 'pressionsyst is Required';
-          }
-          return null;
-        },
-      );
-    }
-
-    //pressiondiast
-    Widget buildpressiondiast() {
-      return TextFormField(
-        controller: _pressiondiastController,
-        decoration: InputDecoration(
-            labelText: 'pressiondiast',
-            border: new OutlineInputBorder(
-                borderRadius: new BorderRadius.circular(18.0),
-                borderSide: new BorderSide())),
-        maxLength: 10,
-        validator: (String value) {
-          if (value.isEmpty || !isNumeric(value)) {
-            return 'pressiondiast is Required';
-          }
-          return null;
-        },
-      );
-    }
-
-    //temperature
-    Widget buildtemperature() {
-      return TextFormField(
-        controller: _temperatureController,
-        decoration: InputDecoration(
-            labelText: 'temperature',
-            border: new OutlineInputBorder(
-                borderRadius: new BorderRadius.circular(18.0),
-                borderSide: new BorderSide())),
-        maxLength: 10,
-        validator: (String value) {
-          if (value.isEmpty || !isNumeric(value)) {
-            return 'temperature is Required';
-          }
-          return null;
-        },
-      );
-    }
-
-    Widget buildpoids() {
-      return TextFormField(
-        controller: _poidsController,
-        decoration: InputDecoration(
-            labelText: 'poids',
-            border: new OutlineInputBorder(
-                borderRadius: new BorderRadius.circular(18.0),
-                borderSide: new BorderSide())),
-        maxLength: 10,
-        validator: (String value) {
-          if (value.isEmpty || !isNumeric(value)) {
-            return 'poids is Required';
-          }
-          return null;
-        },
-      );
-    }
-
-    Widget buildtaille() {
-      return TextFormField(
-        controller: _tailleController,
-        decoration: InputDecoration(
-            labelText: 'taille',
-            border: new OutlineInputBorder(
-                borderRadius: new BorderRadius.circular(18.0),
-                borderSide: new BorderSide())),
-        maxLength: 10,
-        validator: (String value) {
-          if (value.isEmpty || !isNumeric(value)) {
-            return 'taille is Required';
-          }
-          return null;
-        },
-      );
-    }
-
-    Widget buildsubjectif() {
-      return TextFormField(
-        controller: _subjectifController,
-        decoration: InputDecoration(
-            labelText: 'subjectif',
-            border: new OutlineInputBorder(
-                borderRadius: new BorderRadius.circular(18.0),
-                borderSide: new BorderSide())),
-        maxLength: 100,
-        maxLines: 2,
+        maxLength: 20,
         validator: (String value) {
           if (value.isEmpty) {
-            return 'taille is Required';
+            return 'Ordonnance is Required';
           }
           return null;
         },
       );
     }
+
+    //Indication
+    Widget _buildIndication1() {
+      return TextFormField(
+        controller: _indication1Controller,
+        decoration: InputDecoration(
+            labelText: 'Indication',
+            border: new OutlineInputBorder(
+                borderRadius: new BorderRadius.circular(18.0),
+                borderSide: new BorderSide())),
+        maxLength: 20,
+        validator: (String value) {
+          if (value.isEmpty) {
+            return 'Indication is Required';
+          }
+          return null;
+        },
+      );
+    }
+
+    //Ordonnance
+    Widget _buildOrdonnance2() {
+      return TextFormField(
+        controller: _ordonnance2Controller,
+        decoration: InputDecoration(
+            labelText: 'Ordonnance',
+            border: new OutlineInputBorder(
+                borderRadius: new BorderRadius.circular(18.0),
+                borderSide: new BorderSide())),
+        maxLength: 20,
+      );
+    }
+
+    //Indication
+    Widget _buildIndication2() {
+      return TextFormField(
+        controller: _indication2Controller,
+        decoration: InputDecoration(
+            labelText: 'Indication',
+            border: new OutlineInputBorder(
+                borderRadius: new BorderRadius.circular(18.0),
+                borderSide: new BorderSide())),
+        maxLength: 20,
+      );
+    }
+
+    //Ordonnance
+    Widget _buildOrdonnance3() {
+      return TextFormField(
+        controller: _ordonnance3Controller,
+        decoration: InputDecoration(
+            labelText: 'Ordonnance',
+            border: new OutlineInputBorder(
+                borderRadius: new BorderRadius.circular(18.0),
+                borderSide: new BorderSide())),
+        maxLength: 20,
+      );
+    }
+
+    //Indication
+    Widget _buildIndication3() {
+      return TextFormField(
+        controller: _indication3Controller,
+        decoration: InputDecoration(
+            labelText: 'Indication',
+            border: new OutlineInputBorder(
+                borderRadius: new BorderRadius.circular(18.0),
+                borderSide: new BorderSide())),
+        maxLength: 20,
+      );
+    }
+
+    //Age
+    Widget _buildAge() {
+      return TextFormField(
+        controller: _ageController,
+        decoration: InputDecoration(
+            labelText: 'Age',
+            border: new OutlineInputBorder(
+                borderRadius: new BorderRadius.circular(18.0),
+                borderSide: new BorderSide())),
+        maxLength: 20,
+        validator: (String value) {
+          if ((value.isEmpty) || !isNumeric(value)) {
+            return 'Age is Required';
+          }
+          return null;
+        },
+      );
+    }
+
+    //*************************************************** */
 
     return Scaffold(
       backgroundColor: Colors.blue[100],
       appBar: AppBar(
-        title: Text("Consultation"),
+        title: Text("Ajouter Ordonnance"),
       ),
       body: SafeArea(
         child: Container(
@@ -232,44 +215,47 @@ class _ConsultationState extends State<Consultation> {
                 key: _formKey,
                 child: Column(
                   children: <Widget>[
+                    SizedBox(
+                      height: 15,
+                    ),
                     buildconsultid(),
                     buildid(),
-                    _buildmotif(),
-                    buildpressionsyst(),
-                    buildpressiondiast(),
-                    buildtemperature(),
-                    buildpoids(),
-                    buildtaille(),
-                    buildsubjectif(),
+                    _buildOrdonnance1(),
+                    _buildIndication1(),
+                    _buildOrdonnance2(),
+                    _buildIndication2(),
+                    _buildOrdonnance3(),
+                    _buildIndication3(),
+                    _buildAge(),
                     GestureDetector(
                       onTap: () async {
                         if (_formKey.currentState.validate()) {
-                          final consult = AddConsultation(
+                          String a = _ordonnance1Controller.text +
+                              "/" +
+                              _ordonnance2Controller.text +
+                              "/" +
+                              _ordonnance3Controller.text;
+                          String b = _indication1Controller.text +
+                              "/" +
+                              _indication2Controller.text +
+                              "/" +
+                              _indication3Controller.text;
+                          print(a);
+                          print(b);
+                          final ordonnance = AddOrdonnance(
+                            idpatient: _idConttoller.text,
+                            Age: _ageController.text,
+                            Indication: b,
+                            SujetNormal: a,
                             consultid: _consultidController.text,
-                            motif: _motifController.text,
-                            patientid: _idConttoller.text,
-                            sv_poids: double.parse(_poidsController.text),
-                            sv_pressiondiast:
-                                double.parse(_pressiondiastController.text),
-                            sv_pressionsyst:
-                                double.parse(_pressionsysController.text),
-                            sv_taille: double.parse(_tailleController.text),
-                            sv_temperature:
-                                double.parse(_temperatureController.text),
-                            subjectif: _subjectifController.text,
                           );
                           final result =
-                              await consultationService.createConcult(consult);
-
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Ordonnance(
-                                      id: id,
-                                      consultid: _consultidController.text,
-                                    )),
-                          );
+                              await ordonnanceService.createOrdan(ordonnance);
                         }
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (context) => Patients()),
+                        );
                       },
                       child: Container(
                         height: 80,
