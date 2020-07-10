@@ -6,6 +6,9 @@ import 'package:final1/models/login_model.dart';
 import 'package:final1/models/login_service.dart';
 import 'package:final1/ordonnance.dart';
 import 'package:final1/screens/home_page.dart';
+import 'package:final1/screens/medicament_screens/medicaments_page.dart';
+import 'package:final1/screens/patient_screens/patient_info.dart';
+import 'package:final1/screens/patient_screens/patient_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:final1/widgets/constants.dart';
@@ -19,6 +22,9 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   LoginService get loginService => GetIt.I<LoginService>();
+  TextEditingController _coderConttoller = TextEditingController();
+  TextEditingController _usernameConttoller = TextEditingController();
+
   List<Loginn> _list = [];
   var loading = false;
   var url = 'http://10.0.3.2:5000/Logins';
@@ -118,10 +124,6 @@ class _LoginState extends State<Login> {
                         ),
                         FadeAnimation(
                           4,
-                          _buildRememberMeCheckbox(),
-                        ),
-                        FadeAnimation(
-                          5,
                           _buildLoginBtn(),
                         ),
                       ],
@@ -150,7 +152,7 @@ class _LoginState extends State<Login> {
           decoration: kBoxDecorationStyle,
           height: 60.0,
           child: TextField(
-            keyboardType: TextInputType.emailAddress,
+            controller: _usernameConttoller,
             style: TextStyle(
               color: Colors.white,
               fontFamily: 'OpenSans',
@@ -171,76 +173,6 @@ class _LoginState extends State<Login> {
     );
   }
 
-  Widget _buildLoginBtn() {
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 25.0),
-      width: double.infinity,
-      child: RaisedButton(
-        elevation: 5.0,
-        onPressed: () {
-          @override
-          void initState() {
-            passwordVisible = true;
-            fetchData();
-          }
-
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => HomePage()),
-          );
-
-          final a = _list[0];
-          print(a.Prenom);
-          print(a.Code);
-          final login = AddLogin(Code: "1", Prenom: "sdsdf");
-          final result = loginService.verifierlogin(login);
-        },
-        padding: EdgeInsets.all(15.0),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30.0),
-        ),
-        color: Colors.white,
-        child: Text(
-          'LOGIN',
-          style: TextStyle(
-            color: Color(0xFF527DAA),
-            letterSpacing: 1.5,
-            fontSize: 18.0,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'OpenSans',
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildRememberMeCheckbox() {
-    return Container(
-      height: 20.0,
-      child: Row(
-        children: <Widget>[
-          Theme(
-            data: ThemeData(unselectedWidgetColor: Colors.white),
-            child: Checkbox(
-              value: _rememberMe,
-              checkColor: Colors.green,
-              activeColor: Colors.white,
-              onChanged: (value) {
-                setState(() {
-                  _rememberMe = value;
-                });
-              },
-            ),
-          ),
-          Text(
-            'Remember me',
-            style: kLabelStyle,
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget _buildPasswordTF() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -255,6 +187,7 @@ class _LoginState extends State<Login> {
           decoration: kBoxDecorationStyle,
           height: 60.0,
           child: TextField(
+            controller: _coderConttoller,
             obscureText: passwordVisible,
             style: TextStyle(
               color: Colors.white,
@@ -288,111 +221,66 @@ class _LoginState extends State<Login> {
     );
   }
 
-  /* Widget _buildForgotPasswordBtn() {
+  Widget _buildLoginBtn() {
     return Container(
-      alignment: Alignment.centerRight,
-      child: FlatButton(
-        onPressed: () => print('Forgot Password Button Pressed'),
-        padding: EdgeInsets.only(right: 0.0),
+      padding: EdgeInsets.symmetric(vertical: 25.0),
+      width: double.infinity,
+      child: RaisedButton(
+        elevation: 5.0,
+        onPressed: () {
+          var i = 0;
+          while (i <= _list.length) {
+            if ((_list[i].Code == _coderConttoller.text) &
+                (_list[i].Prenom == _usernameConttoller.text)) {
+              print(_list[i].Code);
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => HomePage()),
+              );
+            }
+            i++;
+          }
+
+          if (i == 875) {
+            _showerreur();
+          }
+        },
+        padding: EdgeInsets.all(15.0),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+        color: Colors.white,
         child: Text(
-          'Forgot Password?',
-          style: kLabelStyle,
-        ),
-      ),
-    );
-  }**/
-
-  /*Widget _buildSignInWithText() {
-    return Column(
-      children: <Widget>[
-        Text(
-          '- OR -',
+          'LOGIN',
           style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.w400,
-          ),
-        ),
-        SizedBox(height: 20.0),
-        Text(
-          'Sign in with',
-          style: kLabelStyle,
-        ),
-      ],
-    );
-  }**/
-
-  /*Widget _buildSocialBtn(Function onTap, AssetImage logo) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        height: 60.0,
-        width: 60.0,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black26,
-              offset: Offset(0, 2),
-              blurRadius: 6.0,
-            ),
-          ],
-          image: DecorationImage(
-            image: logo,
+            color: Color(0xFF527DAA),
+            letterSpacing: 1.5,
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'OpenSans',
           ),
         ),
       ),
     );
   }
-**/
-  /* Widget _buildSocialBtnRow() {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 30.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          _buildSocialBtn(
-            () => print('Login with Facebook'),
-            AssetImage(
-              'assets/logos/facebook.jpg',
-            ),
-          ),
-          _buildSocialBtn(
-            () => print('Login with Google'),
-            AssetImage(
-              'assets/logos/google.jpg',
-            ),
-          ),
-        ],
-      ),
-    );
-  }**/
 
-  /*Widget _buildSignupBtn() {
-    return GestureDetector(
-      onTap: () => print('Sign Up Button Pressed'),
-      child: RichText(
-        text: TextSpan(
-          children: [
-            TextSpan(
-              text: 'Don\'t have an Account? ',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18.0,
-                fontWeight: FontWeight.w400,
-              ),
+  void _showerreur() {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return new Container(
+            child: new Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                new Text("ezfzefzfzefzefz"),
+                new RaisedButton(onPressed: () => Navigator.pop(context))
+              ],
             ),
-            TextSpan(
-              text: 'Sign Up',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }* */
+          );
+        });
+  }
+
+  void _verif() {
+    Text("ezfzefzfzefzefz");
+  }
 }
