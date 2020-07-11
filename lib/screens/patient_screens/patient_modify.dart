@@ -327,19 +327,19 @@ class _PatientModifyState extends State<PatientModify> {
                   groupValue: groupValue1,
                   onChanged: handleRadioValueChangedd,
                 ),
-                Text("celeb"),
+                Text("Célibataire"),
                 Radio<int>(
                   value: 2,
                   groupValue: groupValue1,
                   onChanged: handleRadioValueChangedd,
                 ),
-                Text("marie"),
+                Text("Marié(e)"),
                 Radio<int>(
                   value: 3,
                   groupValue: groupValue1,
                   onChanged: handleRadioValueChangedd,
                 ),
-                Text("marie"),
+                Text("Divorcé(e)"),
               ],
             )
           ]);

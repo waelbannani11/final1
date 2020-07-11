@@ -155,7 +155,7 @@ class _PatientInfoState extends State<PatientInfo> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Container(
-              child: sex == 'H'
+              child: sex == 'M'
                   ? Image.asset('assets/images/avatar_malade_boy.png',
                       width: 150, height: 150)
                   : Image.asset('assets/images/avatar_malade_girl.png',

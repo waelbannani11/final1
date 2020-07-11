@@ -125,7 +125,7 @@ class _PatientsState extends State<Patients> {
                                     backgroundColor: Color(0xffFDCF09),
                                     radius: 20,
                                     //backgroundColor: Colors.transparent,
-                                    backgroundImage: b.sex == 'H'
+                                    backgroundImage: b.sex == 'M'
                                         ? AssetImage('assets/images/boy.png')
                                         : AssetImage('assets/images/girl.png'),
                                   ),
@@ -211,7 +211,7 @@ class _PatientsState extends State<Patients> {
                                     backgroundColor: Color(0xffFDCF09),
                                     radius: 20,
                                     //backgroundColor: Colors.transparent,
-                                    backgroundImage: a.sex == 'H'
+                                    backgroundImage: a.sex == 'M'
                                         ? AssetImage('assets/images/boy.png')
                                         : AssetImage('assets/images/girl.png'),
                                   ),

@@ -8,7 +8,7 @@ class LoginService {
   static const API = 'http://10.0.3.2:5000';
 
   Future<APIResponse<bool>> verifierlogin(AddLogin item) {
-    return http.post(
+    return http.put(
       API + '/Login',
       body: json.encode(item.toJson()),
       headers: {"Content-Type": "application/json"},

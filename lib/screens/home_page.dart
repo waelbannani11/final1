@@ -1,4 +1,6 @@
 import 'package:final1/Animations/FadeAnimation.dart';
+import 'package:final1/modifierprofile.dart';
+import 'package:final1/screens/login.dart';
 import 'package:final1/screens/patient_screens/patient_page.dart';
 import 'package:flutter/material.dart';
 import 'package:final1/theme/colors/light_colors.dart';
@@ -9,18 +11,7 @@ import 'agenda.dart';
 import 'create_new_rdv_page.dart';
 import 'medicament_screens/medicaments_page.dart';
 
-class HomePage extends StatelessWidget {
-  Text subheading(String title) {
-    return Text(
-      title,
-      style: TextStyle(
-          color: LightColors.kDarkBlue,
-          fontSize: 20.0,
-          fontWeight: FontWeight.w700,
-          letterSpacing: 1.2),
-    );
-  }
-
+class HomePage extends StatefulWidget {
   static CircleAvatar calendarIcon() {
     return CircleAvatar(
       radius: 25.0,
@@ -30,6 +21,90 @@ class HomePage extends StatelessWidget {
         size: 20.0,
         color: Colors.white,
       ),
+    );
+  }
+
+  String Code;
+  String Prenom;
+  String Nom;
+  String Adresse;
+  String Specialite;
+  String Ville;
+  String CodeP;
+  String TelBur1;
+  String TelBur2;
+  String TelDom;
+  String Gsm;
+  String Email;
+  String Fax;
+  HomePage(
+      {this.Code,
+      this.Prenom,
+      this.Nom,
+      this.Adresse,
+      this.Specialite,
+      this.Ville,
+      this.CodeP,
+      this.TelBur1,
+      this.TelBur2,
+      this.TelDom,
+      this.Gsm,
+      this.Email,
+      this.Fax});
+  @override
+  _HomePageState createState() => _HomePageState(
+        Code,
+        Prenom,
+        Nom,
+        Adresse,
+        Specialite,
+        Ville,
+        CodeP,
+        TelBur1,
+        TelBur2,
+        TelDom,
+        Gsm,
+        Email,
+        Fax,
+      );
+}
+
+class _HomePageState extends State<HomePage> {
+  String Code;
+  String Prenom;
+  String Nom;
+  String Adresse;
+  String Specialite;
+  String Ville;
+  String CodeP;
+  String TelBur1;
+  String TelBur2;
+  String TelDom;
+  String Gsm;
+  String Email;
+  String Fax;
+  _HomePageState(
+      this.Code,
+      this.Prenom,
+      this.Nom,
+      this.Adresse,
+      this.Specialite,
+      this.Ville,
+      this.CodeP,
+      this.TelBur1,
+      this.TelBur2,
+      this.TelDom,
+      this.Gsm,
+      this.Email,
+      this.Fax);
+  Text subheading(String title) {
+    return Text(
+      title,
+      style: TextStyle(
+          color: LightColors.kDarkBlue,
+          fontSize: 20.0,
+          fontWeight: FontWeight.w700,
+          letterSpacing: 1.2),
     );
   }
 
@@ -53,22 +128,6 @@ class HomePage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      CircularPercentIndicator(
-                        radius: 90.0,
-                        lineWidth: 5.0,
-                        animation: true,
-                        percent: 0.75,
-                        circularStrokeCap: CircularStrokeCap.round,
-                        progressColor: LightColors.kRed,
-                        backgroundColor: Colors.blue[200],
-                        center: CircleAvatar(
-                          backgroundColor: Colors.blue[100],
-                          radius: 35.0,
-                          backgroundImage: AssetImage(
-                            'assets/images/avatar.png',
-                          ),
-                        ),
-                      ),
                       Padding(
                         padding: EdgeInsets.fromLTRB(0, 35, 0, 0),
                         child: Column(
@@ -76,7 +135,7 @@ class HomePage extends StatelessWidget {
                           children: <Widget>[
                             Container(
                               child: Text(
-                                'wael bannani',
+                                Nom + ' ' + Prenom,
                                 textAlign: TextAlign.start,
                                 style: TextStyle(
                                   fontSize: 22.0,
@@ -87,7 +146,7 @@ class HomePage extends StatelessWidget {
                             ),
                             Container(
                               child: Text(
-                                'App Developer',
+                                Specialite,
                                 textAlign: TextAlign.start,
                                 style: TextStyle(
                                   fontSize: 16.0,
@@ -128,11 +187,36 @@ class HomePage extends StatelessWidget {
             ),
             ListTile(
               leading: Icon(Icons.description),
+              title: Text('Modifier Profile'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ModifierProfile(
+                            Code: Code,
+                            Prenom: Prenom,
+                            Nom: Nom,
+                            Adresse: Adresse,
+                            Specialite: Specialite,
+                            Ville: Ville,
+                            CodeP: CodeP,
+                            TelBur1: TelBur1,
+                            TelBur2: TelBur2,
+                            TelDom: TelDom,
+                            Gsm: Gsm,
+                            Email: Email,
+                            Fax: Fax,
+                          )),
+                );
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.description),
               title: Text('Deconnecter'),
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Medicament()),
+                  MaterialPageRoute(builder: (context) => Login()),
                 );
               },
             ),
@@ -179,7 +263,7 @@ class HomePage extends StatelessWidget {
                               children: <Widget>[
                                 Container(
                                   child: Text(
-                                    'wael bannani',
+                                    Nom + ' ' + Prenom,
                                     textAlign: TextAlign.start,
                                     style: TextStyle(
                                       fontSize: 22.0,
@@ -190,7 +274,7 @@ class HomePage extends StatelessWidget {
                                 ),
                                 Container(
                                   child: Text(
-                                    'App Developer',
+                                    Specialite,
                                     textAlign: TextAlign.start,
                                     style: TextStyle(
                                       fontSize: 16.0,
@@ -232,7 +316,7 @@ class HomePage extends StatelessWidget {
                                               AgendaViewCustomization()),
                                     );
                                   },
-                                  child: calendarIcon(),
+                                  child: HomePage.calendarIcon(),
                                 ),
                               ],
                             ),

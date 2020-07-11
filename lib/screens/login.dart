@@ -143,7 +143,7 @@ class _LoginState extends State<Login> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          'Email',
+          'Username',
           style: kLabelStyle,
         ),
         SizedBox(height: 20.0),
@@ -161,10 +161,10 @@ class _LoginState extends State<Login> {
               border: InputBorder.none,
               contentPadding: EdgeInsets.only(top: 14.0),
               prefixIcon: Icon(
-                Icons.email,
+                Icons.person,
                 color: Colors.white,
               ),
-              hintText: 'Enter your Email',
+              hintText: 'Username',
               hintStyle: kHintTextStyle,
             ),
           ),
@@ -228,21 +228,51 @@ class _LoginState extends State<Login> {
       child: RaisedButton(
         elevation: 5.0,
         onPressed: () {
+          @override
+          void initState() {
+            fetchData();
+          }
+
           var i = 0;
           while (i <= _list.length) {
             if ((_list[i].Code == _coderConttoller.text) &
                 (_list[i].Prenom == _usernameConttoller.text)) {
-              print(_list[i].Code);
+              String C = _list[i].Code;
+              String P = _list[i].Prenom;
+              String N = _list[i].Nom;
+              String A = _list[i].Adresse;
+              String CO = _list[i].CodeP;
+              String T1 = _list[i].TelBur1;
+              String T2 = _list[i].TelBur2;
+              String T3 = _list[i].TelDom;
+              String E = _list[i].Email;
+              String F = _list[i].Fax;
+              String G = _list[i].Gsm;
+              String V = _list[i].Ville;
+              String S = _list[i].Specialite;
+
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => HomePage()),
+                MaterialPageRoute(
+                  builder: (context) => HomePage(
+                    Code: C,
+                    Prenom: P,
+                    Nom: N,
+                    Adresse: A,
+                    CodeP: CO,
+                    TelBur1: T1,
+                    TelBur2: T2,
+                    TelDom: T3,
+                    Email: E,
+                    Fax: F,
+                    Gsm: G,
+                    Ville: V,
+                    Specialite: S,
+                  ),
+                ),
               );
             }
             i++;
-          }
-
-          if (i == 875) {
-            _showerreur();
           }
         },
         padding: EdgeInsets.all(15.0),
@@ -262,25 +292,5 @@ class _LoginState extends State<Login> {
         ),
       ),
     );
-  }
-
-  void _showerreur() {
-    showModalBottomSheet(
-        context: context,
-        builder: (BuildContext context) {
-          return new Container(
-            child: new Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                new Text("ezfzefzfzefzefz"),
-                new RaisedButton(onPressed: () => Navigator.pop(context))
-              ],
-            ),
-          );
-        });
-  }
-
-  void _verif() {
-    Text("ezfzefzfzefzefz");
   }
 }
