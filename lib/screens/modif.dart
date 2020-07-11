@@ -1,4 +1,7 @@
+import 'package:final1/models/rdv_agenda.dart';
+import 'package:final1/models/rdv_service.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 class Modif extends StatefulWidget {
   @override
@@ -8,6 +11,9 @@ class Modif extends StatefulWidget {
 class _ModifState extends State<Modif> {
   int _groupValue = -1;
   int _groupValue1 = -1;
+  DateTime _dateTime;
+  DateTime from = DateTime(2015, 04, 07, 11, 0, 0);
+  DateTime to = DateTime(2015, 04, 07, 11, 0, 0);
 
   void _handleRadioValueChanged(int value) {
     setState(() {
@@ -21,101 +27,21 @@ class _ModifState extends State<Modif> {
     });
   }
 
+  RDVSERVICE get rdvservice => GetIt.I<RDVSERVICE>();
+  TextEditingController _subjectConttoller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    //Patient patient =Provider.of<Patient>(context);
-
     final _formKey = GlobalKey<FormState>();
     double width = MediaQuery.of(context).size.width;
     final List countryList = ['celeb', 'marie', 'diforce'];
 
-    //nom
-
-    Widget _buildnom() {
-      return TextFormField(
-        initialValue: '',
-        decoration: InputDecoration(
-            labelText: 'nom',
-            border: new OutlineInputBorder(
-                borderRadius: new BorderRadius.circular(18.0),
-                borderSide: new BorderSide())),
-        maxLength: 20,
-        validator: (String value) {
-          if (value.isEmpty) {
-            return 'Name is Required';
-          }
-
-          return null;
-        },
-      );
-    }
-
-    //prenom
-    Widget _buildprenom() {
-      return TextFormField(
-        initialValue: '',
-        decoration: InputDecoration(
-            labelText: 'prenom',
-            border: new OutlineInputBorder(
-                borderRadius: new BorderRadius.circular(18.0),
-                borderSide: new BorderSide())),
-        maxLength: 20,
-        validator: (String value) {
-          if (value.isEmpty) {
-            return 'lastname is Required';
-          }
-
-          return null;
-        },
-      );
-    }
-
-    //id
-    Widget buildid() {
-      return TextFormField(
-        initialValue: '',
-        decoration: InputDecoration(
-            labelText: 'id',
-            border: new OutlineInputBorder(
-                borderRadius: new BorderRadius.circular(18.0),
-                borderSide: new BorderSide())),
-        maxLength: 20,
-        validator: (String value) {
-          if (value.isEmpty) {
-            return 'id is Required';
-          }
-
-          return null;
-        },
-      );
-    }
-
-    //code
-    Widget buildnumfiche() {
-      return TextFormField(
-        initialValue: '',
-        decoration: InputDecoration(
-            labelText: 'Num_fiche',
-            border: new OutlineInputBorder(
-                borderRadius: new BorderRadius.circular(18.0),
-                borderSide: new BorderSide())),
-        maxLength: 30,
-        validator: (String value) {
-          if (value.isEmpty) {
-            return 'Num_fiche is Required';
-          }
-
-          return null;
-        },
-      );
-    }
     //deb
 
-    Widget builddatenai() {
+    Widget builddatedeb() {
       return TextFormField(
-        initialValue: '',
         decoration: InputDecoration(
-            labelText: 'Date de naissance',
+            labelText: 'from',
             border: new OutlineInputBorder(
                 borderRadius: new BorderRadius.circular(18.0),
                 borderSide: new BorderSide())),
@@ -123,7 +49,7 @@ class _ModifState extends State<Modif> {
         maxLength: 10,
         validator: (String value) {
           if (value.isEmpty) {
-            return 'date de naissance is Required';
+            return 'datedeb is Required';
           }
 
           return null;
@@ -131,201 +57,69 @@ class _ModifState extends State<Modif> {
       );
     }
 
-    //gender
-    Widget _genderRadio(int groupValue, handleRadioValueChanged) =>
-        Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
-          Text(
-            'Sexe',
-            style: new TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
-          ),
-          Row(
-            children: <Widget>[
-              Radio(
-                  value: 0,
-                  groupValue: groupValue,
-                  onChanged: handleRadioValueChanged),
-              Text(
-                "Male",
-                style: new TextStyle(
-                  fontSize: 14.0,
-                ),
-              ),
-              Radio(
-                  value: 1,
-                  groupValue: groupValue,
-                  onChanged: handleRadioValueChanged),
-              Text(
-                "Female",
-                style: new TextStyle(
-                  fontSize: 14.0,
-                ),
-              ),
-            ],
+    Widget builddateFIN() {
+      return TextFormField(
+        decoration: InputDecoration(
+            labelText: 'to',
+            border: new OutlineInputBorder(
+                borderRadius: new BorderRadius.circular(18.0),
+                borderSide: new BorderSide())),
+        keyboardType: TextInputType.datetime,
+        maxLength: 10,
+        validator: (String value) {
+          if (value.isEmpty) {
+            return 'datedeb is Required';
+          }
+
+          return null;
+        },
+      );
+    }
+
+    Widget buildSubject() {
+      return TextFormField(
+        controller: _subjectConttoller,
+        decoration: InputDecoration(
+            labelText: 'subject',
+            border: new OutlineInputBorder(
+                borderRadius: new BorderRadius.circular(18.0),
+                borderSide: new BorderSide())),
+        keyboardType: TextInputType.datetime,
+        maxLength: 10,
+        validator: (String value) {
+          if (value.isEmpty) {
+            return 'datedeb is Required';
+          }
+
+          return null;
+        },
+      );
+    }
+
+    Widget builddate() {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(_dateTime == null
+              ? 'Nothing has been picked yet'
+              : _dateTime.toString()),
+          RaisedButton(
+            child: Text('Pick a date'),
+            onPressed: () {
+              showDatePicker(
+                      context: context,
+                      initialDate:
+                          _dateTime == null ? DateTime.now() : _dateTime,
+                      firstDate: DateTime(2001),
+                      lastDate: DateTime(2021))
+                  .then((date) {
+                setState(() {
+                  _dateTime = date;
+                });
+              });
+            },
           )
-        ]);
-
-    //etatcivil
-    Widget _etatcivil(int groupValue1, handleRadioValueChangedd) =>
-        Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
-          Text(
-            'Etat civil',
-            style: new TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
-          ),
-          Row(
-            children: <Widget>[
-              Radio(
-                  value: 0,
-                  groupValue: groupValue1,
-                  onChanged: handleRadioValueChangedd),
-              Text(
-                "celeb",
-                style: new TextStyle(
-                  fontSize: 14.0,
-                ),
-              ),
-              Radio(
-                  value: 1,
-                  groupValue: groupValue1,
-                  onChanged: handleRadioValueChangedd),
-              Text(
-                "marie",
-                style: new TextStyle(
-                  fontSize: 14.0,
-                ),
-              ),
-              Radio(
-                  value: 2,
-                  groupValue: groupValue1,
-                  onChanged: handleRadioValueChangedd),
-              Text(
-                "divorce",
-                style: new TextStyle(
-                  fontSize: 14.0,
-                ),
-              ),
-            ],
-          )
-        ]);
-    //nation
-    Widget _buildnationn() {
-      return TextFormField(
-        initialValue: '',
-        decoration: InputDecoration(
-            labelText: 'nationnalite',
-            border: new OutlineInputBorder(
-                borderRadius: new BorderRadius.circular(18.0),
-                borderSide: new BorderSide())),
-        maxLength: 20,
-        validator: (String value) {
-          if (value.isEmpty) {
-            return 'nationnalite is Required';
-          }
-
-          return null;
-        },
-      );
-    }
-
-    //profession
-    Widget _buildprofession() {
-      return TextFormField(
-        initialValue: '',
-        decoration: InputDecoration(
-            labelText: 'profession',
-            border: new OutlineInputBorder(
-                borderRadius: new BorderRadius.circular(18.0),
-                borderSide: new BorderSide())),
-        maxLength: 20,
-        validator: (String value) {
-          if (value.isEmpty) {
-            return 'profession is Required';
-          }
-
-          return null;
-        },
-      );
-    }
-
-    //teldom
-    Widget _buildteldom() {
-      return TextFormField(
-        initialValue: '',
-        decoration: InputDecoration(
-            labelText: 'tel dom',
-            border: new OutlineInputBorder(
-                borderRadius: new BorderRadius.circular(18.0),
-                borderSide: new BorderSide())),
-        maxLength: 8,
-        keyboardType: TextInputType.phone,
-        validator: (String value) {
-          if (value.isEmpty) {
-            return 'teldom is Required';
-          }
-
-          return null;
-        },
-      );
-    }
-
-    //    //telmob
-    Widget _buildtelmob() {
-      return TextFormField(
-        initialValue: '',
-        decoration: InputDecoration(
-            labelText: 'tel mob',
-            border: new OutlineInputBorder(
-                borderRadius: new BorderRadius.circular(18.0),
-                borderSide: new BorderSide())),
-        maxLength: 8,
-        keyboardType: TextInputType.phone,
-        validator: (String value) {
-          if (value.isEmpty) {
-            return 'telmob is Required';
-          }
-
-          return null;
-        },
-      );
-    }
-
-    //adresse
-    Widget _buildadresse() {
-      return TextFormField(
-        initialValue: '',
-        decoration: InputDecoration(
-            labelText: 'adresse',
-            border: new OutlineInputBorder(
-                borderRadius: new BorderRadius.circular(18.0),
-                borderSide: new BorderSide())),
-        maxLength: 50,
-        maxLines: 2,
-        validator: (String value) {
-          if (value.isEmpty) {
-            return 'adresse is Required';
-          }
-
-          return null;
-        },
-      );
-    }
-
-    //ville
-    Widget _buildville() {
-      return TextFormField(
-        initialValue: '',
-        decoration: InputDecoration(
-            labelText: 'ville',
-            border: new OutlineInputBorder(
-                borderRadius: new BorderRadius.circular(18.0),
-                borderSide: new BorderSide())),
-        maxLength: 20,
-        validator: (String value) {
-          if (value.isEmpty) {
-            return 'ville is Required';
-          }
-
-          return null;
-        },
+        ],
       );
     }
 
@@ -349,57 +143,47 @@ class _ModifState extends State<Modif> {
                     SizedBox(
                       height: 15,
                     ),
-                    buildid(),
-                    buildnumfiche(),
-                    _buildnom(),
-                    _buildprenom(),
-                    builddatenai(),
-                    _genderRadio(_groupValue, _handleRadioValueChanged),
-                    _etatcivil(_groupValue1, _handleRadioValueChangedd),
-                    _buildnationn(),
-                    _buildprofession(),
-                    _buildteldom(),
-                    _buildtelmob(),
-                    _buildadresse(),
-                    _buildville(),
-                    /*GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => CalendarPage()),
-                          );
-                          if (!_formKey.currentState.validate()) {
-                          return;
-                          }
-                          _formKey.currentState.save();
-                        },
-                        child: Container(
-                          height: 80,
-                          width: width,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              Container(
-                                child: Text(
-                                  'valider',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 18),
-                                ),
-                                alignment: Alignment.center,
-                                margin: EdgeInsets.fromLTRB(20, 10, 20, 20),
-                                width: width / 1.3,
-                                decoration: BoxDecoration(
-                                  color: Colors.blue,
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
+                    buildSubject(),
+                    builddateFIN(),
+                    builddatedeb(),
+                    builddate(),
+
+                    GestureDetector(
+                      onTap: () async {
+                        final rdv = AddRdv(
+                          subject: _subjectConttoller.text,
+                          endTime: _dateTime.toString(),
+                          startTime: _dateTime.toString(),
+                        );
+                        final result = await rdvservice.createRdv(rdv);
+                        print(_dateTime);
+                      },
+                      child: Container(
+                        height: 80,
+                        width: width,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Container(
+                              child: Text(
+                                'valider',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 18),
                               ),
-                            ],
-                          ),
+                              alignment: Alignment.center,
+                              margin: EdgeInsets.fromLTRB(20, 10, 20, 20),
+                              width: width / 1.3,
+                              decoration: BoxDecoration(
+                                color: Colors.blue,
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                            ),
+                          ],
                         ),
-                      ),**/
+                      ),
+                    ),
                   ],
                 ),
               ),

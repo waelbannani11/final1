@@ -1,6 +1,8 @@
 import 'package:final1/models/login_service.dart';
 import 'package:final1/models/ordonnance_service.dart';
 import 'package:final1/models/patient.dart';
+import 'package:final1/models/rdv_service.dart';
+import 'package:final1/screens/agenda.dart';
 import 'package:final1/screens/login.dart';
 import 'package:final1/screens/patient_screens/patient_page.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +20,7 @@ void setupLocator() {
   GetIt.I.registerLazySingleton(() => ConsultationService());
   GetIt.I.registerLazySingleton(() => LoginService());
   GetIt.I.registerLazySingleton(() => OrdonnanceService());
+  GetIt.I.registerLazySingleton(() => RDVSERVICE());
 }
 
 void main() {
@@ -42,7 +45,7 @@ class MyApp extends StatelessWidget {
             displayColor: LightColors.kDarkBlue,
             fontFamily: 'Poppins'),
       ),
-      home: Login(),
+      home: AgendaViewCustomization(),
       debugShowCheckedModeBanner: false,
     );
   }

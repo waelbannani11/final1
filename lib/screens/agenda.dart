@@ -2,6 +2,7 @@ library event_calendar;
 
 import 'dart:math';
 import 'package:final1/models/app.dart';
+import 'package:final1/screens/rdv_ajout.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -127,7 +128,8 @@ class ScheduleExample extends State<CustomAgenda> {
       OnlineAppointmentData user =
           OnlineAppointmentData(u['startTime'], u['endTime'], u['subject']);
       appointmentData.add(user);
-      //print(user.subject);
+      print(user.subject);
+      print(user.startTime);
     }
     //print(appointmentData.length);
     return appointmentData;
@@ -335,11 +337,11 @@ class ScheduleExample extends State<CustomAgenda> {
         view: _calendarView,
         dataSource: _getCalendarDataSource(appointments),
         onTap: calendarTapCallback,
-        initialDisplayDate: DateTime(2015, 04, 07, 11, 0, 0),
+        initialDisplayDate: DateTime(2020, 07, 07, 11, 0, 0),
         monthViewSettings: MonthViewSettings(
             appointmentDisplayMode: MonthAppointmentDisplayMode.appointment),
         timeSlotViewSettings: TimeSlotViewSettings(
-            startHour: 1,
+            startHour: 0,
             endHour: 23,
             minimumAppointmentDuration: const Duration(minutes: 30)));
   }

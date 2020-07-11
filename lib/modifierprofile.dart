@@ -124,13 +124,13 @@ class _ModifierProfileState extends State<ModifierProfile> {
                 borderRadius: new BorderRadius.circular(18.0),
                 borderSide: new BorderSide())),
         maxLength: 20,
-        validator: (String value) {
+        /*   validator: (String value) {
           if (value.isEmpty) {
             return 'fax is Required';
           }
 
           return null;
-        },
+        },**/
       );
     }
 
