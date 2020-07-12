@@ -156,7 +156,6 @@ class _ModifState extends State<Modif> {
                           startTime: _dateTime.toString(),
                         );
                         final result = await rdvservice.createRdv(rdv);
-                        print(_dateTime);
                       },
                       child: Container(
                         height: 80,

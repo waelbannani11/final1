@@ -124,13 +124,6 @@ class _ModifierProfileState extends State<ModifierProfile> {
                 borderRadius: new BorderRadius.circular(18.0),
                 borderSide: new BorderSide())),
         maxLength: 20,
-        /*   validator: (String value) {
-          if (value.isEmpty) {
-            return 'fax is Required';
-          }
-
-          return null;
-        },**/
       );
     }
 
@@ -353,7 +346,7 @@ class _ModifierProfileState extends State<ModifierProfile> {
     return Scaffold(
       backgroundColor: Colors.blue[100],
       appBar: AppBar(
-        title: Text("Ajouter Patient"),
+        title: Text("Modifier Profile"),
       ),
       body: SafeArea(
         child: Container(

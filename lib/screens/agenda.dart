@@ -128,8 +128,6 @@ class ScheduleExample extends State<CustomAgenda> {
       OnlineAppointmentData user =
           OnlineAppointmentData(u['startTime'], u['endTime'], u['subject']);
       appointmentData.add(user);
-      print(user.subject);
-      print(user.startTime);
     }
     //print(appointmentData.length);
     return appointmentData;

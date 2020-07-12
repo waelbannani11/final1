@@ -1,4 +1,5 @@
 import 'package:final1/Animations/FadeAnimation.dart';
+import 'package:final1/aboutus.dart';
 import 'package:final1/modifierprofile.dart';
 import 'package:final1/screens/login.dart';
 import 'package:final1/screens/patient_screens/patient_page.dart';
@@ -135,10 +136,10 @@ class _HomePageState extends State<HomePage> {
                           children: <Widget>[
                             Container(
                               child: Text(
-                                Nom + ' ' + Prenom,
+                                'Dr.' + Nom + ' ' + Prenom,
                                 textAlign: TextAlign.start,
                                 style: TextStyle(
-                                  fontSize: 22.0,
+                                  fontSize: 20.0,
                                   color: LightColors.kDarkBlue,
                                   fontWeight: FontWeight.w800,
                                 ),
@@ -212,6 +213,31 @@ class _HomePageState extends State<HomePage> {
             ),
             ListTile(
               leading: Icon(Icons.description),
+              title: Text('À propos de nous'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => AboutUs(
+                            Code: Code,
+                            Prenom: Prenom,
+                            Nom: Nom,
+                            Adresse: Adresse,
+                            Specialite: Specialite,
+                            Ville: Ville,
+                            CodeP: CodeP,
+                            TelBur1: TelBur1,
+                            TelBur2: TelBur2,
+                            TelDom: TelDom,
+                            Gsm: Gsm,
+                            Email: Email,
+                            Fax: Fax,
+                          )),
+                );
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.description),
               title: Text('Deconnecter'),
               onTap: () {
                 Navigator.push(
@@ -254,7 +280,7 @@ class _HomePageState extends State<HomePage> {
                                 backgroundColor: Colors.blue[100],
                                 radius: 35.0,
                                 backgroundImage: AssetImage(
-                                  'assets/images/avatar.png',
+                                  'assets/images/doctor_avatar.png',
                                 ),
                               ),
                             ),
@@ -263,10 +289,10 @@ class _HomePageState extends State<HomePage> {
                               children: <Widget>[
                                 Container(
                                   child: Text(
-                                    Nom + ' ' + Prenom,
+                                    'Dr.' + Nom + ' ' + Prenom,
                                     textAlign: TextAlign.start,
                                     style: TextStyle(
-                                      fontSize: 22.0,
+                                      fontSize: 20.0,
                                       color: LightColors.kDarkBlue,
                                       fontWeight: FontWeight.w800,
                                     ),
@@ -394,51 +420,6 @@ class _HomePageState extends State<HomePage> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Consultation()),
-                      );
-                    },
-                    child: Container(
-                      margin: EdgeInsets.symmetric(vertical: 10.0),
-                      padding: EdgeInsets.all(15.0),
-                      height: 150,
-                      width: width,
-                      decoration: BoxDecoration(
-                        color: LightColors.kRed,
-                        borderRadius: BorderRadius.circular(40.0),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              Center(
-                                child: Text(
-                                  'Consultation',
-                                  style: TextStyle(
-                                    fontSize: 14.0,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                              Center(
-                                child: Image.asset(
-                                    'assets/images/consulta2.png',
-                                    width: 100),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
                         MaterialPageRoute(builder: (context) => Medicament()),
                       );
                     },
@@ -471,51 +452,6 @@ class _HomePageState extends State<HomePage> {
                               ),
                               Center(
                                 child: Image.asset('assets/images/medic.png',
-                                    width: 100),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => CreateNewTaskPage()),
-                      );
-                    },
-                    child: Container(
-                      margin: EdgeInsets.symmetric(vertical: 10.0),
-                      padding: EdgeInsets.all(15.0),
-                      height: 150,
-                      width: width,
-                      decoration: BoxDecoration(
-                        color: LightColors.kBlue,
-                        borderRadius: BorderRadius.circular(40.0),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              Center(
-                                child: Text(
-                                  'Les rendez vous',
-                                  style: TextStyle(
-                                    fontSize: 14.0,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                              Center(
-                                child: Image.asset('assets/images/avatar.png',
                                     width: 100),
                               ),
                             ],
