@@ -12,6 +12,7 @@ class _ModifState extends State<Modif> {
   int _groupValue = -1;
   int _groupValue1 = -1;
   DateTime _dateTime;
+  DateTime _dateTimeF;
   DateTime from = DateTime(2015, 04, 07, 11, 0, 0);
   DateTime to = DateTime(2015, 04, 07, 11, 0, 0);
 
@@ -104,7 +105,7 @@ class _ModifState extends State<Modif> {
               ? 'Nothing has been picked yet'
               : _dateTime.toString()),
           RaisedButton(
-            child: Text('Pick a date'),
+            child: Text('date de debut'),
             onPressed: () {
               showDatePicker(
                       context: context,
@@ -115,6 +116,34 @@ class _ModifState extends State<Modif> {
                   .then((date) {
                 setState(() {
                   _dateTime = date;
+                });
+              });
+            },
+          )
+        ],
+      );
+    }
+
+    //************************************************** */
+    Widget builddatefin() {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(_dateTimeF == null
+              ? 'Nothing has been picked yet'
+              : _dateTimeF.toString()),
+          RaisedButton(
+            child: Text('date de fin'),
+            onPressed: () {
+              showDatePicker(
+                      context: context,
+                      initialDate:
+                          _dateTimeF == null ? DateTime.now() : _dateTime,
+                      firstDate: DateTime(2001),
+                      lastDate: DateTime(2021))
+                  .then((date) {
+                setState(() {
+                  _dateTimeF = date;
                 });
               });
             },
@@ -145,17 +174,21 @@ class _ModifState extends State<Modif> {
                     ),
                     buildSubject(),
                     builddateFIN(),
-                    builddatedeb(),
                     builddate(),
+
+                    builddatedeb(),
+
+                    builddatefin(),
 
                     GestureDetector(
                       onTap: () async {
                         final rdv = AddRdv(
                           subject: _subjectConttoller.text,
-                          endTime: _dateTime.toString(),
+                          endTime: _dateTimeF.toString(),
                           startTime: _dateTime.toString(),
                         );
                         final result = await rdvservice.createRdv(rdv);
+                        Navigator.pop(context);
                       },
                       child: Container(
                         height: 80,

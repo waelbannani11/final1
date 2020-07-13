@@ -2,6 +2,8 @@ library event_calendar;
 
 import 'dart:math';
 import 'package:final1/models/app.dart';
+import 'package:final1/screens/home_page.dart';
+import 'package:final1/screens/patient_screens/patient_page.dart';
 import 'package:final1/screens/rdv_ajout.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -13,6 +15,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'create_new_rdv_page.dart';
+import 'login.dart';
 import 'modif.dart';
 
 //part 'appointment-editor.dart';
@@ -59,6 +62,7 @@ class ScheduleExample extends State<CustomAgenda> {
   Color headerColor, viewHeaderColor, calendarColor, defaultColor;
   List<String> eventNameCollection;
   List<Meeting> appointments = List<Meeting>();
+  int _cIndex = 0;
   //List<Meeting> appointments;
 
   //List<Meeting> _app = List<Meeting>();
@@ -322,6 +326,43 @@ class ScheduleExample extends State<CustomAgenda> {
           },
         ),
       ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => Modif()));
+        },
+        icon: Icon(Icons.add),
+        label: Text("ajouter rdv"),
+        foregroundColor: Colors.black,
+        backgroundColor: Colors.pinkAccent,
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _cIndex,
+        type: BottomNavigationBarType.fixed,
+        items: [
+          BottomNavigationBarItem(
+              icon: Icon(Icons.home, color: Color.fromARGB(255, 0, 0, 0)),
+              title: new Text('Home')),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.person, color: Color.fromARGB(255, 0, 0, 0)),
+              title: new Text('Patients'))
+        ],
+        onTap: (index) {
+          setState(() {
+            _cIndex = index;
+            switch (_cIndex) {
+              case 0:
+                //Navigator.pop(context);
+                break;
+              case 1:
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Patients()));
+                break;
+            }
+          });
+        },
+      ),
     );
   }
 
@@ -391,7 +432,7 @@ class ScheduleExample extends State<CustomAgenda> {
         Navigator.push<Widget>(
             context,
             MaterialPageRoute(
-              builder: (BuildContext context) => Modif(),
+              //builder: (BuildContext context) => Modif(),
               settings: RouteSettings(arguments: appointments),
             ));
       }
