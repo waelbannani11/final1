@@ -240,8 +240,6 @@ class _OrdonnanceState extends State<Ordonnance> {
                               _indication2Controller.text +
                               "/" +
                               _indication3Controller.text;
-                          print(a);
-                          print(b);
                           final ordonnance = AddOrdonnance(
                             idpatient: _idConttoller.text,
                             Age: _ageController.text,
@@ -251,11 +249,49 @@ class _OrdonnanceState extends State<Ordonnance> {
                           );
                           final result =
                               await ordonnanceService.createOrdan(ordonnance);
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(builder: (context) => Patients()),
+                          );
+                          showDialog(
+                            context: context,
+                            child: AlertDialog(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(16.0))),
+                              content: Container(
+                                height:
+                                    MediaQuery.of(context).size.height / 1.8,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                                    Icon(
+                                      Icons.check_circle_outline,
+                                      size: 96,
+                                      color: Color(0xFF10CA88),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 16.0),
+                                      child: Text(
+                                        "Ajouté avec succès",
+                                        style: TextStyle(fontSize: 20),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 16.0),
+                                      child: Text(
+                                        "Vous pouvez suivre l'historique des patients dans la page historique medicale ",
+                                        style: TextStyle(fontSize: 16),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
                         }
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(builder: (context) => Patients()),
-                        );
                       },
                       child: Container(
                         height: 80,

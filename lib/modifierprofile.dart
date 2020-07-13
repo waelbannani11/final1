@@ -344,7 +344,7 @@ class _ModifierProfileState extends State<ModifierProfile> {
     //*************************************************** */
 
     return Scaffold(
-      backgroundColor: Colors.blue[100],
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text("Modifier Profile"),
       ),

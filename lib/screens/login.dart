@@ -234,7 +234,7 @@ class _LoginState extends State<Login> {
           }
 
           var i = 0;
-          while (i <= _list.length) {
+          while (i < _list.length) {
             if ((_list[i].Code == _coderConttoller.text) &
                 (_list[i].Prenom == _usernameConttoller.text)) {
               String C = _list[i].Code;
