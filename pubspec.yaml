@@ -33,6 +33,7 @@ dependencies:
   syncfusion_flutter_sliders: ^18.1.52-beta
   syncfusion_flutter_pdf: ^18.1.52-beta
   syncfusion_flutter_barcodes: ^18.1.52-beta
+  flutter_launcher_icons: ^0.7.5
   http: ^0.12.1
   json_serializable: ^3.3.0
   get_it: ^4.0.2
@@ -44,6 +45,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+flutter_icons:
+  android: "launcher_icon"  
+  image_path: "assets/images/clinysys.png"  
 
 
 flutter:
