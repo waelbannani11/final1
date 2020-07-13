@@ -397,6 +397,44 @@ class _PatientModifyState extends State<PatientModify> {
                             context,
                             MaterialPageRoute(builder: (context) => Patients()),
                           );
+                          showDialog(
+                            context: context,
+                            child: AlertDialog(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(16.0))),
+                              content: Container(
+                                height:
+                                    MediaQuery.of(context).size.height / 1.8,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                                    Icon(
+                                      Icons.check_circle_outline,
+                                      size: 96,
+                                      color: Color(0xFF10CA88),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 16.0),
+                                      child: Text(
+                                        "Modifié avec succès",
+                                        style: TextStyle(fontSize: 20),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 16.0),
+                                      child: Text(
+                                        "Vous pouvez suivre le nouveau patient dans la page des pateints ",
+                                        style: TextStyle(fontSize: 16),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
                         }
                       },
                       child: Container(
