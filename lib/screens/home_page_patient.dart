@@ -96,6 +96,9 @@ class _HomePagePState extends State<HomePageP> {
                   ),
                 )),
             ListTile(
+              leading: Icon(
+                Icons.people,
+              ),
               title: Text('Les Patients'),
               onTap: () {
                 showDialog(
@@ -180,7 +183,7 @@ class _HomePagePState extends State<HomePageP> {
               thickness: 0.5,
             ),
             ListTile(
-              leading: Icon(Icons.description),
+              leading: Icon(Icons.mode_edit),
               title: Text('Modifier Profile'),
               onTap: () {
                 showDialog(
@@ -220,11 +223,17 @@ class _HomePagePState extends State<HomePageP> {
               },
             ),
             ListTile(
-              leading: Icon(Icons.description),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AboutUs()),
+                );
+              },
+              leading: Icon(Icons.info),
               title: Text('À propos de nous'),
             ),
             ListTile(
-              leading: Icon(Icons.description),
+              leading: Icon(Icons.arrow_back_ios),
               title: Text('Deconnecter'),
               onTap: () {
                 Navigator.push(

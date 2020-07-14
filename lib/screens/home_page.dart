@@ -120,50 +120,76 @@ class _HomePageState extends State<HomePage> {
       drawer: Drawer(
         child: ListView(
           children: <Widget>[
-            DrawerHeader(
-                decoration: BoxDecoration(
-                  color: Colors.blue[100],
-                ),
-                child: Padding(
-                  padding: EdgeInsets.all(0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(0, 35, 0, 0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Container(
-                              child: Text(
-                                'Dr.' + Nom + ' ' + Prenom,
-                                textAlign: TextAlign.start,
-                                style: TextStyle(
-                                  fontSize: 20.0,
-                                  color: LightColors.kDarkBlue,
-                                  fontWeight: FontWeight.w800,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              child: Text(
-                                Specialite,
-                                textAlign: TextAlign.start,
-                                style: TextStyle(
-                                  fontSize: 16.0,
-                                  color: Colors.black45,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => Profile(
+                            Code: Code,
+                            Prenom: Prenom,
+                            Nom: Nom,
+                            Adresse: Adresse,
+                            Specialite: Specialite,
+                            Ville: Ville,
+                            CodeP: CodeP,
+                            TelBur1: TelBur1,
+                            TelBur2: TelBur2,
+                            TelDom: TelDom,
+                            Gsm: Gsm,
+                            Email: Email,
+                            Fax: Fax,
+                          )),
+                );
+              },
+              child: DrawerHeader(
+                  decoration: BoxDecoration(
+                    color: Colors.blue[100],
                   ),
-                )),
+                  child: Padding(
+                    padding: EdgeInsets.all(0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(0, 35, 0, 0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Container(
+                                child: Text(
+                                  'Dr.' + Nom + ' ' + Prenom,
+                                  textAlign: TextAlign.start,
+                                  style: TextStyle(
+                                    fontSize: 20.0,
+                                    color: LightColors.kDarkBlue,
+                                    fontWeight: FontWeight.w800,
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                child: Text(
+                                  Specialite,
+                                  textAlign: TextAlign.start,
+                                  style: TextStyle(
+                                    fontSize: 16.0,
+                                    color: Colors.black45,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  )),
+            ),
             ListTile(
+              leading: Icon(
+                Icons.people,
+              ),
               title: Text('Les Patients'),
               onTap: () {
                 Navigator.push(
@@ -188,7 +214,7 @@ class _HomePageState extends State<HomePage> {
               thickness: 0.5,
             ),
             ListTile(
-              leading: Icon(Icons.description),
+              leading: Icon(Icons.mode_edit),
               title: Text('Modifier Profile'),
               onTap: () {
                 Navigator.push(
@@ -213,17 +239,17 @@ class _HomePageState extends State<HomePage> {
               },
             ),
             ListTile(
-              leading: Icon(Icons.description),
+              leading: Icon(Icons.info),
               title: Text('À propos de nous'),
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Profile()),
+                  MaterialPageRoute(builder: (context) => AboutUs()),
                 );
               },
             ),
             ListTile(
-              leading: Icon(Icons.description),
+              leading: Icon(Icons.arrow_back_ios),
               title: Text('Deconnecter'),
               onTap: () {
                 Navigator.push(

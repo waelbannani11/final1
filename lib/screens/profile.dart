@@ -110,7 +110,7 @@ class _ProfileState extends State<Profile> {
               clipper: MyClipper(),
               child: Container(
                 padding: EdgeInsets.only(top: 4),
-                decoration: BoxDecoration(color: Colors.redAccent, boxShadow: [
+                decoration: BoxDecoration(color: Colors.blue, boxShadow: [
                   BoxShadow(
                       color: Colors.red, blurRadius: 20, offset: Offset(0, 0))
                 ]),
@@ -128,105 +128,57 @@ class _ProfileState extends State<Profile> {
                                   shape: BoxShape.circle,
                                   image: DecorationImage(
                                       fit: BoxFit.cover,
-                                      image: NetworkImage(url))),
-                            ),
-                            SizedBox(
-                              height: 16,
+                                      image: AssetImage(
+                                          "assets/images/doctor_avatar.png"))),
                             ),
                             Text(
-                              "Milan Short",
+                              Specialite,
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: <Widget>[
+                            Text(
+                              Nom,
                               style:
                                   TextStyle(color: Colors.white, fontSize: 20),
-                            )
-                          ],
-                        ),
-                        Column(
-                          children: <Widget>[
-                            Text(
-                              "Schedule",
-                              style: TextStyle(color: Colors.white),
                             ),
                             Text(
-                              "8",
+                              Prenom,
                               style:
-                                  TextStyle(fontSize: 26, color: Colors.white),
-                            )
-                          ],
-                        ),
-                        Column(
-                          children: <Widget>[
-                            Text(
-                              "Events",
-                              style: TextStyle(color: Colors.white),
+                                  TextStyle(color: Colors.white, fontSize: 20),
                             ),
-                            Text(
-                              "12",
-                              style:
-                                  TextStyle(fontSize: 26, color: Colors.white),
-                            )
-                          ],
-                        ),
-                        Column(
-                          children: <Widget>[
-                            Text(
-                              "Routines",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            Text(
-                              "4",
-                              style:
-                                  TextStyle(fontSize: 26, color: Colors.white),
-                            )
                           ],
                         ),
                       ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: <Widget>[
-                        Column(
-                          children: <Widget>[
-                            Text(
-                              "Savings",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            Text(
-                              "20K",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 24),
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          width: 32,
-                        ),
-                        Column(
-                          children: <Widget>[
-                            Text(
-                              "July Goals",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            Text("50K",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 24))
-                          ],
-                        ),
-                        SizedBox(
-                          width: 16,
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: 8,
                     ),
                     Align(
                       alignment: Alignment.bottomRight,
                       child: GestureDetector(
                         onTap: () {
-                          print("//TODO: button clicked");
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ModifierProfile(
+                                      Code: Code,
+                                      Prenom: Prenom,
+                                      Nom: Nom,
+                                      Adresse: Adresse,
+                                      Specialite: Specialite,
+                                      Ville: Ville,
+                                      CodeP: CodeP,
+                                      TelBur1: TelBur1,
+                                      TelBur2: TelBur2,
+                                      TelDom: TelDom,
+                                      Gsm: Gsm,
+                                      Email: Email,
+                                      Fax: Fax,
+                                    )),
+                          );
                         },
                         child: Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 24, 16, 0),
+                          padding: const EdgeInsets.fromLTRB(0, 24, 16, 20),
                           child: Transform.rotate(
                             angle: (math.pi * 0.05),
                             child: Container(
@@ -252,210 +204,139 @@ class _ProfileState extends State<Profile> {
                 ),
               ),
             ),
-            Text("Name"),
-            SizedBox(
-              height: 4,
-            ),
-            Text(
-              "Milan Short",
-              style: _style(),
-            ),
-            SizedBox(
-              height: 16,
-            ),
-            Text(
-              "Email",
-              style: _style(),
-            ),
-            SizedBox(
-              height: 4,
-            ),
-            Text("milan@gmail.com"),
-            SizedBox(
-              height: 16,
-            ),
-            Text(
-              "Location",
-              style: _style(),
-            ),
-            SizedBox(
-              height: 4,
-            ),
-            Text("New York, USA"),
-            SizedBox(
-              height: 16,
-            ),
-            Text(
-              "Language",
-              style: _style(),
-            ),
-            SizedBox(
-              height: 4,
-            ),
-            Text("English, French"),
-            SizedBox(
-              height: 16,
-            ),
-            Text(
-              "Occupation",
-              style: _style(),
-            ),
-            SizedBox(
-              height: 4,
-            ),
-            Text("Employee"),
-            SizedBox(
-              height: 16,
-            ),
-            Divider(
-              color: Colors.grey,
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-final String url =
-    "http://chuteirafc.cartacapital.com.br/wp-content/uploads/2018/12/15347041965884.jpg";
-
-class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
-  @override
-  Size get preferredSize => Size(double.infinity, 320);
-
-  @override
-  Widget build(BuildContext context) {
-    return ClipPath(
-      clipper: MyClipper(),
-      child: Container(
-        padding: EdgeInsets.only(top: 4),
-        decoration: BoxDecoration(color: Colors.redAccent, boxShadow: [
-          BoxShadow(color: Colors.red, blurRadius: 20, offset: Offset(0, 0))
-        ]),
-        child: Column(
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                Column(
-                  children: <Widget>[
-                    Container(
-                      width: 100,
-                      height: 100,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                              fit: BoxFit.cover, image: NetworkImage(url))),
-                    ),
-                    SizedBox(
-                      height: 16,
-                    ),
-                    Text(
-                      "Milan Short",
-                      style: TextStyle(color: Colors.white, fontSize: 20),
-                    )
-                  ],
-                ),
-                Column(
-                  children: <Widget>[
-                    Text(
-                      "Schedule",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    Text(
-                      "8",
-                      style: TextStyle(fontSize: 26, color: Colors.white),
-                    )
-                  ],
-                ),
-                Column(
-                  children: <Widget>[
-                    Text(
-                      "Events",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    Text(
-                      "12",
-                      style: TextStyle(fontSize: 26, color: Colors.white),
-                    )
-                  ],
-                ),
-                Column(
-                  children: <Widget>[
-                    Text(
-                      "Routines",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    Text(
-                      "4",
-                      style: TextStyle(fontSize: 26, color: Colors.white),
-                    )
-                  ],
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                Column(
-                  children: <Widget>[
-                    Text(
-                      "Savings",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    Text(
-                      "20K",
-                      style: TextStyle(color: Colors.white, fontSize: 24),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  width: 32,
-                ),
-                Column(
-                  children: <Widget>[
-                    Text(
-                      "July Goals",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    Text("50K",
-                        style: TextStyle(color: Colors.white, fontSize: 24))
-                  ],
-                ),
-                SizedBox(
-                  width: 16,
-                )
-              ],
-            ),
-            SizedBox(
-              height: 8,
-            ),
-            Align(
-              alignment: Alignment.bottomRight,
-              child: GestureDetector(
-                onTap: () {
-                  print("//TODO: button clicked");
-                },
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 24, 16, 0),
-                  child: Transform.rotate(
-                    angle: (math.pi * 0.05),
-                    child: Container(
-                      width: 110,
-                      height: 32,
-                      child: Center(
-                        child: Text("Edit Profile"),
-                      ),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(16)),
-                          boxShadow: [
-                            BoxShadow(color: Colors.black12, blurRadius: 20)
-                          ]),
+            SingleChildScrollView(
+              child: Stack(
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.fromLTRB(30, 20, 0, 0),
+                    child: Column(
+                      children: <Widget>[
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.email,
+                            ),
+                            Text(
+                              "   Email : ",
+                              style: _style(),
+                            ),
+                            Text(Email),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.local_phone,
+                            ),
+                            Text(
+                              "   Tel Dom : ",
+                              style: _style(),
+                            ),
+                            Text(TelDom),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.local_phone,
+                            ),
+                            Text(
+                              "   Tel Bur1 : ",
+                              style: _style(),
+                            ),
+                            Text(TelBur1),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.local_phone,
+                            ),
+                            Text(
+                              "   Tel Bur2 : ",
+                              style: _style(),
+                            ),
+                            Text(TelBur2),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.phone_android,
+                            ),
+                            Text(
+                              "   Gsm : ",
+                              style: _style(),
+                            ),
+                            Text(Gsm),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.local_printshop,
+                            ),
+                            Text(
+                              "   Fax : ",
+                              style: _style(),
+                            ),
+                            Text(Fax),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.location_city,
+                            ),
+                            Text(
+                              "   Ville : ",
+                              style: _style(),
+                            ),
+                            Text(Ville),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                                child: Column(
+                              children: [
+                                Icon(
+                                  Icons.location_on,
+                                ),
+                                Text(
+                                  "   Adresse : ",
+                                  style: _style(),
+                                ),
+                                Text(Adresse),
+                              ],
+                            ))
+                          ],
+                        ),
+                      ],
                     ),
                   ),
-                ),
+                ],
               ),
             )
           ],

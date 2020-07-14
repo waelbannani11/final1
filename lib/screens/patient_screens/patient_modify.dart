@@ -405,7 +405,7 @@ class _PatientModifyState extends State<PatientModify> {
                                       BorderRadius.all(Radius.circular(16.0))),
                               content: Container(
                                 height:
-                                    MediaQuery.of(context).size.height / 1.8,
+                                    MediaQuery.of(context).size.height / 2.5,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
