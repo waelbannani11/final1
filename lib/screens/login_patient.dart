@@ -6,7 +6,8 @@ import 'package:final1/models/login_model.dart';
 import 'package:final1/models/login_service.dart';
 import 'package:final1/ordonnance.dart';
 import 'package:final1/screens/home_page.dart';
-import 'package:final1/screens/login_patient.dart';
+import 'package:final1/screens/home_page_patient.dart';
+import 'package:final1/screens/login.dart';
 import 'package:final1/screens/medicament_screens/medicaments_page.dart';
 import 'package:final1/screens/patient_screens/patient_info.dart';
 import 'package:final1/screens/patient_screens/patient_page.dart';
@@ -16,45 +17,19 @@ import 'package:final1/widgets/constants.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 
-class Login extends StatefulWidget {
+class LoginP extends StatefulWidget {
   @override
-  _LoginState createState() => _LoginState();
+  _LoginPState createState() => _LoginPState();
 }
 
-class _LoginState extends State<Login> {
-  LoginService get loginService => GetIt.I<LoginService>();
-  TextEditingController _coderConttoller = TextEditingController();
+class _LoginPState extends State<LoginP> {
   TextEditingController _usernameConttoller = TextEditingController();
 
-  List<Loginn> _list = [];
-  var loading = false;
-  var url = 'http://10.0.3.2:5000/Logins';
-  Future<Null> fetchData() async {
-    setState(() {
-      loading = true;
-    });
-    _list.clear();
-    var response = await http.get(url);
-    if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      setState(() {
-        for (Map i in data) {
-          _list.add(Loginn.formJson(i));
-          loading = false;
-        }
-      });
-    }
-  }
-
-  bool _rememberMe = false;
-  bool passwordVisible;
   @override
-  void initState() {
-    passwordVisible = true;
-    fetchData();
-  }
+  void initState() {}
 
   Widget build(BuildContext context) {
+    final _formKey = GlobalKey<FormState>();
     return SafeArea(
       child: Scaffold(
         body: AnnotatedRegion<SystemUiOverlayStyle>(
@@ -109,26 +84,25 @@ class _LoginState extends State<Login> {
                       horizontal: 40.0,
                       vertical: 300.0,
                     ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        FadeAnimation(
-                          2,
-                          _buildEmailTF(),
-                        ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        FadeAnimation(
-                          3,
-                          _buildPasswordTF(),
-                        ),
-                        FadeAnimation(
-                          4,
-                          _buildLoginBtn(),
-                        ),
-                        FadeAnimation(5, _patient())
-                      ],
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          FadeAnimation(
+                            2,
+                            _buildEmailTF(),
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          FadeAnimation(
+                            3,
+                            _buildLoginBtn(),
+                          ),
+                          FadeAnimation(5, _medecin())
+                        ],
+                      ),
                     ),
                   ),
                 )
@@ -175,55 +149,7 @@ class _LoginState extends State<Login> {
     );
   }
 
-  Widget _buildPasswordTF() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          'Password',
-          style: kLabelStyle,
-        ),
-        SizedBox(height: 20.0),
-        Container(
-          alignment: Alignment.centerLeft,
-          decoration: kBoxDecorationStyle,
-          height: 60.0,
-          child: TextField(
-            controller: _coderConttoller,
-            obscureText: passwordVisible,
-            style: TextStyle(
-              color: Colors.white,
-              fontFamily: 'OpenSans',
-            ),
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.only(top: 14.0),
-              prefixIcon: Icon(
-                Icons.lock,
-                color: Colors.white,
-              ),
-              hintText: 'Enter your Password',
-              hintStyle: kHintTextStyle,
-              suffixIcon: IconButton(
-                icon: Icon(
-                  passwordVisible ? Icons.visibility : Icons.visibility_off,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  setState(() {
-                    passwordVisible = !passwordVisible;
-                  });
-                },
-              ),
-            ),
-          ),
-        ),
-        SizedBox(height: 20.0),
-      ],
-    );
-  }
-
-  Widget _patient() {
+  Widget _medecin() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -232,12 +158,12 @@ class _LoginState extends State<Login> {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => LoginP(),
+                builder: (context) => Login(),
               ),
             );
           },
           child: Text(
-            'se connecter en tant que patient',
+            'se connecter en tant que médecin',
             style: kLabelStyle,
           ),
         ),
@@ -253,52 +179,14 @@ class _LoginState extends State<Login> {
       child: RaisedButton(
         elevation: 5.0,
         onPressed: () {
-          @override
-          void initState() {
-            fetchData();
-          }
-
-          var i = 0;
-          while (i <= _list.length) {
-            if ((_list[i].Code == _coderConttoller.text) &
-                (_list[i].Prenom == _usernameConttoller.text)) {
-              String C = _list[i].Code;
-              String P = _list[i].Prenom;
-              String N = _list[i].Nom;
-              String A = _list[i].Adresse;
-              String CO = _list[i].CodeP;
-              String T1 = _list[i].TelBur1;
-              String T2 = _list[i].TelBur2;
-              String T3 = _list[i].TelDom;
-              String E = _list[i].Email;
-              String F = _list[i].Fax;
-              String G = _list[i].Gsm;
-              String V = _list[i].Ville;
-              String S = _list[i].Specialite;
-
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => HomePage(
-                    Code: C,
-                    Prenom: P,
-                    Nom: N,
-                    Adresse: A,
-                    CodeP: CO,
-                    TelBur1: T1,
-                    TelBur2: T2,
-                    TelDom: T3,
-                    Email: E,
-                    Fax: F,
-                    Gsm: G,
-                    Ville: V,
-                    Specialite: S,
-                  ),
-                ),
-              );
-            }
-            i++;
-          }
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomePageP(
+                Nom: _usernameConttoller.text,
+              ),
+            ),
+          );
         },
         padding: EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(

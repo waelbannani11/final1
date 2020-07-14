@@ -1,9 +1,10 @@
 import 'package:final1/Animations/FadeAnimation.dart';
 import 'package:final1/aboutus.dart';
 import 'package:final1/modifierprofile.dart';
+import 'package:final1/screens/home_page.dart';
 import 'package:final1/screens/login.dart';
+import 'package:final1/screens/login_patient.dart';
 import 'package:final1/screens/patient_screens/patient_page.dart';
-import 'package:final1/screens/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:final1/theme/colors/light_colors.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -13,7 +14,7 @@ import 'agenda.dart';
 import 'create_new_rdv_page.dart';
 import 'medicament_screens/medicaments_page.dart';
 
-class HomePage extends StatefulWidget {
+class HomePageP extends StatefulWidget {
   static CircleAvatar calendarIcon() {
     return CircleAvatar(
       radius: 25.0,
@@ -26,79 +27,21 @@ class HomePage extends StatefulWidget {
     );
   }
 
-  String Code;
-  String Prenom;
   String Nom;
-  String Adresse;
-  String Specialite;
-  String Ville;
-  String CodeP;
-  String TelBur1;
-  String TelBur2;
-  String TelDom;
-  String Gsm;
-  String Email;
-  String Fax;
-  HomePage(
-      {this.Code,
-      this.Prenom,
-      this.Nom,
-      this.Adresse,
-      this.Specialite,
-      this.Ville,
-      this.CodeP,
-      this.TelBur1,
-      this.TelBur2,
-      this.TelDom,
-      this.Gsm,
-      this.Email,
-      this.Fax});
+  HomePageP({
+    this.Nom,
+  });
   @override
-  _HomePageState createState() => _HomePageState(
-        Code,
-        Prenom,
+  _HomePagePState createState() => _HomePagePState(
         Nom,
-        Adresse,
-        Specialite,
-        Ville,
-        CodeP,
-        TelBur1,
-        TelBur2,
-        TelDom,
-        Gsm,
-        Email,
-        Fax,
       );
 }
 
-class _HomePageState extends State<HomePage> {
-  String Code;
-  String Prenom;
+class _HomePagePState extends State<HomePageP> {
   String Nom;
-  String Adresse;
-  String Specialite;
-  String Ville;
-  String CodeP;
-  String TelBur1;
-  String TelBur2;
-  String TelDom;
-  String Gsm;
-  String Email;
-  String Fax;
-  _HomePageState(
-      this.Code,
-      this.Prenom,
-      this.Nom,
-      this.Adresse,
-      this.Specialite,
-      this.Ville,
-      this.CodeP,
-      this.TelBur1,
-      this.TelBur2,
-      this.TelDom,
-      this.Gsm,
-      this.Email,
-      this.Fax);
+  _HomePagePState(
+    this.Nom,
+  );
   Text subheading(String title) {
     return Text(
       title,
@@ -137,23 +80,12 @@ class _HomePageState extends State<HomePage> {
                           children: <Widget>[
                             Container(
                               child: Text(
-                                'Dr.' + Nom + ' ' + Prenom,
+                                Nom,
                                 textAlign: TextAlign.start,
                                 style: TextStyle(
                                   fontSize: 20.0,
                                   color: LightColors.kDarkBlue,
                                   fontWeight: FontWeight.w800,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              child: Text(
-                                Specialite,
-                                textAlign: TextAlign.start,
-                                style: TextStyle(
-                                  fontSize: 16.0,
-                                  color: Colors.black45,
-                                  fontWeight: FontWeight.w400,
                                 ),
                               ),
                             ),
@@ -166,9 +98,39 @@ class _HomePageState extends State<HomePage> {
             ListTile(
               title: Text('Les Patients'),
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Patients()),
+                showDialog(
+                  context: context,
+                  child: AlertDialog(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                    content: Container(
+                      height: MediaQuery.of(context).size.height / 2.5,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(
+                            Icons.error_outline,
+                            size: 96,
+                            color: Color(0xFF10CA88),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 16.0),
+                            child: Text(
+                              "erreur",
+                              style: TextStyle(fontSize: 20),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 16.0),
+                            child: Text(
+                              "Vous ne pouvez pas utiliser cette fonctionnalité",
+                              style: TextStyle(fontSize: 16),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 );
               },
             ),
@@ -178,9 +140,39 @@ class _HomePageState extends State<HomePage> {
             ListTile(
               title: Text('Les Médicaments'),
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Medicament()),
+                showDialog(
+                  context: context,
+                  child: AlertDialog(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                    content: Container(
+                      height: MediaQuery.of(context).size.height / 2.5,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(
+                            Icons.error_outline,
+                            size: 96,
+                            color: Color(0xFF10CA88),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 16.0),
+                            child: Text(
+                              "erreur",
+                              style: TextStyle(fontSize: 20),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 16.0),
+                            child: Text(
+                              "Vous ne pouvez pas utiliser cette fonctionnalité",
+                              style: TextStyle(fontSize: 16),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 );
               },
             ),
@@ -191,36 +183,45 @@ class _HomePageState extends State<HomePage> {
               leading: Icon(Icons.description),
               title: Text('Modifier Profile'),
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => ModifierProfile(
-                            Code: Code,
-                            Prenom: Prenom,
-                            Nom: Nom,
-                            Adresse: Adresse,
-                            Specialite: Specialite,
-                            Ville: Ville,
-                            CodeP: CodeP,
-                            TelBur1: TelBur1,
-                            TelBur2: TelBur2,
-                            TelDom: TelDom,
-                            Gsm: Gsm,
-                            Email: Email,
-                            Fax: Fax,
-                          )),
+                showDialog(
+                  context: context,
+                  child: AlertDialog(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                    content: Container(
+                      height: MediaQuery.of(context).size.height / 2.5,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(
+                            Icons.error_outline,
+                            size: 96,
+                            color: Color(0xFF10CA88),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 16.0),
+                            child: Text(
+                              "erreur",
+                              style: TextStyle(fontSize: 20),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 16.0),
+                            child: Text(
+                              "Vous ne pouvez pas utiliser cette fonctionnalité",
+                              style: TextStyle(fontSize: 16),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 );
               },
             ),
             ListTile(
               leading: Icon(Icons.description),
               title: Text('À propos de nous'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => AboutUs()),
-                );
-              },
             ),
             ListTile(
               leading: Icon(Icons.description),
@@ -228,7 +229,7 @@ class _HomePageState extends State<HomePage> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Login()),
+                  MaterialPageRoute(builder: (context) => LoginP()),
                 );
               },
             ),
@@ -266,7 +267,7 @@ class _HomePageState extends State<HomePage> {
                                 backgroundColor: Colors.blue[100],
                                 radius: 35.0,
                                 backgroundImage: AssetImage(
-                                  'assets/images/doctor_avatar.png',
+                                  'assets/images/avatar.png',
                                 ),
                               ),
                             ),
@@ -275,23 +276,12 @@ class _HomePageState extends State<HomePage> {
                               children: <Widget>[
                                 Container(
                                   child: Text(
-                                    'Dr.' + Nom + ' ' + Prenom,
+                                    Nom,
                                     textAlign: TextAlign.start,
                                     style: TextStyle(
                                       fontSize: 20.0,
                                       color: LightColors.kDarkBlue,
                                       fontWeight: FontWeight.w800,
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  child: Text(
-                                    Specialite,
-                                    textAlign: TextAlign.start,
-                                    style: TextStyle(
-                                      fontSize: 16.0,
-                                      color: Colors.black45,
-                                      fontWeight: FontWeight.w400,
                                     ),
                                   ),
                                 ),
@@ -328,7 +318,7 @@ class _HomePageState extends State<HomePage> {
                                               AgendaViewCustomization()),
                                     );
                                   },
-                                  child: HomePage.calendarIcon(),
+                                  child: HomePageP.calendarIcon(),
                                 ),
                               ],
                             ),
@@ -360,9 +350,42 @@ class _HomePageState extends State<HomePage> {
                 children: <Widget>[
                   InkWell(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Patients()),
+                      showDialog(
+                        context: context,
+                        child: AlertDialog(
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(16.0))),
+                          content: Container(
+                            height: MediaQuery.of(context).size.height / 2.5,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                Icon(
+                                  Icons.error_outline,
+                                  size: 96,
+                                  color: Color(0xFF10CA88),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 16.0),
+                                  child: Text(
+                                    "erreur",
+                                    style: TextStyle(fontSize: 20),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 16.0),
+                                  child: Text(
+                                    "Vous ne pouvez pas utiliser cette fonctionnalité",
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                       );
                     },
                     child: Container(
@@ -371,7 +394,7 @@ class _HomePageState extends State<HomePage> {
                       height: 450,
                       width: width,
                       decoration: BoxDecoration(
-                        color: LightColors.kGreen,
+                        color: Colors.grey,
                         borderRadius: BorderRadius.circular(40.0),
                       ),
                       child: Column(
@@ -404,9 +427,42 @@ class _HomePageState extends State<HomePage> {
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Medicament()),
+                      showDialog(
+                        context: context,
+                        child: AlertDialog(
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(16.0))),
+                          content: Container(
+                            height: MediaQuery.of(context).size.height / 2.5,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                Icon(
+                                  Icons.error_outline,
+                                  size: 96,
+                                  color: Color(0xFF10CA88),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 16.0),
+                                  child: Text(
+                                    "erreur",
+                                    style: TextStyle(fontSize: 20),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 16.0),
+                                  child: Text(
+                                    "Vous ne pouvez pas utiliser cette fonctionnalité",
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                       );
                     },
                     child: Container(
@@ -415,7 +471,7 @@ class _HomePageState extends State<HomePage> {
                       height: 175,
                       width: width,
                       decoration: BoxDecoration(
-                        color: LightColors.kDarkYellow,
+                        color: Colors.grey,
                         borderRadius: BorderRadius.circular(40.0),
                       ),
                       child: Column(
@@ -447,12 +503,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Medicament()),
-                      );
-                    },
+                    onTap: () {},
                     child: Container(
                       margin: EdgeInsets.symmetric(vertical: 10.0),
                       padding: EdgeInsets.all(15.0),
