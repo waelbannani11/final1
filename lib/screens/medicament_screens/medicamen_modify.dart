@@ -69,7 +69,7 @@ class _MedicamentModifyState extends State<MedicamentModify> {
     //DESIGN
     Widget _buildDESIGN() {
       return TextFormField(
-        controller: _DESIGNConttoller,
+        //controller: _DESIGNConttoller,
         decoration: InputDecoration(
             labelText: 'NOM',
             border: new OutlineInputBorder(

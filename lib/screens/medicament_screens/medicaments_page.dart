@@ -20,7 +20,7 @@ class _MedicamentState extends State<Medicament> {
   List<Medic> _list = [];
   List<Medic> _search = [];
   var loading = false;
-  var url = 'http://10.0.3.2:5000/Medicaments';
+  var url = 'http://192.168.100.200:5000/Medicaments';
   Future<Null> fetchData() async {
     setState(() {
       loading = true;

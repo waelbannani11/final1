@@ -516,6 +516,50 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => AboutUs()),
+                      );
+                    },
+                    child: Container(
+                      margin: EdgeInsets.symmetric(vertical: 10.0),
+                      padding: EdgeInsets.all(15.0),
+                      height: 175,
+                      width: width,
+                      decoration: BoxDecoration(
+                        color: LightColors.kRed,
+                        borderRadius: BorderRadius.circular(40.0),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Center(
+                                child: Text(
+                                  'a propos de nous',
+                                  style: TextStyle(
+                                    fontSize: 14.0,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              Center(
+                                child: Image.asset('assets/images/aboutus.png',
+                                    width: 100),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

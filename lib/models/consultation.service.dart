@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'api_response.dart';
 
 class ConsultationService {
-  static const API = 'http://10.0.3.2:5000';
+  static const API = 'http://192.168.100.200:5000';
 
   Future<APIResponse<bool>> createConcult(AddConsultation item) {
     return http.post(

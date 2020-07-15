@@ -8,154 +8,129 @@ class AboutUs extends StatefulWidget {
 class _AboutUsState extends State<AboutUs> {
   @override
   Widget build(BuildContext context) {
+    TextStyle _style() {
+      return TextStyle(fontWeight: FontWeight.bold);
+    }
+
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage('assets/images/avatar_doctor.png'),
-                fit: BoxFit.cover)),
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              flex: 1,
-              child: Container(),
-            ),
-            Expanded(
-              flex: 2,
-              child: Container(
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30),
-                      topRight: Radius.circular(30),
-                    )),
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 24),
-                  child: ListView(
-                    children: <Widget>[
-                      Text(
-                        'Welcome to Fashionista!',
-                        style: TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.w600),
-                      ),
-                      SizedBox(
-                        height: 14,
-                      ),
-                      Text(
-                        'Sign in to continue',
-                        style: TextStyle(color: Colors.black54),
-                      ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      TextField(
-                        style: TextStyle(fontSize: 14, color: Colors.black54),
-                        decoration: InputDecoration(
-                            labelText: 'EMAIL',
-                            prefixIcon: Icon(
-                              Icons.email,
-                              size: 22,
-                            ),
-                            labelStyle: TextStyle(
-                                color: Colors.black87,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600)),
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      TextField(
-                        style: TextStyle(fontSize: 14, color: Colors.black54),
-                        decoration: InputDecoration(
-                            labelText: 'PASSWORD',
-                            prefixIcon: Icon(
-                              Icons.lock,
-                              size: 22,
-                            ),
-                            suffixIcon: GestureDetector(
-                              onTap: () {},
-                            ),
-                            labelStyle: TextStyle(
-                                color: Colors.black87,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600)),
-                      ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      CustomButton(
-                        text: 'Login',
-                        bgColor: Theme.of(context).primaryColor,
-                        textColor: Colors.white,
-                      ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      Center(
-                        child: Text(
-                          'Forgot Password?',
-                          style: TextStyle(color: Colors.black54),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black87, width: 1),
-                            borderRadius: BorderRadius.circular(7)),
-                        child: CustomButton(
-                          text: 'Sign Up',
-                          bgColor: Colors.white.withOpacity(0),
-                          textColor: Colors.black,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            )
-          ],
-        ),
+      appBar: AppBar(
+        title: Text('a propos de nous'),
       ),
-    );
-  }
-}
-
-class CustomButton extends StatelessWidget {
-  const CustomButton({this.bgColor, this.text, this.textColor});
-
-  final Color bgColor;
-  final Color textColor;
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        Expanded(
-          child: Material(
-            color: bgColor,
-            borderRadius: BorderRadius.circular(7),
-            child: InkWell(
-              borderRadius: BorderRadius.circular(7),
-              onTap: () {},
-              child: Padding(
-                padding: const EdgeInsets.all(14.0),
-                child: Text(
-                  '$text',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      color: textColor,
-                      fontSize: 15),
-                ),
-              ),
+      body: Column(
+        children: <Widget>[
+          Container(
+            height: 100,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              image: DecorationImage(
+                  image: AssetImage("assets/images/logo.png"),
+                  fit: BoxFit.fill),
             ),
           ),
-        )
-      ],
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+                "CliniSys Sarl est une Société de Service et Ingénierie en Informatique (SSII) certifié ISO 9001 :2015, crée en 1991 sous le nom de Computer Systems puis transformée en 2018 sous le nom de CliniSys sarl. "),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+                "CLINISYS 1èr Editeur de Logiciel de Santé en Tunisie. CliniSys est un Système d'Information de Santé intégré. Il couvre les activités des établissements de santé cliniques et hôpitaux "),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.email,
+                ),
+                Text(
+                  "   Fax : ",
+                  style: _style(),
+                ),
+                Text("+216 74 623 777"),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.email,
+                ),
+                Text(
+                  "   Taille de l’entreprise : ",
+                  style: _style(),
+                ),
+                Text("152"),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.email,
+                ),
+                Text(
+                  "   Email : ",
+                  style: _style(),
+                ),
+                Text("soft@csys.com.tn"),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.email,
+                ),
+                Text(
+                  "   Téléphone : ",
+                  style: _style(),
+                ),
+                Text("+216 74 623 700 "),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.email,
+                ),
+                Text(
+                  "   Adresse : ",
+                  style: _style(),
+                ),
+                Text("Siège - Rte Menzel Chaker Km 4.5"),
+              ],
+            ),
+          ),
+          Row(
+            children: [
+              Expanded(
+                  child: Column(
+                children: [
+                  Icon(
+                    Icons.location_on,
+                  ),
+                  Text(
+                    "   Adresse : ",
+                    style: _style(),
+                  ),
+                  Text("Siège - Rte Menzel Chaker Km 4.5"),
+                ],
+              ))
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

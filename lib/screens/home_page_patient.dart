@@ -403,7 +403,7 @@ class _HomePagePState extends State<HomePageP> {
                       height: 450,
                       width: width,
                       decoration: BoxDecoration(
-                        color: Colors.grey,
+                        color: LightColors.kGreen,
                         borderRadius: BorderRadius.circular(40.0),
                       ),
                       child: Column(
@@ -425,7 +425,7 @@ class _HomePagePState extends State<HomePageP> {
                                 ),
                               ),
                               Center(
-                                child: Image.asset('assets/images/avatar.png',
+                                child: Image.asset('assets/images/lock.png',
                                     width: 100),
                               ),
                             ],
@@ -480,7 +480,7 @@ class _HomePagePState extends State<HomePageP> {
                       height: 175,
                       width: width,
                       decoration: BoxDecoration(
-                        color: Colors.grey,
+                        color: LightColors.kDarkYellow,
                         borderRadius: BorderRadius.circular(40.0),
                       ),
                       child: Column(
@@ -502,7 +502,7 @@ class _HomePagePState extends State<HomePageP> {
                                 ),
                               ),
                               Center(
-                                child: Image.asset('assets/images/medic.png',
+                                child: Image.asset('assets/images/lock.png',
                                     width: 100),
                               ),
                             ],
@@ -542,6 +542,50 @@ class _HomePagePState extends State<HomePageP> {
                               ),
                               Center(
                                 child: Image.asset('assets/images/msg.png',
+                                    width: 100),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => AboutUs()),
+                      );
+                    },
+                    child: Container(
+                      margin: EdgeInsets.symmetric(vertical: 10.0),
+                      padding: EdgeInsets.all(15.0),
+                      height: 175,
+                      width: width,
+                      decoration: BoxDecoration(
+                        color: LightColors.kRed,
+                        borderRadius: BorderRadius.circular(40.0),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Center(
+                                child: Text(
+                                  'a propos de nous',
+                                  style: TextStyle(
+                                    fontSize: 14.0,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              Center(
+                                child: Image.asset('assets/images/aboutus.png',
                                     width: 100),
                               ),
                             ],
