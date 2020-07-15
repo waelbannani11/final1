@@ -69,7 +69,7 @@ class _MedicamentModifyState extends State<MedicamentModify> {
     //DESIGN
     Widget _buildDESIGN() {
       return TextFormField(
-        //controller: _DESIGNConttoller,
+        controller: _DESIGNConttoller,
         decoration: InputDecoration(
             labelText: 'NOM',
             border: new OutlineInputBorder(
@@ -157,11 +157,11 @@ class _MedicamentModifyState extends State<MedicamentModify> {
                           );
                           final result =
                               await medicamentService.updatemedic(medic);
-                          Navigator.pushReplacement(
+                          /*Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => Medicament()),
-                          );
+                          );*/
                           showDialog(
                             context: context,
                             child: AlertDialog(
