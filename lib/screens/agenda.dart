@@ -82,16 +82,6 @@ class ScheduleExample extends State<CustomAgenda> {
     return app;
   }**/
 
-  List<Meeting> insertData(_app) {
-    final List<Meeting> meetingCollection = <Meeting>[];
-    meetingCollection.add(Meeting(
-      from: _app.from,
-      to: _app.to,
-      isAllDay: _app.isAllDay,
-      eventName: _app.eventName,
-    ));
-  }
-
   @override
   void initState() {
     /* fetchNotes().then((value) {
@@ -169,7 +159,17 @@ class ScheduleExample extends State<CustomAgenda> {
       resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         actions: <Widget>[
-          PopupMenuButton<String>(
+          IconButton(
+            icon: Icon(Icons.restore_page),
+            onPressed: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => AgendaViewCustomization()),
+              );
+            },
+          ),
+          /*PopupMenuButton<String>(
             icon: Icon(Icons.color_lens),
             itemBuilder: (BuildContext context) => colors.map((String choice) {
               return PopupMenuItem<String>(value: choice, child: Text(choice));
@@ -199,7 +199,7 @@ class ScheduleExample extends State<CustomAgenda> {
                 }
               });
             },
-          ),
+          ),*/
         ],
         backgroundColor: headerColor,
         //Color(0xFF003264),
@@ -230,6 +230,7 @@ class ScheduleExample extends State<CustomAgenda> {
           future: _getOnlineData(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.data != null) {
+              final Random random = Random();
               List<Meeting> collection;
               if (snapshot.data != null) {
                 for (int i = 0; i < snapshot.data.length; i++) {
@@ -237,9 +238,11 @@ class ScheduleExample extends State<CustomAgenda> {
                   var meeting = snapshot.data[i];
                   collection.add(
                     Meeting(
-                        from: convertDateFromString(meeting.startTime),
-                        to: convertDateFromString(meeting.endTime),
-                        eventName: meeting.subject),
+                      from: convertDateFromString(meeting.startTime),
+                      to: convertDateFromString(meeting.endTime),
+                      eventName: meeting.subject,
+                      background: _colorCollection[random.nextInt(9)],
+                    ),
                   );
                   appointments = collection;
                   print(appointments[0].eventName);

@@ -42,7 +42,7 @@ class _AboutUsState extends State<AboutUs> {
             child: Row(
               children: [
                 Icon(
-                  Icons.email,
+                  Icons.local_printshop,
                 ),
                 Text(
                   "   Fax : ",
@@ -57,7 +57,7 @@ class _AboutUsState extends State<AboutUs> {
             child: Row(
               children: [
                 Icon(
-                  Icons.email,
+                  Icons.work,
                 ),
                 Text(
                   "   Taille de l’entreprise : ",
@@ -87,7 +87,7 @@ class _AboutUsState extends State<AboutUs> {
             child: Row(
               children: [
                 Icon(
-                  Icons.email,
+                  Icons.local_phone,
                 ),
                 Text(
                   "   Téléphone : ",
@@ -102,7 +102,7 @@ class _AboutUsState extends State<AboutUs> {
             child: Row(
               children: [
                 Icon(
-                  Icons.email,
+                  Icons.location_on,
                 ),
                 Text(
                   "   Adresse : ",

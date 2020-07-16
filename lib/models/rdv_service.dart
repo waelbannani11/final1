@@ -20,4 +20,18 @@ class RDVSERVICE {
     }).catchError((_) =>
         APIResponse<bool>(error: true, errorMessage: 'An error occured'));
   }
+
+  Future<APIResponse<bool>> modifRdv(AddRdv item) {
+    return http.put(
+      API + '/ModifRdv',
+      body: json.encode(item.toJson()),
+      headers: {"Content-Type": "application/json"},
+    ).then((data) {
+      if (data.statusCode == 200) {
+        return APIResponse<bool>(data: true);
+      }
+      return APIResponse<bool>(error: true, errorMessage: 'An error occured');
+    }).catchError((_) =>
+        APIResponse<bool>(error: true, errorMessage: 'An error occured'));
+  }
 }

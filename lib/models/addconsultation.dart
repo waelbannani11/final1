@@ -11,6 +11,7 @@ class AddConsultation {
   double sv_taille;
   String patientid;
   String subjectif;
+  String dateconsult;
 
   AddConsultation({
     @required this.consultid,
@@ -22,6 +23,7 @@ class AddConsultation {
     @required this.sv_taille,
     @required this.patientid,
     @required this.subjectif,
+    @required this.dateconsult,
   });
 
   Map<String, dynamic> toJson() {
@@ -35,6 +37,7 @@ class AddConsultation {
       "sv_taille": sv_taille,
       "patientid": patientid,
       "subjectif": subjectif,
+      "dateconsult": dateconsult,
     };
   }
 }

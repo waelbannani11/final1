@@ -6,12 +6,12 @@ import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
 import 'package:string_validator/string_validator.dart';
 
-class Modif extends StatefulWidget {
+class ModifRDV extends StatefulWidget {
   @override
-  _ModifState createState() => _ModifState();
+  _ModifRDVState createState() => _ModifRDVState();
 }
 
-class _ModifState extends State<Modif> {
+class _ModifRDVState extends State<ModifRDV> {
   int groupValue1 = 1;
 
   void handleRadioValueChangedd(int value) {
@@ -155,6 +155,7 @@ class _ModifState extends State<Modif> {
                 key: _formKey,
                 child: Column(
                   children: <Widget>[
+                    //MyBackButton(),
                     SizedBox(
                       height: 15,
                     ),
@@ -162,17 +163,17 @@ class _ModifState extends State<Modif> {
                     buildpatientid(),
                     builddate(),
                     _type(groupValue1, handleRadioValueChangedd),
+
                     GestureDetector(
                       onTap: () async {
                         if (_formKey.currentState.validate()) {
                           final rdv = AddRdv(
-                            typerdvid: groupValue1,
                             patientid: _patientidConttoller.text,
                             subject: _subjectConttoller.text,
                             endTime: selectedDate.toString(),
                             startTime: selectedDate.toString(),
                           );
-                          final result = await rdvservice.createRdv(rdv);
+                          final result = await rdvservice.modifRdv(rdv);
                           Navigator.pop(context);
                         }
                       },

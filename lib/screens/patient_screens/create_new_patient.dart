@@ -255,26 +255,34 @@ class _CreatenvpatientState extends State<Createnvpatient> {
               'Etat civil',
               style: new TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
             ),
-            Row(
+            Column(
               children: <Widget>[
-                Radio<int>(
-                  value: 1,
-                  groupValue: groupValue1,
-                  onChanged: handleRadioValueChangedd,
+                Row(
+                  children: [
+                    Radio<int>(
+                      value: 1,
+                      groupValue: groupValue1,
+                      onChanged: handleRadioValueChangedd,
+                    ),
+                    Text("Célibataire"),
+                    Radio<int>(
+                      value: 2,
+                      groupValue: groupValue1,
+                      onChanged: handleRadioValueChangedd,
+                    ),
+                    Text("Marié(e)"),
+                  ],
                 ),
-                Text("celeb"),
-                Radio<int>(
-                  value: 2,
-                  groupValue: groupValue1,
-                  onChanged: handleRadioValueChangedd,
+                Row(
+                  children: [
+                    Radio<int>(
+                      value: 3,
+                      groupValue: groupValue1,
+                      onChanged: handleRadioValueChangedd,
+                    ),
+                    Text("Divorcé(e)"),
+                  ],
                 ),
-                Text("marie"),
-                Radio<int>(
-                  value: 3,
-                  groupValue: groupValue1,
-                  onChanged: handleRadioValueChangedd,
-                ),
-                Text("marie"),
               ],
             )
           ]);

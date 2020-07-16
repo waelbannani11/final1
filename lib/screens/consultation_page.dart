@@ -250,6 +250,7 @@ class _ConsultationState extends State<Consultation> {
                       onTap: () async {
                         if (_formKey.currentState.validate()) {
                           final consult = AddConsultation(
+                            dateconsult: "sdfsdfs",
                             consultid: _consultidController.text,
                             motif: _motifController.text,
                             patientid: _idConttoller.text,

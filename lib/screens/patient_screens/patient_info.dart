@@ -103,7 +103,7 @@ class _PatientInfoState extends State<PatientInfo> {
                 );
               },
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(10, 10, 230, 10),
+                padding: const EdgeInsets.fromLTRB(10, 10, 200, 10),
                 child: Text(
                   "Consultation",
                   style: TextStyle(color: Colors.white),

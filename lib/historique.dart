@@ -26,7 +26,7 @@ class _HistoriqueMedState extends State<HistoriqueMed> {
   List<Consultation> _list = [];
   List<Ordan> _list1 = [];
   var loading = false;
-  var url = 'http://10.0.3.2:5000/Consultations';
+  var url = 'http://192.168.100.200:5000/Consultations';
   Future<Null> fetchData() async {
     setState(() {
       loading = true;
@@ -49,7 +49,7 @@ class _HistoriqueMedState extends State<HistoriqueMed> {
       loading = true;
     });
     _list1.clear();
-    var response = await http.get('http://10.0.3.2:5000/Ordonnances');
+    var response = await http.get('http://192.168.100.200:5000/Ordonnances');
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       setState(() {
@@ -71,7 +71,7 @@ class _HistoriqueMedState extends State<HistoriqueMed> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Les Consultations")),
+      appBar: AppBar(title: Text("Historique")),
       body: ListView.builder(
         scrollDirection: Axis.vertical,
         itemCount: _list.length,
