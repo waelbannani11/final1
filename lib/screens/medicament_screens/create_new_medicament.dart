@@ -21,10 +21,9 @@ class _NewMedicamentState extends State<NewMedicament> {
   TextEditingController _DESIGNController = TextEditingController();
   TextEditingController _LABOController = TextEditingController();
   TextEditingController _FAMILLEController = TextEditingController();
-
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    final _formKey = GlobalKey<FormState>();
     double width = MediaQuery.of(context).size.width;
 
     //ID

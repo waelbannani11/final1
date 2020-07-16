@@ -25,37 +25,39 @@ class MedicamentModify extends StatefulWidget {
 }
 
 class _MedicamentModifyState extends State<MedicamentModify> {
-  int id;
-  String DESIGN;
-  String LABO;
-  String FAMILLE;
   _MedicamentModifyState(
     this.id,
     this.DESIGN,
     this.LABO,
     this.FAMILLE,
   );
+  int id;
+  String DESIGN;
+  String LABO;
+  String FAMILLE;
 
   MedicamentService get medicamentService => GetIt.I<MedicamentService>();
   TextEditingController _idConttoller = TextEditingController();
   TextEditingController _DESIGNConttoller = TextEditingController();
   TextEditingController _LABOConttoller = TextEditingController();
   TextEditingController _FAMILLEConttoller = TextEditingController();
-
+  final _formKey = GlobalKey<FormState>();
   @override
-  Widget build(BuildContext context) {
-    _idConttoller.text = (id).toString();
+  void initState() {
+    super.initState();
+    _idConttoller.text = id.toString();
     _DESIGNConttoller.text = DESIGN;
     _LABOConttoller.text = LABO;
     _FAMILLEConttoller.text = FAMILLE;
+  }
 
-    final _formKey = GlobalKey<FormState>();
+  Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
 
     //ID
     Widget _buildID() {
       return TextFormField(
-        enabled: false,
+        //enabled: false,
         controller: _idConttoller,
         decoration: InputDecoration(
             labelText: 'ID',

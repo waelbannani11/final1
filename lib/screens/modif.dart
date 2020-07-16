@@ -1,7 +1,9 @@
 import 'package:final1/models/rdv_agenda.dart';
 import 'package:final1/models/rdv_service.dart';
+import 'package:final1/screens/datedialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:intl/intl.dart';
 
 class Modif extends StatefulWidget {
   @override
@@ -11,8 +13,9 @@ class Modif extends StatefulWidget {
 class _ModifState extends State<Modif> {
   int _groupValue = -1;
   int _groupValue1 = -1;
-  DateTime _dateTime;
-  DateTime _dateTimeF;
+  DateTime selectedDate = DateTime.now();
+
+  final DateFormat dateFormat = DateFormat('yyyy-MM-dd HH:mm');
   DateTime from = DateTime(2015, 04, 07, 11, 0, 0);
   DateTime to = DateTime(2015, 04, 07, 11, 0, 0);
 
@@ -39,44 +42,6 @@ class _ModifState extends State<Modif> {
 
     //deb
 
-    Widget builddatedeb() {
-      return TextFormField(
-        decoration: InputDecoration(
-            labelText: 'from',
-            border: new OutlineInputBorder(
-                borderRadius: new BorderRadius.circular(18.0),
-                borderSide: new BorderSide())),
-        keyboardType: TextInputType.datetime,
-        maxLength: 10,
-        validator: (String value) {
-          if (value.isEmpty) {
-            return 'datedeb is Required';
-          }
-
-          return null;
-        },
-      );
-    }
-
-    Widget builddateFIN() {
-      return TextFormField(
-        decoration: InputDecoration(
-            labelText: 'to',
-            border: new OutlineInputBorder(
-                borderRadius: new BorderRadius.circular(18.0),
-                borderSide: new BorderSide())),
-        keyboardType: TextInputType.datetime,
-        maxLength: 10,
-        validator: (String value) {
-          if (value.isEmpty) {
-            return 'datedeb is Required';
-          }
-
-          return null;
-        },
-      );
-    }
-
     Widget buildSubject() {
       return TextFormField(
         controller: _subjectConttoller,
@@ -101,21 +66,14 @@ class _ModifState extends State<Modif> {
       return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text(_dateTime == null
-              ? 'Nothing has been picked yet'
-              : _dateTime.toString()),
+          Text(dateFormat.format(selectedDate)),
           RaisedButton(
             child: Text('date de debut'),
-            onPressed: () {
-              showDatePicker(
-                      context: context,
-                      initialDate:
-                          _dateTime == null ? DateTime.now() : _dateTime,
-                      firstDate: DateTime(2001),
-                      lastDate: DateTime(2021))
-                  .then((date) {
+            onPressed: () async {
+              showDateTimeDialog(context, initialDate: selectedDate,
+                  onSelectedDate: (selectedDate) {
                 setState(() {
-                  _dateTime = date;
+                  this.selectedDate = selectedDate;
                 });
               });
             },
@@ -125,32 +83,6 @@ class _ModifState extends State<Modif> {
     }
 
     //************************************************** */
-    Widget builddatefin() {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text(_dateTimeF == null
-              ? 'Nothing has been picked yet'
-              : _dateTimeF.toString()),
-          RaisedButton(
-            child: Text('date de fin'),
-            onPressed: () {
-              showDatePicker(
-                      context: context,
-                      initialDate:
-                          _dateTimeF == null ? DateTime.now() : _dateTime,
-                      firstDate: DateTime(2001),
-                      lastDate: DateTime(2021))
-                  .then((date) {
-                setState(() {
-                  _dateTimeF = date;
-                });
-              });
-            },
-          )
-        ],
-      );
-    }
 
     //*************************************************** */
 
@@ -173,19 +105,14 @@ class _ModifState extends State<Modif> {
                       height: 15,
                     ),
                     buildSubject(),
-                    builddateFIN(),
                     builddate(),
-
-                    builddatedeb(),
-
-                    builddatefin(),
 
                     GestureDetector(
                       onTap: () async {
                         final rdv = AddRdv(
                           subject: _subjectConttoller.text,
-                          endTime: _dateTimeF.toString(),
-                          startTime: _dateTime.toString(),
+                          endTime: selectedDate.toString(),
+                          startTime: selectedDate.toString(),
                         );
                         final result = await rdvservice.createRdv(rdv);
                         Navigator.pop(context);

@@ -38,10 +38,15 @@ class _ConsultationState extends State<Consultation> {
   TextEditingController _subjectifController = TextEditingController();
   TextEditingController _consultidController = TextEditingController();
 
+  final _formKey = GlobalKey<FormState>();
+
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
     _idConttoller.text = id.toString();
-    final _formKey = GlobalKey<FormState>();
+  }
+
+  Widget build(BuildContext context) {
     final Post post = ModalRoute.of(context).settings.arguments;
     double width = MediaQuery.of(context).size.width;
 

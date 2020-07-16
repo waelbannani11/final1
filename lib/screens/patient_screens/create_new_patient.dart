@@ -41,10 +41,9 @@ class _CreatenvpatientState extends State<Createnvpatient> {
   TextEditingController _tel_mobileConttoller = TextEditingController();
   TextEditingController _rueConttoller = TextEditingController();
   TextEditingController _codeyearConttoller = TextEditingController();
-
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    final _formKey = GlobalKey<FormState>();
     double width = MediaQuery.of(context).size.width;
 
     //nom

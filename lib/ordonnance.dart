@@ -40,13 +40,16 @@ class _OrdonnanceState extends State<Ordonnance> {
   TextEditingController _consultidController = TextEditingController();
   TextEditingController _idConttoller = TextEditingController();
   TextEditingController _ageController = TextEditingController();
-
+  final _formKey = GlobalKey<FormState>();
   @override
-  Widget build(BuildContext context) {
-    final _formKey = GlobalKey<FormState>();
-    double width = MediaQuery.of(context).size.width;
+  void initState() {
+    super.initState();
     _idConttoller.text = id.toString();
     _consultidController.text = consultid;
+  }
+
+  Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
 
     //consultid
     Widget buildconsultid() {
@@ -95,14 +98,14 @@ class _OrdonnanceState extends State<Ordonnance> {
       return TextFormField(
         controller: _ordonnance1Controller,
         decoration: InputDecoration(
-            labelText: 'Ordonnance',
+            labelText: 'Medicament',
             border: new OutlineInputBorder(
                 borderRadius: new BorderRadius.circular(18.0),
                 borderSide: new BorderSide())),
         maxLength: 20,
         validator: (String value) {
           if (value.isEmpty) {
-            return 'Ordonnance is Required';
+            return 'Medicament is Required';
           }
           return null;
         },
@@ -133,7 +136,7 @@ class _OrdonnanceState extends State<Ordonnance> {
       return TextFormField(
         controller: _ordonnance2Controller,
         decoration: InputDecoration(
-            labelText: 'Ordonnance',
+            labelText: 'Medicament',
             border: new OutlineInputBorder(
                 borderRadius: new BorderRadius.circular(18.0),
                 borderSide: new BorderSide())),
@@ -159,7 +162,7 @@ class _OrdonnanceState extends State<Ordonnance> {
       return TextFormField(
         controller: _ordonnance3Controller,
         decoration: InputDecoration(
-            labelText: 'Ordonnance',
+            labelText: 'Medicament',
             border: new OutlineInputBorder(
                 borderRadius: new BorderRadius.circular(18.0),
                 borderSide: new BorderSide())),

@@ -96,9 +96,10 @@ class _PatientModifyState extends State<PatientModify> {
   TextEditingController _tel_mobileConttoller = TextEditingController();
   TextEditingController _villeConttoller = TextEditingController();
   TextEditingController _codeYearConttoller = TextEditingController();
-
+  final _formKey = GlobalKey<FormState>();
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
     _codeYearConttoller.text = code_Year;
     _nomConttoller.text = nom;
     _prenomConttoller.text = prenom;
@@ -107,8 +108,9 @@ class _PatientModifyState extends State<PatientModify> {
     _nationnaliteConttoller.text = nationnalite;
     _rueConttoller.text = rue;
     _tel_mobileConttoller.text = tel_mobile;
+  }
 
-    final _formKey = GlobalKey<FormState>();
+  Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
 
     //nom
