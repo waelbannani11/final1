@@ -159,7 +159,18 @@ class _HomePageState extends State<HomePage> {
                             children: <Widget>[
                               Container(
                                 child: Text(
-                                  'Dr.' + Nom + ' ' + Prenom,
+                                  'Dr.' + Nom,
+                                  textAlign: TextAlign.start,
+                                  style: TextStyle(
+                                    fontSize: 20.0,
+                                    color: LightColors.kDarkBlue,
+                                    fontWeight: FontWeight.w800,
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                child: Text(
+                                  Prenom,
                                   textAlign: TextAlign.start,
                                   style: TextStyle(
                                     fontSize: 20.0,

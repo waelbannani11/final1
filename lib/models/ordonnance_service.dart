@@ -7,7 +7,7 @@ import 'addmedic.dart';
 import 'api_response.dart';
 
 class OrdonnanceService {
-  static const API = 'http://192.168.100.200:5000';
+  static const API = 'http://192.168.100.134:5000';
 
   Future<APIResponse<bool>> createOrdan(AddOrdonnance item) {
     return http.post(

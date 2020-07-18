@@ -28,7 +28,7 @@ class _LoginState extends State<Login> {
 
   List<Loginn> _list = [];
   var loading = false;
-  var url = 'http://192.168.100.200:5000/Logins';
+  var url = 'http://192.168.100.134:5000/Logins';
   Future<Null> fetchData() async {
     setState(() {
       loading = true;

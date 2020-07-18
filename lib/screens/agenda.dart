@@ -115,7 +115,7 @@ class ScheduleExample extends State<CustomAgenda> {
     'Month',
   ];
   Future<List<OnlineAppointmentData>> _getOnlineData() async {
-    var data = await http.get("http://192.168.100.200:5000/Rdv");
+    var data = await http.get("http://192.168.100.134:5000/Rdv");
     var jsonData = json.decode(data.body);
     List<OnlineAppointmentData> appointmentData = [];
     for (var u in jsonData) {

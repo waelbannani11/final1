@@ -23,7 +23,7 @@ class _PatientsState extends State<Patients> {
   List<Patient> _list = [];
   List<Patient> _search = [];
   var loading = false;
-  var url = 'http://192.168.100.200:5000/Patients';
+  var url = 'http://192.168.100.134:5000/Patients';
   Future<Null> fetchData() async {
     setState(() {
       loading = true;
