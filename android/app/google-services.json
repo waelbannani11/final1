@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "37624679778",
+    "firebase_url": "https://clinisys-7abaa.firebaseio.com",
+    "project_id": "clinisys-7abaa",
+    "storage_bucket": "clinisys-7abaa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:37624679778:android:44cd272caa8995bd70b03b",
+        "android_client_info": {
+          "package_name": "com.example.chat_app_example"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "37624679778-nqne5ec1d7b90kpqtn1t3vf6algn04l1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCijNRu-Ms90u-ZgHsU9c3KY3FmdcvoFsM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "37624679778-nqne5ec1d7b90kpqtn1t3vf6algn04l1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

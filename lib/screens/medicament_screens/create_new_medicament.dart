@@ -127,55 +127,59 @@ class _NewMedicamentState extends State<NewMedicament> {
                     _buildFamille(),
                     GestureDetector(
                       onTap: () async {
-                        final medic = AddMedic(
-                          ID: int.parse(_idController.text),
-                          DESIGN: _DESIGNController.text,
-                          LABO: _LABOController.text,
-                          FAMILLE: _FAMILLEController.text,
-                        );
-                        final result =
-                            await medicamentService.createMedic(medic);
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(builder: (context) => Medicament()),
-                        );
-                        showDialog(
-                          context: context,
-                          child: AlertDialog(
-                            shape: RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(16.0))),
-                            content: Container(
-                              height: MediaQuery.of(context).size.height / 2.5,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: <Widget>[
-                                  Icon(
-                                    Icons.check_circle_outline,
-                                    size: 96,
-                                    color: Color(0xFF10CA88),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 16.0),
-                                    child: Text(
-                                      "Ajouté avec succès",
-                                      style: TextStyle(fontSize: 20),
+                        if (_formKey.currentState.validate()) {
+                          final medic = AddMedic(
+                            ID: int.parse(_idController.text),
+                            DESIGN: _DESIGNController.text,
+                            LABO: _LABOController.text,
+                            FAMILLE: _FAMILLEController.text,
+                          );
+                          final result =
+                              await medicamentService.createMedic(medic);
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Medicament()),
+                          );
+                          showDialog(
+                            context: context,
+                            child: AlertDialog(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(16.0))),
+                              content: Container(
+                                height:
+                                    MediaQuery.of(context).size.height / 2.5,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                                    Icon(
+                                      Icons.check_circle_outline,
+                                      size: 96,
+                                      color: Color(0xFF10CA88),
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 16.0),
-                                    child: Text(
-                                      "Vous pouvez suivre le nouveau médicament dans la page des médicaments ",
-                                      style: TextStyle(fontSize: 16),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 16.0),
+                                      child: Text(
+                                        "Ajouté avec succès",
+                                        style: TextStyle(fontSize: 20),
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 16.0),
+                                      child: Text(
+                                        "Vous pouvez suivre le nouveau médicament dans la page des médicaments ",
+                                        style: TextStyle(fontSize: 16),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                        );
+                          );
+                        }
                       },
                       child: Container(
                         height: 80,

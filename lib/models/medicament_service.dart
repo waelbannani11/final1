@@ -7,7 +7,7 @@ import 'api_response.dart';
 import 'medic.dart';
 
 class MedicamentService {
-  static const API = 'http://192.168.100.134:5000';
+  static const API = 'http://192.168.43.193:5000';
 
   Future<APIResponse<List<Medic>>> getMedicamentList() {
     return http.get(API + '/Medicaments').then((data) {

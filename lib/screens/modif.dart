@@ -1,5 +1,6 @@
 import 'package:final1/models/rdv_agenda.dart';
 import 'package:final1/models/rdv_service.dart';
+import 'package:final1/screens/agenda.dart';
 import 'package:final1/screens/datedialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -173,7 +174,12 @@ class _ModifState extends State<Modif> {
                             startTime: selectedDate.toString(),
                           );
                           final result = await rdvservice.createRdv(rdv);
-                          Navigator.pop(context);
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    AgendaViewCustomization()),
+                          );
                         }
                       },
                       child: Container(

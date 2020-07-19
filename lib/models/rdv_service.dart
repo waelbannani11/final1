@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'api_response.dart';
 
 class RDVSERVICE {
-  static const API = 'http://192.168.100.134:5000';
+  static const API = 'http://192.168.43.193:5000';
 
   Future<APIResponse<bool>> createRdv(AddRdv item) {
     return http.post(

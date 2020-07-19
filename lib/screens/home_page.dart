@@ -1,6 +1,7 @@
 import 'package:final1/Animations/FadeAnimation.dart';
 import 'package:final1/aboutus.dart';
 import 'package:final1/modifierprofile.dart';
+import 'package:final1/screens/chat_app.dart';
 import 'package:final1/screens/login.dart';
 import 'package:final1/screens/patient_screens/patient_page.dart';
 import 'package:final1/screens/profile.dart';
@@ -498,7 +499,7 @@ class _HomePageState extends State<HomePage> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Medicament()),
+                        MaterialPageRoute(builder: (context) => ChatApp()),
                       );
                     },
                     child: Container(

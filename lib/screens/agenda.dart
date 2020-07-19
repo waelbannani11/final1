@@ -115,12 +115,13 @@ class ScheduleExample extends State<CustomAgenda> {
     'Month',
   ];
   Future<List<OnlineAppointmentData>> _getOnlineData() async {
-    var data = await http.get("http://192.168.100.134:5000/Rdv");
+    var data = await http.get("http://192.168.43.193:5000/Rdv");
     var jsonData = json.decode(data.body);
     List<OnlineAppointmentData> appointmentData = [];
     for (var u in jsonData) {
-      OnlineAppointmentData user =
-          OnlineAppointmentData(u['startTime'], u['endTime'], u['subject']);
+      OnlineAppointmentData user = OnlineAppointmentData(u['startTime'],
+          u['endTime'], u['subject'], u['patientid'], u['rdvid']);
+      print(user.rdvid);
       appointmentData.add(user);
     }
     //print(appointmentData.length);
@@ -240,8 +241,13 @@ class ScheduleExample extends State<CustomAgenda> {
                     Meeting(
                       from: convertDateFromString(meeting.startTime),
                       to: convertDateFromString(meeting.endTime),
-                      eventName: meeting.subject,
+                      eventName: "rdvid:" +
+                          (meeting.rdvid).toString() +
+                          ' ' +
+                          "patient:" +
+                          meeting.subject,
                       background: _colorCollection[random.nextInt(9)],
+                      patientid: meeting.patientid,
                     ),
                   );
                   appointments = collection;
@@ -378,9 +384,9 @@ class ScheduleExample extends State<CustomAgenda> {
     return SfCalendar(
         view: _calendarView,
         dataSource: _getCalendarDataSource(appointments),
-        onTap: calendarTapCallback,
         initialDisplayDate: DateTime(2020, 07, 07, 11, 0, 0),
         monthViewSettings: MonthViewSettings(
+            showAgenda: true,
             appointmentDisplayMode: MonthAppointmentDisplayMode.appointment),
         timeSlotViewSettings: TimeSlotViewSettings(
             startHour: 0,
@@ -442,7 +448,7 @@ class ScheduleExample extends State<CustomAgenda> {
     });
   }
 
-  void calendarTapped(CalendarTapDetails calendarTapDetails) {
+  /*void calendarTapped(CalendarTapDetails calendarTapDetails) {
     if (calendarTapDetails.targetElement == CalendarElement.calendarCell &&
         _calendarView == CalendarView.month) {
       setState(() {
@@ -451,7 +457,7 @@ class ScheduleExample extends State<CustomAgenda> {
         _updateState(calendarTapDetails.date);
       });
     }
-  }
+  }**/
 
   /*List<Meeting> getMeetingFromJson() {
     final List<Meeting> meetingCollection = <Meeting>[];
@@ -703,10 +709,12 @@ class OnlineAppointmentData {
   String startTime;
   String endTime;
   String subject;
+  String patientid;
+  int rdvid;
   //bool allDay;
 
-  OnlineAppointmentData(
-      this.startTime, this.endTime, this.subject /*, this.allDay**/);
+  OnlineAppointmentData(this.startTime, this.endTime, this.subject,
+      this.patientid, this.rdvid /*, this.allDay**/);
 }
 
 class Meeting {
@@ -718,11 +726,13 @@ class Meeting {
       this.eventName = '',
       this.startTimeZone = '',
       this.endTimeZone = '',
-      this.description = ''});
+      this.description = '',
+      this.patientid});
 
   String eventName;
   DateTime from;
   DateTime to;
+  String patientid;
   Color background;
   bool isAllDay;
   String startTimeZone;
@@ -730,9 +740,10 @@ class Meeting {
   String description;
 
   Meeting.fromJson(Map<String, dynamic> json) {
-    eventName = json['Subject'];
+    eventName = json['rdvid'].toString();
     from = json['StartTime'];
     to = json['EndTime'];
+    patientid = json['patientid'];
     isAllDay = json['AllDay'];
   }
 }

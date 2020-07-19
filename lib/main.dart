@@ -3,6 +3,7 @@ import 'package:final1/models/ordonnance_service.dart';
 import 'package:final1/models/patient.dart';
 import 'package:final1/models/rdv_service.dart';
 import 'package:final1/screens/agenda.dart';
+import 'package:final1/screens/chat_app.dart';
 import 'package:final1/screens/login.dart';
 import 'package:final1/screens/medicament_screens/medicamen_modify.dart';
 import 'package:final1/screens/patient_screens/patient_page.dart';
@@ -46,7 +47,7 @@ class MyApp extends StatelessWidget {
             displayColor: LightColors.kDarkBlue,
             fontFamily: 'Poppins'),
       ),
-      home: Patients(),
+      home: Login(),
       debugShowCheckedModeBanner: false,
     );
   }
