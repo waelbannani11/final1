@@ -120,7 +120,7 @@ class _DateTimeDialogState extends State<DateTimeDialog> {
             ),
             const SizedBox(height: 16),
             OutlineButton(
-              child: Text('Schedule!'),
+              child: Text('valider'),
               onPressed: () {
                 Navigator.of(context).pop();
               },

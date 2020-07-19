@@ -21,13 +21,15 @@ class _ModifRDVState extends State<ModifRDV> {
   }
 
   DateTime selectedDate = DateTime.now();
+  DateTime selectedDate1 = DateTime.now();
 
-  final DateFormat dateFormat = DateFormat('yyyy-MM-dd HH:mm');
+  final DateFormat dateFormat = DateFormat('EEE, MMM dd yyyy');
+  final DateFormat dateFormat1 = DateFormat('hh:mm a');
   DateTime from = DateTime(2015, 04, 07, 11, 0, 0);
 
   RDVSERVICE get rdvservice => GetIt.I<RDVSERVICE>();
   TextEditingController _subjectConttoller = TextEditingController();
-  TextEditingController _patientidConttoller = TextEditingController();
+  TextEditingController _rdvidConttoller = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -43,8 +45,8 @@ class _ModifRDVState extends State<ModifRDV> {
                 borderSide: new BorderSide())),
         maxLength: 10,
         validator: (String value) {
-          if (value.isEmpty) {
-            return 'datedeb is Required';
+          if (value.isEmpty || isNumeric(value)) {
+            return 'subject is Required';
           }
 
           return null;
@@ -54,12 +56,25 @@ class _ModifRDVState extends State<ModifRDV> {
 
     Widget builddate() {
       return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text(dateFormat.format(selectedDate)),
-          RaisedButton(
-            child: Text('date de debut'),
-            onPressed: () async {
+          Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(10, 5, 20, 5),
+                child: Container(
+                  alignment: Alignment.topLeft,
+                  child: Icon(Icons.access_time,
+                      color: Color.fromARGB(255, 0, 0, 0)),
+                ),
+              ),
+              Container(
+                alignment: Alignment.topLeft,
+                child: Text("Date Debut"),
+              ),
+            ],
+          ),
+          GestureDetector(
+            onTap: () async {
               showDateTimeDialog(context, initialDate: selectedDate,
                   onSelectedDate: (selectedDate) {
                 setState(() {
@@ -67,16 +82,85 @@ class _ModifRDVState extends State<ModifRDV> {
                 });
               });
             },
-          )
+            child: Container(
+              width: width,
+              child: Row(
+                children: <Widget>[
+                  Container(
+                    child: Text(dateFormat.format(selectedDate) +
+                        '                         ' +
+                        dateFormat1.format(selectedDate)),
+                    alignment: Alignment.center,
+                    margin: EdgeInsets.fromLTRB(50, 20, 0, 20),
+                    width: width / 1.5,
+                    decoration: BoxDecoration(
+                      color: Colors.blue[100],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       );
     }
 
-    Widget buildpatientid() {
+    Widget builddatefin() {
+      return Column(
+        children: <Widget>[
+          Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(10, 5, 20, 5),
+                child: Container(
+                  alignment: Alignment.topLeft,
+                  child: Icon(Icons.access_time,
+                      color: Color.fromARGB(255, 0, 0, 0)),
+                ),
+              ),
+              Container(
+                alignment: Alignment.topLeft,
+                child: Text("Date Fin"),
+              ),
+            ],
+          ),
+          GestureDetector(
+            onTap: () async {
+              showDateTimeDialog(context, initialDate: selectedDate1,
+                  onSelectedDate: (selectedDate1) {
+                setState(() {
+                  this.selectedDate1 = selectedDate1;
+                });
+              });
+            },
+            child: Container(
+              width: width,
+              child: Row(
+                children: <Widget>[
+                  Container(
+                    child: Text(dateFormat.format(selectedDate1) +
+                        '                         ' +
+                        dateFormat1.format(selectedDate1)),
+                    alignment: Alignment.center,
+                    margin: EdgeInsets.fromLTRB(50, 20, 0, 20),
+                    width: width / 1.5,
+                    decoration: BoxDecoration(
+                      color: Colors.blue[100],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      );
+    }
+
+    Widget buildrdvid() {
       return TextFormField(
-        controller: _patientidConttoller,
+        controller: _rdvidConttoller,
         decoration: InputDecoration(
-            labelText: 'Patient ID',
+            labelText: 'RDV ID',
             border: new OutlineInputBorder(
                 borderRadius: new BorderRadius.circular(18.0),
                 borderSide: new BorderSide())),
@@ -84,7 +168,7 @@ class _ModifRDVState extends State<ModifRDV> {
         maxLength: 10,
         validator: (String value) {
           if (value.isEmpty || !isNumeric(value)) {
-            return 'Patient ID is Required';
+            return 'RDV ID is Required';
           }
 
           return null;
@@ -144,7 +228,7 @@ class _ModifRDVState extends State<ModifRDV> {
     return Scaffold(
       backgroundColor: Colors.blue[100],
       appBar: AppBar(
-        title: Text("Ajouter RDV"),
+        title: Text("Modifier RDV"),
       ),
       body: SafeArea(
         child: Container(
@@ -155,20 +239,20 @@ class _ModifRDVState extends State<ModifRDV> {
                 key: _formKey,
                 child: Column(
                   children: <Widget>[
-                    //MyBackButton(),
                     SizedBox(
                       height: 15,
                     ),
                     buildSubject(),
-                    buildpatientid(),
+                    buildrdvid(),
                     builddate(),
+                    builddatefin(),
                     _type(groupValue1, handleRadioValueChangedd),
-
                     GestureDetector(
                       onTap: () async {
                         if (_formKey.currentState.validate()) {
                           final rdv = AddRdv(
-                            patientid: _patientidConttoller.text,
+                            typerdvid: groupValue1,
+                            rdvid: int.parse(_rdvidConttoller.text),
                             subject: _subjectConttoller.text,
                             endTime: selectedDate.toString(),
                             startTime: selectedDate.toString(),

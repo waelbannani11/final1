@@ -20,7 +20,7 @@ class _MedicamentState extends State<Medicament> {
   List<Medic> _list = [];
   List<Medic> _search = [];
   var loading = false;
-  var url = 'http://192.168.43.193:5000/Medicaments';
+  var url = 'http://192.168.100.134:5000/Medicaments';
   Future<Null> fetchData() async {
     setState(() {
       loading = true;
@@ -252,7 +252,6 @@ class _MedicamentState extends State<Medicament> {
                                         Expanded(
                                           flex: 2,
                                           child: Wrap(
-                                            // set your alignment
                                             children: <Widget>[
                                               Chip(
                                                 avatar: CircleAvatar(
@@ -264,7 +263,8 @@ class _MedicamentState extends State<Medicament> {
                                                                 Colors.white))),
                                                 label: Text(b.LABO,
                                                     style: TextStyle(
-                                                        color: Colors.white)),
+                                                        color: Colors.white,
+                                                        fontSize: 10)),
                                                 backgroundColor: Colors.blue,
                                               ),
                                             ],
@@ -273,12 +273,12 @@ class _MedicamentState extends State<Medicament> {
                                         Expanded(
                                           flex: 2,
                                           child: Wrap(
-                                            // set your alignment
                                             children: <Widget>[
                                               Chip(
                                                 label: Text(b.DESIGN,
                                                     style: TextStyle(
-                                                        color: Colors.white)),
+                                                        color: Colors.white,
+                                                        fontSize: 10)),
                                                 backgroundColor: Colors.blue,
                                               ),
                                             ],
@@ -287,12 +287,12 @@ class _MedicamentState extends State<Medicament> {
                                         Expanded(
                                           flex: 2,
                                           child: Wrap(
-                                            // set your alignment
                                             children: <Widget>[
                                               Chip(
                                                 label: Text(b.FAMILLE,
                                                     style: TextStyle(
-                                                        color: Colors.white)),
+                                                        color: Colors.white,
+                                                        fontSize: 10)),
                                                 backgroundColor: Colors.blue,
                                               ),
                                             ],
@@ -301,12 +301,12 @@ class _MedicamentState extends State<Medicament> {
                                         Expanded(
                                           flex: 1,
                                           child: Wrap(
-                                            // set your alignment
                                             children: <Widget>[
                                               Chip(
                                                 label: Text(b.ID.toString(),
                                                     style: TextStyle(
-                                                        color: Colors.white)),
+                                                        color: Colors.white,
+                                                        fontSize: 10)),
                                                 backgroundColor: Colors.blue,
                                               ),
                                             ],
@@ -370,7 +370,6 @@ class _MedicamentState extends State<Medicament> {
                                         Expanded(
                                           flex: 2,
                                           child: Wrap(
-                                            // set your alignment
                                             children: <Widget>[
                                               Chip(
                                                 avatar: CircleAvatar(
@@ -382,7 +381,8 @@ class _MedicamentState extends State<Medicament> {
                                                                 Colors.white))),
                                                 label: Text(a.LABO,
                                                     style: TextStyle(
-                                                        color: Colors.white)),
+                                                        color: Colors.white,
+                                                        fontSize: 10)),
                                                 backgroundColor: Colors.blue,
                                               ),
                                             ],
@@ -391,12 +391,12 @@ class _MedicamentState extends State<Medicament> {
                                         Expanded(
                                           flex: 2,
                                           child: Wrap(
-                                            // set your alignment
                                             children: <Widget>[
                                               Chip(
                                                 label: Text(a.DESIGN,
                                                     style: TextStyle(
-                                                        color: Colors.white)),
+                                                        color: Colors.white,
+                                                        fontSize: 10)),
                                                 backgroundColor: Colors.blue,
                                               ),
                                             ],
@@ -405,12 +405,12 @@ class _MedicamentState extends State<Medicament> {
                                         Expanded(
                                           flex: 2,
                                           child: Wrap(
-                                            // set your alignment
                                             children: <Widget>[
                                               Chip(
                                                 label: Text(a.FAMILLE,
                                                     style: TextStyle(
-                                                        color: Colors.white)),
+                                                        color: Colors.white,
+                                                        fontSize: 10)),
                                                 backgroundColor: Colors.blue,
                                               ),
                                             ],
@@ -419,12 +419,12 @@ class _MedicamentState extends State<Medicament> {
                                         Expanded(
                                           flex: 1,
                                           child: Wrap(
-                                            // set your alignment
                                             children: <Widget>[
                                               Chip(
                                                 label: Text(a.ID.toString(),
                                                     style: TextStyle(
-                                                        color: Colors.white)),
+                                                        color: Colors.white,
+                                                        fontSize: 10)),
                                                 backgroundColor: Colors.blue,
                                               ),
                                             ],

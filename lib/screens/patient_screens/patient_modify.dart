@@ -175,19 +175,6 @@ class _PatientModifyState extends State<PatientModify> {
 
     //deb
 
-    Widget _builddatenai() {
-      return TextFormField(
-        initialValue: '',
-        decoration: InputDecoration(
-            labelText: 'Date de naissance',
-            border: new OutlineInputBorder(
-                borderRadius: new BorderRadius.circular(18.0),
-                borderSide: new BorderSide())),
-        keyboardType: TextInputType.datetime,
-        maxLength: 10,
-      );
-    }
-
     //nation
     Widget _buildnationn() {
       return TextFormField(

@@ -22,8 +22,10 @@ class _ModifState extends State<Modif> {
   }
 
   DateTime selectedDate = DateTime.now();
+  DateTime selectedDate1 = DateTime.now();
 
-  final DateFormat dateFormat = DateFormat('yyyy-MM-dd HH:mm');
+  final DateFormat dateFormat = DateFormat('EEE, MMM dd yyyy');
+  final DateFormat dateFormat1 = DateFormat('hh:mm a');
   DateTime from = DateTime(2015, 04, 07, 11, 0, 0);
 
   RDVSERVICE get rdvservice => GetIt.I<RDVSERVICE>();
@@ -44,8 +46,8 @@ class _ModifState extends State<Modif> {
                 borderSide: new BorderSide())),
         maxLength: 10,
         validator: (String value) {
-          if (value.isEmpty) {
-            return 'datedeb is Required';
+          if (value.isEmpty || isNumeric(value)) {
+            return 'subject is Required';
           }
 
           return null;
@@ -55,12 +57,25 @@ class _ModifState extends State<Modif> {
 
     Widget builddate() {
       return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text(dateFormat.format(selectedDate)),
-          RaisedButton(
-            child: Text('date de debut'),
-            onPressed: () async {
+          Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(10, 5, 20, 5),
+                child: Container(
+                  alignment: Alignment.topLeft,
+                  child: Icon(Icons.access_time,
+                      color: Color.fromARGB(255, 0, 0, 0)),
+                ),
+              ),
+              Container(
+                alignment: Alignment.topLeft,
+                child: Text("Date Debut"),
+              ),
+            ],
+          ),
+          GestureDetector(
+            onTap: () async {
               showDateTimeDialog(context, initialDate: selectedDate,
                   onSelectedDate: (selectedDate) {
                 setState(() {
@@ -68,7 +83,76 @@ class _ModifState extends State<Modif> {
                 });
               });
             },
-          )
+            child: Container(
+              width: width,
+              child: Row(
+                children: <Widget>[
+                  Container(
+                    child: Text(dateFormat.format(selectedDate) +
+                        '                         ' +
+                        dateFormat1.format(selectedDate)),
+                    alignment: Alignment.center,
+                    margin: EdgeInsets.fromLTRB(50, 20, 0, 20),
+                    width: width / 1.5,
+                    decoration: BoxDecoration(
+                      color: Colors.blue[100],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      );
+    }
+
+    Widget builddatefin() {
+      return Column(
+        children: <Widget>[
+          Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(10, 5, 20, 5),
+                child: Container(
+                  alignment: Alignment.topLeft,
+                  child: Icon(Icons.access_time,
+                      color: Color.fromARGB(255, 0, 0, 0)),
+                ),
+              ),
+              Container(
+                alignment: Alignment.topLeft,
+                child: Text("Date Fin"),
+              ),
+            ],
+          ),
+          GestureDetector(
+            onTap: () async {
+              showDateTimeDialog(context, initialDate: selectedDate1,
+                  onSelectedDate: (selectedDate1) {
+                setState(() {
+                  this.selectedDate1 = selectedDate1;
+                });
+              });
+            },
+            child: Container(
+              width: width,
+              child: Row(
+                children: <Widget>[
+                  Container(
+                    child: Text(dateFormat.format(selectedDate1) +
+                        '                         ' +
+                        dateFormat1.format(selectedDate1)),
+                    alignment: Alignment.center,
+                    margin: EdgeInsets.fromLTRB(50, 20, 0, 20),
+                    width: width / 1.5,
+                    decoration: BoxDecoration(
+                      color: Colors.blue[100],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       );
     }
@@ -162,6 +246,7 @@ class _ModifState extends State<Modif> {
                     buildSubject(),
                     buildpatientid(),
                     builddate(),
+                    builddatefin(),
                     _type(groupValue1, handleRadioValueChangedd),
                     GestureDetector(
                       onTap: () async {
@@ -170,7 +255,7 @@ class _ModifState extends State<Modif> {
                             typerdvid: groupValue1,
                             patientid: _patientidConttoller.text,
                             subject: _subjectConttoller.text,
-                            endTime: selectedDate.toString(),
+                            endTime: selectedDate1.toString(),
                             startTime: selectedDate.toString(),
                           );
                           final result = await rdvservice.createRdv(rdv);

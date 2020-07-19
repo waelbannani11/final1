@@ -6,6 +6,7 @@ class AddRdv {
   String endTime;
   String patientid;
   int typerdvid;
+  int rdvid;
 
   AddRdv({
     @required this.subject,
@@ -13,6 +14,7 @@ class AddRdv {
     @required this.endTime,
     @required this.patientid,
     @required this.typerdvid,
+    @required this.rdvid,
   });
 
   Map<String, dynamic> toJson() {
@@ -22,6 +24,7 @@ class AddRdv {
       "endTime": endTime,
       "patientid": patientid,
       "typerdvid": typerdvid,
+      "rdvid": rdvid,
     };
   }
 }

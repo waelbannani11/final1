@@ -1,4 +1,4 @@
-library event_calendar;
+//library event_calendar;
 
 import 'dart:math';
 import 'package:final1/models/app.dart';
@@ -22,20 +22,20 @@ import 'modif.dart';
 
 //part 'appointment-editor.dart';
 
-part 'timezone-picker.dart';
-part 'color-picker.dart';
+//part 'timezone-picker.dart';
+//part 'color-picker.dart';
 
-class AgendaViewCustomization extends StatelessWidget {
+class AgendaViewCustomizationPatient extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: CustomAgenda(),
+      home: CustomAgendaPatient(),
     );
   }
 }
 
-class CustomAgenda extends StatefulWidget {
+class CustomAgendaPatient extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => ScheduleExample();
 }
@@ -56,7 +56,7 @@ String _subject = '';
 String _notes = '';
 bool b = false;
 
-class ScheduleExample extends State<CustomAgenda> {
+class ScheduleExample extends State<CustomAgendaPatient> {
   CalendarView _calendarView;
   List<Appointment> appointmentDetails;
   DateTime _jumpToTime = DateTime.now();
@@ -167,7 +167,7 @@ class ScheduleExample extends State<CustomAgenda> {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => AgendaViewCustomization()),
+                    builder: (context) => AgendaViewCustomizationPatient()),
               );
             },
           ),
@@ -336,7 +336,7 @@ class ScheduleExample extends State<CustomAgenda> {
           },
         ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
+      /*floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => Modif()));
@@ -345,8 +345,8 @@ class ScheduleExample extends State<CustomAgenda> {
         label: Text("ajouter rdv"),
         foregroundColor: Colors.black,
         backgroundColor: Colors.pinkAccent,
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      ),**/
+      /*floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _cIndex,
         type: BottomNavigationBarType.fixed,
@@ -374,7 +374,7 @@ class ScheduleExample extends State<CustomAgenda> {
             }
           });
         },
-      ),
+      ),**/
     );
   }
 

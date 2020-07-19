@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'api_response.dart';
 
 class RDVSERVICE {
-  static const API = 'http://192.168.43.193:5000';
+  static const API = 'http://192.168.100.134:5000';
 
   Future<APIResponse<bool>> createRdv(AddRdv item) {
     return http.post(
@@ -24,6 +24,20 @@ class RDVSERVICE {
   Future<APIResponse<bool>> modifRdv(AddRdv item) {
     return http.put(
       API + '/ModifRdv',
+      body: json.encode(item.toJson()),
+      headers: {"Content-Type": "application/json"},
+    ).then((data) {
+      if (data.statusCode == 200) {
+        return APIResponse<bool>(data: true);
+      }
+      return APIResponse<bool>(error: true, errorMessage: 'An error occured');
+    }).catchError((_) =>
+        APIResponse<bool>(error: true, errorMessage: 'An error occured'));
+  }
+
+  Future<APIResponse<bool>> deleterdv(AddRdv item) {
+    return http.put(
+      API + '/DeleteRdv',
       body: json.encode(item.toJson()),
       headers: {"Content-Type": "application/json"},
     ).then((data) {

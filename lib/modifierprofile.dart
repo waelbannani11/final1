@@ -96,10 +96,10 @@ class _ModifierProfileState extends State<ModifierProfile> {
   TextEditingController _faxConttoller = TextEditingController();
   TextEditingController _codeConttoller = TextEditingController();
   LoginService get loginService => GetIt.I<LoginService>();
+  final _formKey = GlobalKey<FormState>();
   @override
-  Widget build(BuildContext context) {
-    final _formKey = GlobalKey<FormState>();
-    double width = MediaQuery.of(context).size.width;
+  void initState() {
+    super.initState();
     _codeConttoller.text = Code;
     _nomConttoller.text = Nom;
     _prenomConttoller.text = Prenom;
@@ -113,6 +113,10 @@ class _ModifierProfileState extends State<ModifierProfile> {
     _tel1Conttoller.text = TelBur1;
     _tel2Conttoller.text = TelBur2;
     _tel3Conttoller.text = TelDom;
+  }
+
+  Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
 
     //nom
     Widget _buildfax() {

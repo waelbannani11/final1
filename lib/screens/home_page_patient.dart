@@ -1,6 +1,8 @@
 import 'package:final1/Animations/FadeAnimation.dart';
 import 'package:final1/aboutus.dart';
 import 'package:final1/modifierprofile.dart';
+import 'package:final1/screens/agenda.dart';
+import 'package:final1/screens/chat_app.dart';
 import 'package:final1/screens/home_page.dart';
 import 'package:final1/screens/login.dart';
 import 'package:final1/screens/login_patient.dart';
@@ -9,8 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:final1/theme/colors/light_colors.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:final1/widgets/top_container.dart';
+import 'agenda_patient.dart';
 import 'consultation_page.dart';
-import 'agenda.dart';
 import 'create_new_rdv_page.dart';
 import 'medicament_screens/medicaments_page.dart';
 
@@ -324,7 +326,7 @@ class _HomePagePState extends State<HomePageP> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              AgendaViewCustomization()),
+                                              AgendaViewCustomizationPatient()),
                                     );
                                   },
                                   child: HomePageP.calendarIcon(),
@@ -512,7 +514,12 @@ class _HomePagePState extends State<HomePageP> {
                     ),
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ChatApp()),
+                      );
+                    },
                     child: Container(
                       margin: EdgeInsets.symmetric(vertical: 10.0),
                       padding: EdgeInsets.all(15.0),
