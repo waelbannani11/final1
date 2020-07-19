@@ -265,6 +265,44 @@ class _ModifState extends State<Modif> {
                                 builder: (context) =>
                                     AgendaViewCustomization()),
                           );
+                          showDialog(
+                            context: context,
+                            child: AlertDialog(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(16.0))),
+                              content: Container(
+                                height:
+                                    MediaQuery.of(context).size.height / 2.5,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                                    Icon(
+                                      Icons.check_circle_outline,
+                                      size: 96,
+                                      color: Color(0xFF10CA88),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 16.0),
+                                      child: Text(
+                                        "Ajouté avec succès",
+                                        style: TextStyle(fontSize: 20),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 16.0),
+                                      child: Text(
+                                        "Vous pouvez suivre le nouveau rdv dans la page des rdvs ",
+                                        style: TextStyle(fontSize: 16),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
                         }
                       },
                       child: Container(
